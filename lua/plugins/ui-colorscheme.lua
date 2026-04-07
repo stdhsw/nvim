@@ -2,24 +2,16 @@
 -- 파일명: ui-colorscheme.lua
 --
 -- 플러그인:
---   1. navarasu/onedark.nvim        - One Dark 계열 테마
---   2. rebelot/kanagawa.nvim        - 일본 전통 색감 기반 테마
---   3. projekt0n/github-nvim-theme  - GitHub 공식 색감 기반 테마
+--   1. projekt0n/github-nvim-theme  - GitHub 공식 색감 기반 테마
 --
 -- 저장소:
---   https://github.com/navarasu/onedark.nvim
---   https://github.com/rebelot/kanagawa.nvim
 --   https://github.com/projekt0n/github-nvim-theme
 --
 -- 설명:
---   onedark       - VSCode One Dark Pro와 유사. warmer variant는 따뜻한 색감의 다크 테마.
---   kanagawa      - 일본 전통 색감 기반. dragon variant는 더 어두운 흑갈색 다크 테마.
 --   github-theme  - GitHub UI 색감 기반. dark_high_contrast variant는 고대비 다크 테마.
 --
 -- 기본 테마: github_dark_high_contrast
 -- 테마 전환:
---   :colorscheme onedark                  - onedark 적용
---   :colorscheme kanagawa                 - kanagawa 적용
 --   :colorscheme github_dark_high_contrast - github 고대비 적용
 --
 -- 커스텀 단축키:
@@ -27,151 +19,6 @@
 -- ============================================================================
 
 return {
-	-- onedark: warmer variant (전환용)
-	{
-		"navarasu/onedark.nvim",
-		lazy = true,
-		config = function()
-			require("onedark").setup({
-				style = "warmer", -- dark / darker / cool / deep / warm / warmer
-				highlights = {
-					-- ----------------------------------------------------------------
-					-- 변수
-					-- ----------------------------------------------------------------
-					["@variable"] = { fg = "#abb2bf" }, -- 일반 변수 (기본 회색)
-					["@variable.parameter"] = { fg = "#d55fde" }, -- 함수 파라미터 (보라)
-					["@variable.member"] = { fg = "#61afef" }, -- 구조체 필드 (파랑)
-
-					-- ----------------------------------------------------------------
-					-- 함수
-					-- ----------------------------------------------------------------
-					["@function"] = { fg = "#e5c07b" }, -- 함수 선언 (노랑)
-					["@function.call"] = { fg = "#e5c07b" }, -- 함수 호출 (노랑)
-					["@function.method"] = { fg = "#e5c07b" }, -- 메서드 선언 (노랑)
-					["@function.method.call"] = { fg = "#e5c07b" }, -- 메서드 호출 (노랑)
-					["@function.builtin"] = { fg = "#2bbac5" }, -- 내장 함수: make, len, append (청록)
-
-					-- ----------------------------------------------------------------
-					-- 타입
-					-- ----------------------------------------------------------------
-					["@type"] = { fg = "#2bbac5" }, -- 커스텀 타입: struct, interface (청록)
-					["@type.builtin"] = { fg = "#61afef" }, -- 내장 타입: int, string, bool, error (파랑)
-
-					-- ----------------------------------------------------------------
-					-- 상수
-					-- ----------------------------------------------------------------
-					["@constant"] = { fg = "#d19a66" }, -- 상수 (주황)
-					["@constant.builtin"] = { fg = "#d19a66" }, -- 내장 상수: true, false, nil, iota (주황)
-
-					-- ----------------------------------------------------------------
-					-- 패키지
-					-- ----------------------------------------------------------------
-					["@module"] = { fg = "#89ca78" }, -- 패키지명: fmt, os, http (초록)
-
-					-- ----------------------------------------------------------------
-					-- 키워드
-					-- ----------------------------------------------------------------
-					["@keyword"] = { fg = "#d55fde" }, -- 일반 키워드: var, type, go, defer (보라)
-					["@keyword.function"] = { fg = "#d55fde" }, -- func 키워드 (보라)
-					["@keyword.return"] = { fg = "#ef596f" }, -- return 키워드 (빨강)
-					["@keyword.operator"] = { fg = "#d55fde" }, -- 연산자형 키워드 (보라)
-
-					-- ----------------------------------------------------------------
-					-- 연산자 / 구두점
-					-- ----------------------------------------------------------------
-					["@operator"] = { fg = "#abb2bf" }, -- 연산자: +, -, *, / (기본)
-
-					-- ----------------------------------------------------------------
-					-- 문자열 / 숫자
-					-- ----------------------------------------------------------------
-					["@string"] = { fg = "#89ca78" }, -- 문자열 (초록)
-					["@number"] = { fg = "#d19a66" }, -- 정수 (주황)
-					["@number.float"] = { fg = "#d19a66" }, -- 실수 (주황)
-
-					-- ----------------------------------------------------------------
-					-- 주석
-					-- ----------------------------------------------------------------
-					["@comment"] = { fg = "#7f848e", italic = true }, -- 주석 (어두운 회색, 이탤릭)
-				},
-			})
-			-- require("onedark").load() -- 필요 시 활성화
-		end,
-	},
-
-	-- kanagawa: dragon variant (전환용)
-	{
-		"rebelot/kanagawa.nvim",
-		lazy = true,
-		config = function()
-			require("kanagawa").setup({
-				theme = "dragon", -- wave / dragon / lotus
-				overrides = function(colors)
-					local p = colors.palette
-					return {
-						-- ----------------------------------------------------------------
-						-- 변수
-						-- ----------------------------------------------------------------
-						["@variable"] = { fg = p.dragonWhite }, -- 일반 변수 (기본 흰색)
-						["@variable.parameter"] = { fg = p.dragonViolet }, -- 함수 파라미터 (보라)
-						["@variable.member"] = { fg = p.dragonBlue2 }, -- 구조체 필드 (하늘)
-
-						-- ----------------------------------------------------------------
-						-- 함수
-						-- ----------------------------------------------------------------
-						["@function"] = { fg = p.dragonBlue }, -- 함수 선언 (청회색)
-						["@function.call"] = { fg = p.dragonBlue }, -- 함수 호출 (청회색)
-						["@function.method"] = { fg = p.dragonBlue }, -- 메서드 선언 (청회색)
-						["@function.method.call"] = { fg = p.dragonBlue }, -- 메서드 호출 (청회색)
-						["@function.builtin"] = { fg = p.dragonTeal }, -- 내장 함수: make, len (청록)
-
-						-- ----------------------------------------------------------------
-						-- 타입
-						-- ----------------------------------------------------------------
-						["@type"] = { fg = p.dragonTeal }, -- 커스텀 타입: struct, interface (청록)
-						["@type.builtin"] = { fg = p.dragonBlue2 }, -- 내장 타입: int, string, bool (하늘)
-
-						-- ----------------------------------------------------------------
-						-- 상수
-						-- ----------------------------------------------------------------
-						["@constant"] = { fg = p.dragonOrange }, -- 상수 (주황)
-						["@constant.builtin"] = { fg = p.dragonOrange }, -- 내장 상수: true, false, nil (주황)
-
-						-- ----------------------------------------------------------------
-						-- 패키지
-						-- ----------------------------------------------------------------
-						["@module"] = { fg = p.dragonGreen }, -- 패키지명: fmt, os, http (초록)
-
-						-- ----------------------------------------------------------------
-						-- 키워드
-						-- ----------------------------------------------------------------
-						["@keyword"] = { fg = p.dragonViolet }, -- 일반 키워드: var, type, go, defer (보라)
-						["@keyword.function"] = { fg = p.dragonViolet }, -- func 키워드 (보라)
-						["@keyword.return"] = { fg = p.dragonRed }, -- return 키워드 (빨강)
-						["@keyword.operator"] = { fg = p.dragonViolet }, -- 연산자형 키워드 (보라)
-
-						-- ----------------------------------------------------------------
-						-- 연산자 / 구두점
-						-- ----------------------------------------------------------------
-						["@operator"] = { fg = p.dragonWhite }, -- 연산자: +, -, *, / (기본)
-
-						-- ----------------------------------------------------------------
-						-- 문자열 / 숫자
-						-- ----------------------------------------------------------------
-						["@string"] = { fg = p.dragonGreen }, -- 문자열 (초록)
-						["@number"] = { fg = p.dragonOrange }, -- 정수 (주황)
-						["@number.float"] = { fg = p.dragonOrange }, -- 실수 (주황)
-
-						-- ----------------------------------------------------------------
-						-- 주석
-						-- ----------------------------------------------------------------
-						["@comment"] = { fg = p.dragonGray, italic = true }, -- 주석 (회색, 이탤릭)
-					}
-				end,
-			})
-			-- require("kanagawa").load() -- 필요 시 활성화
-		end,
-	},
-
 	-- github-nvim-theme: dark_high_contrast variant 기본 적용
 	{
 		"projekt0n/github-nvim-theme",
@@ -244,6 +91,19 @@ return {
 						-- 주석
 						-- ----------------------------------------------------------------
 						["@comment"] = { fg = "#8b949e", italic = true }, -- 주석 (회색, 이탤릭)
+
+						-- ----------------------------------------------------------------
+						-- Telescope
+						-- ----------------------------------------------------------------
+						["TelescopeSelection"] = { fg = "#000000", bg = "#ff9900", bold = true }, -- 선택된 항목 (밝은 파란 배경)
+						-- ["TelescopeSelectionCaret"] = { fg = "#00e5ff", bg = "#2d5a8e" }, -- 선택 커서 (시안)
+
+						-- ----------------------------------------------------------------
+						-- 검색 하이라이트
+						-- ----------------------------------------------------------------
+						["Search"] = { fg = "#0d1117", bg = "#ecc669", bold = true }, -- 검색 결과 전체 (노랑 배경)
+						["IncSearch"] = { fg = "#0d1117", bg = "#ff9900", bold = true }, -- 현재 검색 위치 (네온 오렌지 배경)
+						["CurSearch"] = { fg = "#0d1117", bg = "#ff9900", bold = true }, -- 현재 커서 검색 위치 (네온 오렌지 배경)
 					},
 				},
 			})
