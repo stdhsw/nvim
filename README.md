@@ -16,6 +16,7 @@
   - [디버깅](#디버깅)
   - [UI](#ui)
   - [입력기](#입력기)
+  - [AI](#ai)
 
 ---
 
@@ -602,3 +603,27 @@ LSP 진단 아이콘이 탭에 함께 표시됩니다.
 - Insert 모드 진입 → 이전 입력기 상태로 자동 복원
 
 별도 조작 없이 자동으로 동작합니다.
+
+---
+
+### AI
+
+#### coder/claudecode.nvim
+
+Claude Code CLI와 Neovim을 연결하는 공식 IDE 통합 플러그인.
+WebSocket 기반 MCP(Model Context Protocol)로 현재 편집 중인 파일과 선택 영역을 Claude가 실시간으로 인식합니다.
+
+**사전 요구사항**
+
+```bash
+npm install -g @anthropic-ai/claude-code
+```
+
+| 단축키       | 모드   | 설명                         |
+|--------------|--------|------------------------------|
+| `<leader>ac` | Normal | Claude 터미널 토글           |
+| `<leader>af` | Normal | Claude 터미널 포커스         |
+| `<leader>as` | Visual | 선택 영역 Claude에 전송      |
+| `<leader>aa` | Normal | 현재 파일 Claude 컨텍스트 추가 |
+| `<leader>ay` | Normal | Claude 제안 변경사항 수락 (Yes) |
+| `<leader>an` | Normal | Claude 제안 변경사항 거절 (No)  |

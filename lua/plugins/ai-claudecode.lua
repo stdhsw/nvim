@@ -35,8 +35,8 @@
 --   <leader>af  - Claude 터미널 포커스
 --   <leader>as  - 선택 영역 Claude에 전송 (Visual 모드)
 --   <leader>aa  - 현재 파일 Claude 컨텍스트에 추가
---   <leader>ada - Claude 제안 변경사항 수락
---   <leader>adr - Claude 제안 변경사항 거절
+--   <leader>ay  - Claude 제안 변경사항 수락 (Yes)
+--   <leader>an  - Claude 제안 변경사항 거절 (No)
 -- ============================================================================
 
 return {
