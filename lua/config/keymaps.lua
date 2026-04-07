@@ -127,6 +127,7 @@ map("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", opts("[Telescope] 텍스�
 map("n", "<leader>fb", "<cmd>Telescope buffers<cr>", opts("[Telescope] 버퍼 목록"))
 map("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", opts("[Telescope] 최근 파일"))
 map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", opts("[Telescope] 도움말 검색"))
+map("n", "<leader>ks", "<cmd>Telescope keymaps<cr>", opts("[Telescope] 단축키 검색"))
 
 -- todo-comments (TODO 하이라이팅)
 map("n", "]t", function()

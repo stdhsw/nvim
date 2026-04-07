@@ -67,13 +67,22 @@ return {
 			},
 		})
 
-		-- yamlls: YAML LSP 서버 설정 (K8s manifest 검증 포함)
+		-- yamlls: YAML LSP 서버 설정
 		vim.lsp.config("yamlls", {
 			settings = {
 				yaml = {
 					validate = true, -- YAML 문법 검증 활성화
+					schemaStore = {
+						enable = true, -- SchemaStore에서 파일명/내용 기반으로 스키마 자동 감지
+						url = "https://www.schemastore.org/api/json/catalog.json",
+					},
 					schemas = {
-						kubernetes = "*.yaml", -- 모든 .yaml 파일에 K8s 스키마 적용
+						-- K8s 스키마는 명시적 경로 패턴에만 적용
+						kubernetes = {
+							"k8s/**/*.yaml",
+							"kubernetes/**/*.yaml",
+							"manifests/**/*.yaml",
+						},
 					},
 				},
 			},

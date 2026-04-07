@@ -85,9 +85,9 @@ return {
 
 		filesystem = {
 			filtered_items = {
-				visible = false, -- 숨김 파일 기본적으로 숨김
-				hide_dotfiles = false, -- dotfile은 표시 (.env, .gitignore 등)
-				hide_gitignored = true, -- .gitignore 파일은 숨김
+				visible = true, -- 숨김/gitignore 파일 기본적으로 표시
+				hide_dotfiles = false, -- dotfile 표시 (.env, .gitignore 등)
+				hide_gitignored = false, -- .gitignore에 명시된 파일도 표시
 				hide_by_name = {
 					".DS_Store",
 				},
