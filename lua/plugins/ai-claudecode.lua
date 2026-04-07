@@ -13,7 +13,7 @@
 --   - Claude Code 터미널을 Neovim 내에서 토글
 --   - 선택한 코드를 Claude에게 직접 전송
 --   - 파일을 Claude 컨텍스트에 추가
---   - Claude가 제안한 변경사항을 diff로 확인 후 수락/거절
+--   - Claude가 제안한 변경사항을 새 탭에서 diff로 확인 후 수락/거절
 --   - 현재 커서 위치 및 선택 영역 실시간 공유
 --
 -- 사전 요구사항:
@@ -69,8 +69,8 @@ return {
 
 		-- diff 표시 옵션
 		diff_opts = {
-			layout = "vertical",       -- 좌우 분할로 diff 표시
-			open_in_new_tab = false,
+			layout = "vertical",
+			open_in_new_tab = true,    -- 새 탭에서 diff 표시 (화면 분할 방지)
 			keep_terminal_focus = false,
 		},
 	},
