@@ -34,8 +34,9 @@ brew install neovim
 # LSP 서버(pyright, yamlls 등) 설치를 위해 Node.js 설치
 brew install node
 
-# Telescope 파일 검색 성능 향상
+# Telescope 파일 검색 (필수 - .gitignore 무시 및 숨김 파일 검색)
 brew install fd
+# Telescope 텍스트 검색 (필수)
 brew install ripgrep
 
 # Treesitter 파서 빌드

@@ -12,8 +12,8 @@
 --   .git/, node_modules/ 는 검색 대상에서 자동 제외된다.
 --
 --   사전 요구사항:
---   brew install fd       (파일 찾기 성능 향상)
---   brew install ripgrep  (텍스트 검색)
+--   brew install fd       (필수 - find_files에서 .gitignore 무시 및 숨김 파일 검색에 사용)
+--   brew install ripgrep  (필수 - live_grep 텍스트 검색에 사용)
 --
 -- 사용법:
 --   :Telescope                    - 사용 가능한 picker 목록 표시
@@ -65,6 +65,16 @@ return {
 			},
 			-- 검색 결과에서 제외할 패턴
 			file_ignore_patterns = { "%.git/", "node_modules/" },
+		},
+		pickers = {
+			find_files = {
+				-- fd가 .gitignore를 무시하고 숨김 파일 포함 모든 파일 검색
+				find_command = { "fd", "--type", "f", "--no-ignore", "--hidden", "--exclude", ".git", "--exclude", "node_modules" },
+			},
+			live_grep = {
+				-- ripgrep이 .gitignore를 무시하고 숨김 파일 포함 모든 파일 검색
+				additional_args = { "--no-ignore", "--hidden", "--glob", "!.git", "--glob", "!node_modules" },
+			},
 		},
 		extensions = {
 			fzf = {
