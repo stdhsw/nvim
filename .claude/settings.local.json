@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "WebSearch"
+      "WebSearch",
+      "Read(//Users/hsw/.local/share/nvim/lazy/nvim-treesitter/plugin/**)"
     ]
   }
 }

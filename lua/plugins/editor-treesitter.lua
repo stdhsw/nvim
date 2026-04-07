@@ -14,6 +14,10 @@
 --   go, python, lua, sql, query, yaml, json,
 --   bash, dockerfile, make, vim, vimdoc, markdown, markdown_inline
 --
+--   nvim 0.12 + 새 nvim-treesitter API 변경사항:
+--   setup()은 install_dir만 지원. highlight/indent/ensure_installed는 직접 처리.
+--   FileType autocmd로 vim.treesitter.start() 명시 호출하여 편집 버퍼에도 활성화.
+--
 --   사전 요구사항:
 --   brew install tree-sitter-cli  (파서 빌드 시 필요)
 --
@@ -41,30 +45,35 @@ return {
 	build = ":TSUpdate", -- 플러그인 설치/업데이트 시 파서 자동 빌드
 	lazy = false, -- 시작 시 즉시 로드 (지연 로드 시 첫 파일에서 하이라이팅 미적용)
 	config = function()
-		require("nvim-treesitter").setup({
-			-- 시작 시 자동으로 설치할 파서 목록
-			ensure_installed = {
-				"go",
-				"python",
-				"lua",
-				"sql",
-				"query",
-				"yaml",
-				"json",
-				"bash",
-				"dockerfile",
-				"make",
-				"vim",
-				"vimdoc",
-				"markdown",
-				"markdown_inline",
-			},
-			-- ensure_installed에 없는 언어 파일을 열면 파서 자동 설치
-			auto_install = true,
-			-- treesitter 기반 문법 하이라이팅 (기존 정규식 방식보다 정확)
-			highlight = { enable = true },
-			-- treesitter 기반 자동 들여쓰기 (= 키로 코드 정렬 시 사용)
-			indent = { enable = true },
+		-- nvim 0.12의 새 nvim-treesitter API: setup()은 install_dir만 지원
+		-- ensure_installed, highlight, indent 등은 직접 처리해야 함
+		require("nvim-treesitter").setup()
+
+		-- 파서 자동 설치 (새 API에서는 install() 직접 호출)
+		require("nvim-treesitter.install").install({
+			"go",
+			"python",
+			"lua",
+			"sql",
+			"query",
+			"yaml",
+			"json",
+			"bash",
+			"dockerfile",
+			"make",
+			"vim",
+			"vimdoc",
+			"markdown",
+			"markdown_inline",
+		})
+
+		-- treesitter 하이라이팅 활성화 (FileType 이벤트마다 명시적으로 시작)
+		-- Telescope 미리보기와 편집 버퍼가 동일하게 treesitter를 사용하게 됨
+		vim.api.nvim_create_autocmd("FileType", {
+			callback = function(args)
+				-- 파서가 없는 파일타입은 조용히 무시 (pcall로 에러 방지)
+				pcall(vim.treesitter.start, args.buf)
+			end,
 		})
 	end,
 }
