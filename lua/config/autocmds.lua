@@ -93,6 +93,17 @@ autocmd("FocusGained", {
 	end,
 })
 
+-- im-select (터미널 모드 탈출 시 영어 입력기 자동 전환)
+-- Claude 터미널 등에서 ESC/<C-\><C-n>으로 노말 모드 전환 시 영어로 자동 전환
+-- InsertLeave는 터미널 모드에서 발생하지 않으므로 ModeChanged 이벤트 사용
+autocmd("ModeChanged", {
+	group = augroup("im_select_terminal", { clear = true }),
+	pattern = "t:*",
+	callback = function()
+		vim.fn.system("im-select com.apple.keylayout.ABC")
+	end,
+})
+
 -- autoread (외부 파일 변경 자동 감지)
 -- Claude Code 등 외부 편집기가 파일을 수정했을 때 자동으로 반영됨
 -- CursorHold/CursorHoldI 제거: 타이핑을 멈출 때마다 디스크 I/O가 발생하므로
