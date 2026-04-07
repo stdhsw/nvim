@@ -42,13 +42,13 @@
 --
 -- 커스텀 단축키 (config/keymaps.lua 참고):
 --   <F5>        - 디버깅 시작 / 다음 브레이크포인트까지 계속 실행
+--   <F6>        - 디버깅 종료
+--   <F7>        - DAP UI 토글 (변수/콜스택 패널 열기/닫기)
+--   <F8>        - 조건부 브레이크포인트 설정 (조건식 입력 후 Enter)
 --   <F9>        - 브레이크포인트 토글 (현재 줄에 설정/해제)
 --   <F10>       - Step Over (다음 줄 실행, 함수 진입 안 함)
 --   <F11>       - Step Into (함수 내부로 진입)
---   <S-F11>     - Step Out (현재 함수에서 빠져나오기)
---   <S-F5>      - 디버깅 종료
---   <F7>        - DAP UI 토글 (변수/콜스택 패널 열기/닫기)
---   <F8>        - 디버거 세션 종료 및 UI 닫기
+--   <F12>       - Step Out (현재 함수에서 빠져나오기)
 --   <leader>dt  - 커서 위치의 Go 테스트 함수 디버깅 (.env 자동 로드)
 -- ============================================================================
 
@@ -56,21 +56,33 @@
 -- 파일이 없으면 빈 테이블 반환 (오류 없이 무시)
 local function load_dotenv(path)
 	local env = {}
+
+	-- io.open 실패(파일 없음) 시 nil 반환 → 빈 테이블로 조기 반환
 	local file = io.open(path, "r")
 	if not file then
 		return env
 	end
+
 	for line in file:lines() do
-		-- 빈 줄과 주석(#) 무시
+		-- 빈 줄("") 과 # 으로 시작하는 주석 줄은 건너뜀
+		-- ^%s*# : 앞쪽 공백이 있어도 주석으로 처리
 		if line ~= "" and not line:match("^%s*#") then
+			-- KEY=VALUE 형태를 캡처
+			-- ^%s*       : 앞쪽 공백 허용
+			-- ([^=]+)    : = 이전의 키 이름 캡처 (= 미포함)
+			-- %s*=%s*    : = 앞뒤 공백 허용
+			-- (.-)%s*$   : 값 캡처, 뒤쪽 공백 제거
 			local key, value = line:match("^%s*([^=]+)%s*=%s*(.-)%s*$")
 			if key and value then
-				-- 따옴표로 감싼 값 처리: "value" 또는 'value'
+				-- 큰따옴표/작은따옴표로 감싼 값에서 따옴표 제거
+				-- "value" → value, 'value' → value
+				-- 매칭 실패 시 원본 value 그대로 사용
 				value = value:match('^"(.*)"$') or value:match("^'(.*)'$") or value
 				env[key] = value
 			end
 		end
 	end
+
 	file:close()
 	return env
 end
@@ -117,7 +129,11 @@ return {
 						},
 					})
 
-					-- 디버깅 시작/종료 시 UI 자동 열기/닫기
+					-- DAP 이벤트 훅으로 UI 자동 열기/닫기
+					-- event_initialized : 어댑터가 준비되어 디버깅이 시작된 직후 → UI 열기
+					-- event_terminated  : 프로세스가 정상 종료된 직후 → UI 닫기
+					-- event_exited      : 프로세스가 비정상 종료(exit code)된 직후 → UI 닫기
+					-- "dapui_config" 는 리스너 식별 키 (임의 문자열, 중복 방지용)
 					dap.listeners.after.event_initialized["dapui_config"] = function()
 						dapui.open()
 					end
@@ -157,14 +173,18 @@ return {
 		config = function()
 			local dap = require("dap")
 
-			-- dap.run을 래핑하여 launch 직전에 .env 환경변수를 config에 주입
-			-- dap.listeners.before.launch은 응답 리스너라 config 수정 불가 →
-			-- dap.run 자체를 오버라이드하는 방식이 유일하게 config를 변경할 수 있는 시점
+			-- dap.run 오버라이드: 디버깅 시작 직전에 .env 환경변수를 config에 주입
+			-- dap.listeners.before.launch 는 이미 어댑터에 config가 전달된 이후이므로
+			-- config를 수정해도 반영되지 않음. dap.run 자체를 교체하는 것이
+			-- config 변경이 가능한 유일한 시점
 			local original_run = dap.run
 			dap.run = function(config, opts)
 				local env = load_dotenv(vim.fn.getcwd() .. "/.env")
 				if next(env) ~= nil then
-					-- 명시적 설정(config.env)이 .env보다 우선되도록 force로 병합
+					-- vim.tbl_extend("force", base, override)
+					-- "force" : 키 충돌 시 오른쪽(config.env) 값이 우선됨
+					-- .env 를 base에 두고 config.env 를 우선시하여
+					-- 명시적 설정이 .env 보다 항상 우선되도록 보장
 					config.env = vim.tbl_extend("force", env, config.env or {})
 					vim.notify(
 						"[DAP] .env " .. vim.tbl_count(env) .. "개 환경변수 로드됨",

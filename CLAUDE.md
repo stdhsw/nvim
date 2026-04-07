@@ -4,6 +4,7 @@
 # 환경 정보
 - MacOS
 - neovim version 0.12
+- Iterm2 터미널 환경
 
 # 파일 작성 규칙
 - lua 파일을 작성하라는 요청이 없을 경우 lua 파일을 작성하지 않는다.
