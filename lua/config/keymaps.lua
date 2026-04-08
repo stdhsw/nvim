@@ -108,7 +108,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		map("n", "gd", vim.lsp.buf.definition, bufopts("[LSP] 정의로 이동"))
 		map("n", "gD", vim.lsp.buf.declaration, bufopts("[LSP] 선언으로 이동"))
 		map("n", "gi", vim.lsp.buf.implementation, bufopts("[LSP] 구현으로 이동"))
-		map("n", "gr", vim.lsp.buf.references, bufopts("[LSP] 참조 찾기"))
+		map("n", "gr", "<cmd>Telescope lsp_references<cr>", bufopts("[LSP] 참조 찾기 (Telescope)"))
 		map("n", "K", vim.lsp.buf.hover, bufopts("[LSP] hover 문서"))
 		map("n", "<leader>lk", vim.lsp.buf.signature_help, bufopts("[LSP] 시그니처 표시"))
 		map("n", "<leader>lr", vim.lsp.buf.rename, bufopts("[LSP] 이름 변경"))
@@ -210,6 +210,12 @@ end, opts("[DAP] 디버깅 Step Out"))
 map("n", "<leader>dt", function()
 	dap_go().debug_test()
 end, opts("[DAP-Go] 디버깅 Go 테스트"))
+map("n", "<leader>dT", function()
+	local tags = vim.fn.input("빌드 태그 입력 (예: integration e2e): ")
+	if tags ~= "" then
+		dap_go().debug_test({ build_flags = "-tags " .. tags })
+	end
+end, opts("[DAP-Go] 빌드 태그와 함께 Go 테스트 디버깅"))
 
 -- claudecode (Claude Code 통합)
 map("n", "<leader>ac", "<cmd>ClaudeCode<cr>", opts("[Claude] 터미널 토글"))

@@ -50,6 +50,8 @@
 --   <F11>       - Step Into (함수 내부로 진입)
 --   <F12>       - Step Out (현재 함수에서 빠져나오기)
 --   <leader>dt  - 커서 위치의 Go 테스트 함수 디버깅 (.env 자동 로드)
+--   <leader>dT  - 빌드 태그를 입력받아 커서 위치의 Go 테스트 함수 디버깅
+--                 (예: integration, e2e 등 //go:build 태그가 필요한 테스트)
 -- ============================================================================
 
 -- .env 파일을 파싱하여 환경변수 테이블로 반환
@@ -156,6 +158,19 @@ return {
 								name = "Attach remote",
 								mode = "remote",
 								request = "attach",
+							},
+							-- 빌드 태그가 필요한 테스트 파일 디버깅용
+							-- //go:build integration 같은 태그가 있는 *_test.go 파일에 사용
+							-- <F5> 실행 후 이 설정을 선택하면 빌드 태그 입력 프롬프트가 표시됨
+							{
+								type = "go",
+								name = "Debug test (빌드 태그 입력)",
+								request = "launch",
+								mode = "test",
+								program = "${file}",
+								buildFlags = function()
+									return vim.fn.input("빌드 태그: ", "-tags ")
+								end,
 							},
 						},
 						delve = {
