@@ -39,6 +39,12 @@ map("n", "<C-j>", "<C-w>j", opts("[창이동] 아래 창으로 이동"))
 map("n", "<C-k>", "<C-w>k", opts("[창이동] 위 창으로 이동"))
 map("n", "<C-l>", "<C-w>l", opts("[창이동] 오른쪽 창으로 이동"))
 
+-- 창 번호로 이동
+map("n", "<leader>1", "<cmd>1wincmd w<cr>", opts("[창이동] 1번 창으로 이동"))
+map("n", "<leader>2", "<cmd>2wincmd w<cr>", opts("[창이동] 2번 창으로 이동"))
+map("n", "<leader>3", "<cmd>3wincmd w<cr>", opts("[창이동] 3번 창으로 이동"))
+map("n", "<leader>4", "<cmd>4wincmd w<cr>", opts("[창이동] 4번 창으로 이동"))
+
 -- 창 크기 조절
 map("n", "<M-Up>", "<cmd>resize +2<cr>", opts("[창크기] 창 높이 증가"))
 map("n", "<M-Down>", "<cmd>resize -2<cr>", opts("[창크기] 창 높이 감소"))
