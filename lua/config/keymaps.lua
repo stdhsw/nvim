@@ -145,6 +145,17 @@ map("n", "[t", function()
 	todo_comments().jump_prev()
 end, opts("[Todo-comments] 이전 TODO로 이동"))
 
+-- Comment.nvim (주석 토글)
+map("n", "<leader>/", function()
+	require("Comment.api").toggle.linewise.current()
+end, opts("[Comment] 현재 줄 주석 토글"))
+map(
+	"v",
+	"<leader>/",
+	"<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
+	opts("[Comment] 선택 영역 주석 토글")
+)
+
 -- toggleterm (터미널)
 map("n", "<leader>tf", "<cmd>ToggleTerm direction=float<cr>", opts("[Toggleterm] float 터미널 토글"))
 map("n", "<leader>t1", "<cmd>1ToggleTerm<cr>", opts("[Toggleterm] 1번 터미널 토글"))
