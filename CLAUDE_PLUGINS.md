@@ -104,6 +104,7 @@
 | ✅ | `lewis6991/gitsigns.nvim` | 변경된 줄을 좌측 gutter에 표시. hunk 단위 스테이징/되돌리기 |
 | ✅ | `NeogitOrg/neogit` | neovim 안에서 git add, commit, push, rebase 등 전체 워크플로우 처리 |
 | ✅ | `sindrets/diffview.nvim` | 파일 diff, 머지 충돌 해결을 neovim 안에서 처리 |
+| ✅ | `lazygit` (CLI) | toggleterm으로 연동하는 git TUI. `<leader>gg`로 실행. `brew install lazygit` 필요 |
 
 ---
 

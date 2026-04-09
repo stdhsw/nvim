@@ -162,6 +162,26 @@ map("n", "<leader>t1", "<cmd>1ToggleTerm<cr>", opts("[Toggleterm] 1번 터미널
 map("n", "<leader>t2", "<cmd>2ToggleTerm<cr>", opts("[Toggleterm] 2번 터미널 토글"))
 map("n", "<leader>t3", "<cmd>3ToggleTerm<cr>", opts("[Toggleterm] 3번 터미널 토글"))
 
+-- lazygit (Git TUI)
+local lazygit_term = nil
+map("n", "<leader>gg", function()
+	if lazygit_term == nil then
+		local Terminal = require("toggleterm.terminal").Terminal
+		lazygit_term = Terminal:new({
+			cmd = "lazygit",
+			hidden = true,
+			direction = "float",
+			float_opts = { border = "rounded" },
+			on_open = function(_)
+				vim.schedule(function()
+					vim.cmd("startinsert!")
+				end)
+			end,
+		})
+	end
+	lazygit_term:toggle()
+end, opts("[Git Lazygit] lazygit 열기"))
+
 -- gitsigns / neogit / diffview (Git)
 map("n", "<leader>gs", "<cmd>Neogit<cr>", opts("[Git Neogit] neogit 열기"))
 map("n", "<leader>gd", "<cmd>DiffviewOpen<cr>", opts("[Git Diffview] diffview 열기"))
