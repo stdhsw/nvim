@@ -78,7 +78,15 @@ vim.diagnostic.config({
 		prefix = "", -- 항목 앞 접두사 제거
 	},
 	virtual_text = true, -- 코드 우측에 인라인 진단 메시지 표시
-	signs = true, -- 좌측 gutter에 진단 아이콘 표시
+	-- 좌측 gutter 진단 아이콘 (severity별 명시 필요, nvim 0.10+)
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = " ",
+			[vim.diagnostic.severity.WARN] = " ",
+			[vim.diagnostic.severity.INFO] = " ",
+			[vim.diagnostic.severity.HINT] = " ",
+		},
+	},
 	underline = true, -- 진단 위치 밑줄 표시
 	update_in_insert = false, -- insert 모드 중에는 진단 업데이트 안 함
 })

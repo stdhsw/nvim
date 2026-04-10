@@ -50,7 +50,6 @@ return {
 		-- extras에서 opts function으로 ensure_installed에 서버명을 추가한다.
 		opts = {
 			ensure_installed = {}, -- extras에서 채움
-			automatic_installation = true,
 		},
 	},
 }

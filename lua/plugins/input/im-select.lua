@@ -39,7 +39,8 @@ return {
 
 			-- Insert 모드 재진입 시 이전 입력기 자동 복원 여부
 			set_previous_events = { "InsertEnter" },
-			set_default_events = { "InsertLeave", "CmdlineLeave" },
+			-- Insert/Cmdline 탈출 + 다른 앱에서 nvim 으로 포커스 복귀 시 영문 입력기로 전환
+			set_default_events = { "InsertLeave", "CmdlineLeave", "FocusGained" },
 		})
 	end,
 }

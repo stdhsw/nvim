@@ -69,11 +69,16 @@ autocmd("TermOpen", {
 -- ============================================================================
 -- 저장 시 후행 공백 제거
 -- 줄 끝에 남은 불필요한 공백을 저장 시 자동으로 제거
+-- markdown 은 trailing 2-space 가 줄바꿈 문법이므로 제외한다.
 -- ============================================================================
+local trim_excluded_ft = { markdown = true }
 autocmd("BufWritePre", {
 	group = augroup("trim_whitespace", { clear = true }),
 	pattern = "*",
 	callback = function()
+		if trim_excluded_ft[vim.bo.filetype] then
+			return
+		end
 		local pos = vim.api.nvim_win_get_cursor(0)
 		vim.cmd([[%s/\s\+$//e]])
 		vim.api.nvim_win_set_cursor(0, pos)
@@ -84,18 +89,10 @@ autocmd("BufWritePre", {
 -- [[ Plugins ]]
 -- ############################################################################
 
--- im-select (포커스 진입 시 영어 입력기 자동 전환)
--- 다른 앱에서 한글로 입력하다가 neovim으로 돌아올 때 영어로 자동 전환
-autocmd("FocusGained", {
-	group = augroup("im_select_focus", { clear = true }),
-	callback = function()
-		vim.fn.system("im-select com.apple.keylayout.ABC")
-	end,
-})
-
 -- im-select (터미널 모드 탈출 시 영어 입력기 자동 전환)
 -- Claude 터미널 등에서 ESC/<C-\><C-n>으로 노말 모드 전환 시 영어로 자동 전환
 -- InsertLeave는 터미널 모드에서 발생하지 않으므로 ModeChanged 이벤트 사용
+-- (InsertLeave/CmdlineLeave/FocusGained 는 im-select.nvim 플러그인이 직접 처리)
 autocmd("ModeChanged", {
 	group = augroup("im_select_terminal", { clear = true }),
 	pattern = "t:*",

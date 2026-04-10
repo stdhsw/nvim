@@ -6,29 +6,29 @@
 
 ## 우선순위 높음 (버그 / Deprecated / 명백한 오류)
 
-### 1.1 `vim.diagnostic.goto_next/prev` deprecated ⬜
+### 1.1 `vim.diagnostic.goto_next/prev` deprecated ✅
 - **위치**: `lua/config/keymaps.lua:106-107`
 - **문제**: nvim 0.11+에서 `vim.diagnostic.jump({count = N, float = true})` 형식으로 변경됨. 0.12에서 경고 출력 가능
 - **조치**:
   - `]d` → `vim.diagnostic.jump({ count = 1, float = true })`
   - `[d` → `vim.diagnostic.jump({ count = -1, float = true })`
 
-### 1.2 `mason-lspconfig`의 `automatic_installation` deprecated ⬜
+### 1.2 `mason-lspconfig`의 `automatic_installation` deprecated ✅
 - **위치**: `lua/plugins/lsp/mason.lua:53`
 - **문제**: 최신 mason-lspconfig는 `automatic_installation`을 제거함. `ensure_installed`만 사용해야 함
 - **조치**: `automatic_installation = true` 라인 제거
 
-### 1.3 `trim_whitespace` autocmd가 markdown line-break를 파괴 ⬜
+### 1.3 `trim_whitespace` autocmd가 markdown line-break를 파괴 ✅
 - **위치**: `lua/config/autocmds.lua:73-81`
 - **문제**: `pattern = "*"`이라 markdown의 의도적인 trailing 2-space(줄바꿈)를 제거함
 - **조치**: pattern에서 markdown 제외 또는 callback 안에서 `vim.bo.filetype ~= "markdown"` 가드 추가
 
-### 1.4 `im-select` 중복 처리 ⬜
+### 1.4 `im-select` 중복 처리 ✅
 - **위치**: `lua/config/autocmds.lua:88-105` + `lua/plugins/input/im-select.lua`
 - **문제**: 플러그인 자체가 `InsertLeave/CmdlineLeave`에서 영문 전환을 이미 수행하는데, autocmds.lua에서 `FocusGained`/`ModeChanged`로 동기 `vim.fn.system("im-select ...")`을 또 호출 → 중복 + 미세 lag
 - **조치**: 플러그인이 처리하지 않는 영역(터미널 모드 탈출)만 남기고 `FocusGained`는 제거 검토
 
-### 1.5 LSP 진단 sign 아이콘 미설정 ⬜
+### 1.5 LSP 진단 sign 아이콘 미설정 ✅
 - **위치**: `lua/config/options.lua:73-84`
 - **문제**: `signs = true`만으로는 실제 sign 아이콘이 표시되지 않음 (nvim 0.10+)
 - **조치**:

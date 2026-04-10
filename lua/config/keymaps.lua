@@ -103,8 +103,12 @@ map("n", "<leader>bp", "<cmd>BufferLinePick<cr>", opts("[Bufferline] 버퍼 선�
 map("n", "<leader>bc", "<cmd>BufferLinePickClose<cr>", opts("[Bufferline] 버퍼 선택해서 닫기"))
 
 -- lspconfig (LSP)
-map("n", "]d", vim.diagnostic.goto_next, opts("[LSP] 다음 진단으로 이동"))
-map("n", "[d", vim.diagnostic.goto_prev, opts("[LSP] 이전 진단으로 이동"))
+map("n", "]d", function()
+	vim.diagnostic.jump({ count = 1, float = true })
+end, opts("[LSP] 다음 진단으로 이동"))
+map("n", "[d", function()
+	vim.diagnostic.jump({ count = -1, float = true })
+end, opts("[LSP] 이전 진단으로 이동"))
 
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(event)
