@@ -1,5 +1,5 @@
 -- ============================================================================
--- 파일명: lsp/cmp.lua
+-- 파일명: lsp/blink.lua
 --
 -- 플러그인: saghen/blink.cmp
 -- 저장소: https://github.com/saghen/blink.cmp
