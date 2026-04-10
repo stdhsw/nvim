@@ -78,8 +78,7 @@ require("lazy").setup({
 		colorscheme = { "habamax" }, -- 플러그인 설치 중 사용할 임시 테마
 	},
 	checker = {
-		enabled = true, -- 플러그인 업데이트 자동 감지
-		notify = false, -- 업데이트 감지 시 알림 비활성화 (수동으로 :Lazy 확인)
+		enabled = false, -- 자동 업데이트 체크 비활성화 (수동으로 :Lazy sync 운영)
 	},
 	change_detection = {
 		notify = false, -- 설정 파일 변경 감지 시 알림 비활성화
@@ -88,9 +87,9 @@ require("lazy").setup({
 		rtp = {
 			disabled_plugins = {
 				-- 사용하지 않는 neovim 기본 플러그인 비활성화 (시작 속도 향상)
+				-- matchparen 은 짝괄호 시각화에 필요하므로 유지
 				"gzip",
 				"matchit",
-				"matchparen",
 				"netrwPlugin",
 				"tarPlugin",
 				"tohtml",

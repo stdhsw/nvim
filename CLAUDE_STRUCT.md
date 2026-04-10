@@ -41,7 +41,8 @@
     │   │   ├── conform.lua               # ✅ 포매터 (저장 시 자동 실행)
     │   │   ├── lint.lua                  # ✅ 린터 (nvim-lint)
     │   │   ├── lspconfig.lua             # ✅ LSP 공통 설정 (capabilities)
-    │   │   └── mason.lua                 # ✅ LSP 서버 자동 설치
+    │   │   ├── mason.lua                 # ✅ LSP 서버 자동 설치
+    │   │   └── mason-tool-installer.lua  # ✅ 외부 도구 (린터/포매터) 자동 설치
     │   ├── search/
     │   │   └── telescope.lua             # ✅ 파일/심볼/grep/LSP 검색
     │   └── ui/
@@ -111,7 +112,6 @@
 | JSON | json-lsp | prettier | - |
 | Bash | bash-language-server | shfmt | shellcheck |
 | Dockerfile | dockerfile-language-server | - | hadolint |
-| Lua | - | stylua | - |
 | Makefile | - (treesitter만) | - | - |
 
 ### Kubernetes manifests 특화

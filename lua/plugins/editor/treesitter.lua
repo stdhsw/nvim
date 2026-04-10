@@ -61,8 +61,12 @@ return {
 		vim.list_extend(all_parsers, extra_parsers)
 		require("nvim-treesitter.install").install(all_parsers)
 
-		-- treesitter 하이라이팅 활성화 (FileType 이벤트마다 명시적으로 시작)
+		-- treesitter 하이라이팅 활성화
+		-- nvim-treesitter main 브랜치(0.12+)는 자동 attach 가 없으므로
+		-- FileType 이벤트마다 vim.treesitter.start() 를 직접 호출해야 한다.
+		-- pcall: 파서가 설치되지 않은 ft 에서 실패해도 무시
 		vim.api.nvim_create_autocmd("FileType", {
+			group = vim.api.nvim_create_augroup("treesitter_start", { clear = true }),
 			callback = function(args)
 				pcall(vim.treesitter.start, args.buf)
 			end,

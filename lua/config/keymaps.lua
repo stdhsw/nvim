@@ -223,6 +223,9 @@ end, opts("[UFO] fold 내용 미리보기"))
 -- render-markdown (Markdown 렌더링)
 map("n", "<leader>mr", "<cmd>RenderMarkdown toggle<cr>", opts("[Render-markdown] Markdown 렌더링 토글"))
 
+-- vim-table-mode (Markdown 테이블 정렬)
+map("n", "<leader>mf", "<cmd>MarkdownTableRealign<cr>", opts("[Markdown-table] 모든 테이블 재정렬"))
+
 -- nvim-dap / nvim-dap-ui / nvim-dap-go (Go 디버깅)
 map("n", "<F5>", function()
 	dap().continue()

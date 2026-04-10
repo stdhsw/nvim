@@ -25,7 +25,8 @@
 return {
 	"akinsho/bufferline.nvim",
 	dependencies = { "nvim-tree/nvim-web-devicons" },
-	event = "VeryLazy",
+	-- 첫 buffer 가 그려지는 시점에 함께 표시되도록 BufRead/BufNewFile 로 로드
+	event = { "BufReadPost", "BufNewFile" },
 	opts = {
 		options = {
 			-- LSP 진단 결과를 탭에 아이콘으로 표시 (nvim_lsp: LSP 연동)

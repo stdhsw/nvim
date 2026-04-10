@@ -55,8 +55,8 @@ return {
 		-- 터미널 백엔드: snacks.nvim 없이 neovim 기본 터미널 사용
 		terminal_provider = "native",
 
-		-- 포트 범위: WebSocket 서버가 사용할 포트 범위
-		port_range = { min = 10000, max = 65535 },
+		-- 포트 범위: WebSocket 서버가 사용할 포트 범위 (충돌 가능성 최소화 위해 좁게 지정)
+		port_range = { min = 40000, max = 41000 },
 
 		-- Claude Code 실행 시 자동으로 연결 시도
 		auto_start = true,

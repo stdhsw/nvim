@@ -15,7 +15,7 @@
 --   npm install -g prettier
 --   brew install shfmt
 --   pip install sqlfluff
---   :MasonInstall shellcheck hadolint  (린터는 자동 설치 안됨)
+--   shellcheck / hadolint 는 mason-tool-installer 가 자동 설치
 -- ============================================================================
 
 return {
@@ -94,13 +94,21 @@ return {
 	},
 
 	-- nvim-lint: 린터 등록
-	-- 설치: :MasonInstall shellcheck hadolint
 	{
 		"mfussenegger/nvim-lint",
 		opts = function(_, opts)
 			opts.linters_by_ft = opts.linters_by_ft or {}
 			opts.linters_by_ft.sh = { "shellcheck" }
 			opts.linters_by_ft.dockerfile = { "hadolint" }
+		end,
+	},
+
+	-- mason-tool-installer: 린터 자동 설치 (mason-lspconfig 는 LSP 서버만 다루므로)
+	{
+		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		opts = function(_, opts)
+			opts.ensure_installed = opts.ensure_installed or {}
+			vim.list_extend(opts.ensure_installed, { "shellcheck", "hadolint" })
 		end,
 	},
 }

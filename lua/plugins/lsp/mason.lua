@@ -14,8 +14,8 @@
 --   자동 설치 LSP 서버는 lua/extras/lang/ 의 각 파일에서 관리한다.
 --   (extras의 opts function이 ensure_installed에 서버명을 추가)
 --
---   수동 설치 필요한 린터 (자동 설치 안됨):
---   :MasonInstall shellcheck hadolint
+--   mason-lspconfig 는 LSP 서버만 다루므로 shellcheck/hadolint 같은 외부 린터는
+--   lsp/mason-tool-installer.lua 가 자동 설치한다.
 --
 -- 사용법:
 --   :Mason                       - GUI로 설치 목록 관리 (j/k 이동, i 설치, X 삭제)

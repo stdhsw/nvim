@@ -30,7 +30,7 @@ return {
 	event = "VeryLazy",
 	opts = {
 		options = {
-			theme = "powerline_dark", -- 고대비 내장 테마. colorscheme 확정 후 변경 가능
+			theme = "auto", -- 현재 colorscheme 에 자동으로 매칭 (github_dark_high_contrast 등)
 			globalstatus = true, -- 창이 여러 개여도 상태바는 하단에 하나만 표시
 			disabled_filetypes = {
 				statusline = { "neo-tree" },

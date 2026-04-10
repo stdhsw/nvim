@@ -20,7 +20,8 @@
 
 return {
 	"mfussenegger/nvim-lint",
-	event = { "BufReadPost", "BufWritePost" },
+	-- event: lazy 로드 트리거 (이 이벤트가 처음 발생할 때 플러그인 로드)
+	event = { "BufReadPost", "BufNewFile", "BufWritePost" },
 	-- extras에서 opts function으로 linters_by_ft에 린터를 추가한다.
 	opts = {
 		linters_by_ft = {}, -- extras에서 채움
@@ -29,13 +30,19 @@ return {
 		local lint = require("lint")
 		lint.linters_by_ft = opts.linters_by_ft
 
-		vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost" }, {
+		-- 실제 린팅 트리거 (nvim-lint 권장 이벤트)
+		--   BufReadPost / BufNewFile : 새 파일 진입 시
+		--   BufWritePost             : 저장 후
+		--   InsertLeave              : 코드 작성 후 normal 모드로 돌아왔을 때
+		vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "BufWritePost", "InsertLeave" }, {
+			group = vim.api.nvim_create_augroup("nvim_lint_trigger", { clear = true }),
 			callback = function()
 				lint.try_lint()
 			end,
 		})
 
-		-- 플러그인 로드를 트리거한 첫 버퍼도 즉시 린팅
+		-- lazy 로드를 트리거한 첫 버퍼는 위 autocmd 가 등록되기 전에 이벤트가 끝났으므로
+		-- 한 번 명시적으로 린팅을 호출해야 즉시 진단이 표시된다.
 		lint.try_lint()
 	end,
 }

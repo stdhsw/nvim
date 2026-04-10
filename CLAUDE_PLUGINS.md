@@ -20,6 +20,7 @@
 |---|---|---|
 | ✅ | `williamboman/mason.nvim` | Go, Python, YAML 등 각 언어의 LSP 서버와 포매터를 neovim 안에서 한 번에 설치/관리 |
 | ✅ | `williamboman/mason-lspconfig.nvim` | mason으로 설치한 서버를 lspconfig에 자동 연결 |
+| ✅ | `WhoIsSethDaniel/mason-tool-installer.nvim` | mason-lspconfig 가 다루지 않는 외부 도구(shellcheck, hadolint 등 린터/포매터)를 ensure_installed 로 자동 설치 |
 | ✅ | `neovim/nvim-lspconfig` | gopls, pyright 등 LSP 서버와 neovim을 연결. 코드 진단, 정의 이동, 참조 찾기 등 IDE 기능의 핵심 |
 | ✅ | `saghen/blink.cmp` | Rust 기반 고성능 자동완성 엔진. LSP, 스니펫, 경로, 버퍼 소스 통합. 함수 괄호 자동 추가(auto_brackets) 내장 |
 | ✅ | `L3MON4D3/LuaSnip` | 스니펫 엔진. Go 구조체, Python 함수, K8s manifest 템플릿 등 반복 패턴을 빠르게 입력 |
@@ -56,9 +57,8 @@
 | `sqlfluff` | SQL | `pip install sqlfluff` |
 | `prettier` | YAML, JSON | `npm install -g prettier` |
 | `shfmt` | Bash | `brew install shfmt` |
-| `stylua` | Lua | `brew install stylua` |
-| `hadolint` | Dockerfile | `:MasonInstall hadolint` |
-| `shellcheck` | Bash | `:MasonInstall shellcheck` |
+| `hadolint` | Dockerfile | mason-tool-installer 자동 설치 |
+| `shellcheck` | Bash | mason-tool-installer 자동 설치 |
 
 ---
 
@@ -164,7 +164,7 @@
 | 카테고리 | 전체 | 완료 | 예정 |
 |---|---|---|---|
 | 플러그인 매니저 | 1 | 1 | 0 |
-| LSP / 자동완성 | 6 | 6 | 0 |
+| LSP / 자동완성 | 7 | 7 | 0 |
 | 포매터 / 린터 | 2 | 2 | 0 |
 | 문법 하이라이팅 | 1 | 1 | 0 |
 | 검색 / 탐색 | 3 | 3 | 0 |
@@ -175,4 +175,4 @@
 | UI | 5 | 5 | 0 |
 | 입력기 | 1 | 1 | 0 |
 | AI 통합 | 1 | 1 | 0 |
-| **합계** | **38** | **37** | **0** |
+| **합계** | **39** | **38** | **0** |

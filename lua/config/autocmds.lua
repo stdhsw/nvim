@@ -40,10 +40,19 @@ autocmd("TextYankPost", {
 -- ============================================================================
 -- 마지막 커서 위치 복원
 -- 파일을 다시 열 때 이전에 편집하던 위치로 자동 이동
+-- gitcommit / gitrebase / 특수 buftype 에서는 항상 첫 줄에서 시작해야 자연스러움
 -- ============================================================================
+local restore_excluded_ft = { gitcommit = true, gitrebase = true, hgcommit = true }
 autocmd("BufReadPost", {
 	group = augroup("restore_cursor", { clear = true }),
 	callback = function()
+		if restore_excluded_ft[vim.bo.filetype] then
+			return
+		end
+		-- nofile / quickfix / help 같은 특수 buftype 도 제외
+		if vim.bo.buftype ~= "" then
+			return
+		end
 		local mark = vim.api.nvim_buf_get_mark(0, '"')
 		local line_count = vim.api.nvim_buf_line_count(0)
 		if mark[1] > 0 and mark[1] <= line_count then

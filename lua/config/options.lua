@@ -95,8 +95,7 @@ vim.diagnostic.config({
 -- 기타
 -- ============================================================================
 opt.mouse = "a" -- 모든 모드에서 마우스 사용 활성화
-opt.encoding = "utf-8" -- neovim 내부 인코딩
-opt.fileencoding = "utf-8" -- 파일 저장 시 인코딩
+-- encoding / fileencoding 은 nvim 기본값이 utf-8 이므로 명시 불필요
 opt.showmode = false -- 하단 모드 표시 비활성화 (lualine이 대체)
 opt.pumheight = 10 -- 자동완성 팝업 최대 표시 항목 수
 opt.conceallevel = 0 -- 텍스트 숨김(conceal) 비활성화 (마크다운 등에서 원본 표시)

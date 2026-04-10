@@ -23,8 +23,11 @@ return {
 	opts = {
 		-- 언어별 포매터는 extras에서 채움
 		formatters_by_ft = {},
+		-- 큰 Go/Python 파일에서 gofumpt + goimports 동기 실행이 500ms 안에 못 끝나
+		-- 저장 lag 으로 이어지는 경우가 있어 timeout 을 1초로 늘림.
+		-- timeout 안에 못 끝나면 conform 이 자동으로 포기하고 저장만 진행한다.
 		format_on_save = {
-			timeout_ms = 500,
+			timeout_ms = 1000,
 			lsp_fallback = true,
 		},
 	},
