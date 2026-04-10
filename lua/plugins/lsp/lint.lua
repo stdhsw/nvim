@@ -34,5 +34,8 @@ return {
 				lint.try_lint()
 			end,
 		})
+
+		-- 플러그인 로드를 트리거한 첫 버퍼도 즉시 린팅
+		lint.try_lint()
 	end,
 }
