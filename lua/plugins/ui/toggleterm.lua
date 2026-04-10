@@ -1,5 +1,5 @@
 -- ============================================================================
--- 파일명: ui-toggleterm.lua
+-- 파일명: ui/toggleterm.lua
 --
 -- 플러그인: akinsho/toggleterm.nvim
 -- 저장소: https://github.com/akinsho/toggleterm.nvim

@@ -1,5 +1,5 @@
 -- ============================================================================
--- 파일명: search-telescope.lua
+-- 파일명: search/telescope.lua
 --
 -- 플러그인: nvim-telescope/telescope.nvim
 --           nvim-telescope/telescope-fzf-native.nvim

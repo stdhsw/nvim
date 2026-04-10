@@ -1,5 +1,5 @@
 -- ============================================================================
--- 파일명: editor-ufo.lua
+-- 파일명: editor/ufo.lua
 --
 -- 플러그인: kevinhwang91/nvim-ufo
 -- 저장소: https://github.com/kevinhwang91/nvim-ufo

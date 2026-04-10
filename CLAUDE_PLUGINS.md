@@ -21,12 +21,8 @@
 | ✅ | `williamboman/mason.nvim` | Go, Python, YAML 등 각 언어의 LSP 서버와 포매터를 neovim 안에서 한 번에 설치/관리 |
 | ✅ | `williamboman/mason-lspconfig.nvim` | mason으로 설치한 서버를 lspconfig에 자동 연결 |
 | ✅ | `neovim/nvim-lspconfig` | gopls, pyright 등 LSP 서버와 neovim을 연결. 코드 진단, 정의 이동, 참조 찾기 등 IDE 기능의 핵심 |
-| ✅ | `hrsh7th/nvim-cmp` | LSP, 스니펫, 경로, 버퍼 등 여러 소스를 통합하는 자동완성 엔진 |
-| ✅ | `hrsh7th/cmp-nvim-lsp` | LSP가 제공하는 자동완성 항목을 nvim-cmp에 연결 |
-| ✅ | `hrsh7th/cmp-buffer` | 현재 열린 버퍼의 단어를 자동완성 소스로 제공 |
-| ✅ | `hrsh7th/cmp-path` | 파일 경로 자동완성 |
+| ✅ | `saghen/blink.cmp` | Rust 기반 고성능 자동완성 엔진. LSP, 스니펫, 경로, 버퍼 소스 통합. 함수 괄호 자동 추가(auto_brackets) 내장 |
 | ✅ | `L3MON4D3/LuaSnip` | 스니펫 엔진. Go 구조체, Python 함수, K8s manifest 템플릿 등 반복 패턴을 빠르게 입력 |
-| ✅ | `saadparwaiz1/cmp_luasnip` | LuaSnip 스니펫을 nvim-cmp 자동완성 목록에 표시 |
 | ✅ | `rafamadriz/friendly-snippets` | Go, Python, bash, dockerfile 등 언어별 실용 스니펫 모음 |
 
 ### LSP 서버 (mason으로 자동 설치)
@@ -104,7 +100,7 @@
 | ✅ | `lewis6991/gitsigns.nvim` | 변경된 줄을 좌측 gutter에 표시. hunk 단위 스테이징/되돌리기 |
 | ✅ | `NeogitOrg/neogit` | neovim 안에서 git add, commit, push, rebase 등 전체 워크플로우 처리 |
 | ✅ | `sindrets/diffview.nvim` | 파일 diff, 머지 충돌 해결을 neovim 안에서 처리 |
-| ✅ | `lazygit` (CLI) | toggleterm으로 연동하는 git TUI. `<leader>gg`로 실행. `brew install lazygit` 필요 |
+| ✅ | `lazygit` (CLI) | ui/toggleterm.lua로 연동하는 git TUI. `<leader>gg`로 실행. `brew install lazygit` 필요 |
 
 ---
 
@@ -143,8 +139,7 @@
 | ✅ | `akinsho/bufferline.nvim` | 열린 버퍼를 상단 탭으로 표시 |
 | ✅ | `folke/which-key.nvim` | leader 키 입력 후 사용 가능한 단축키 목록을 팝업으로 표시 |
 | ✅ | `akinsho/toggleterm.nvim` | 단축키로 터미널 토글. float/vertical/horizontal 레이아웃 지원 |
-| ✅ | `navarasu/onedark.nvim` | 기본 테마. warmer variant 적용 |
-| ✅ | `rebelot/kanagawa.nvim` | 보조 테마. wave variant 적용 |
+| ✅ | `projekt0n/github-nvim-theme` | 기본 테마. dark_high_contrast variant 적용. 커스텀 syntax highlight 포함 |
 
 ---
 
@@ -156,12 +151,20 @@
 
 ---
 
+## AI 통합
+
+| 상태 | 플러그인 | 필요한 이유 |
+|---|---|---|
+| ✅ | `coder/claudecode.nvim` | Claude Code CLI와 Neovim 통합. WebSocket 기반 MCP로 파일/선택 영역 실시간 공유, diff 확인 |
+
+---
+
 ## 총 플러그인 수
 
 | 카테고리 | 전체 | 완료 | 예정 |
 |---|---|---|---|
 | 플러그인 매니저 | 1 | 1 | 0 |
-| LSP / 자동완성 | 10 | 10 | 0 |
+| LSP / 자동완성 | 6 | 6 | 0 |
 | 포매터 / 린터 | 2 | 2 | 0 |
 | 문법 하이라이팅 | 1 | 1 | 0 |
 | 검색 / 탐색 | 3 | 3 | 0 |
@@ -169,6 +172,7 @@
 | Git 통합 | 3 | 3 | 0 |
 | 편집 보조 | 8 | 7 | 0 |
 | 디버깅 | 4 | 4 | 0 |
-| UI | 6 | 6 | 0 |
+| UI | 5 | 5 | 0 |
 | 입력기 | 1 | 1 | 0 |
-| **합계** | **44** | **43** | **0** |
+| AI 통합 | 1 | 1 | 0 |
+| **합계** | **38** | **37** | **0** |

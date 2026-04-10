@@ -1,20 +1,13 @@
 -- ============================================================================
--- 파일명: lsp-lint.lua
+-- 파일명: lsp/lint.lua
 --
 -- 플러그인: mfussenegger/nvim-lint
 -- 저장소: https://github.com/mfussenegger/nvim-lint
 --
 -- 설명:
 --   LSP가 지원하지 않는 외부 린터를 통합 관리하는 플러그인.
---   파일 열기 및 저장 시 자동으로 린터를 실행하고 진단 결과를 표시한다.
---   진단 결과는 LSP 진단과 동일한 방식으로 표시된다 (gutter 아이콘, 밑줄).
---
---   적용 린터:
---   shellcheck - Bash/Shell 스크립트 버그 및 안티패턴 감지
---   hadolint   - Dockerfile 베스트 프랙티스 위반 감지
---
---   린터 설치 (neovim 시작 후 실행):
---   :MasonInstall shellcheck hadolint
+--   언어별 린터는 lua/extras/lang/ 의 각 파일에서 관리한다.
+--   (extras의 opts function이 linters_by_ft에 린터를 추가)
 --
 -- 사용법:
 --   파일 열기 및 저장 시 자동 실행된다.
@@ -27,17 +20,15 @@
 
 return {
 	"mfussenegger/nvim-lint",
-	event = { "BufReadPost", "BufWritePost" }, -- 파일 열 때 및 저장 시 실행
-	config = function()
+	event = { "BufReadPost", "BufWritePost" },
+	-- extras에서 opts function으로 linters_by_ft에 린터를 추가한다.
+	opts = {
+		linters_by_ft = {}, -- extras에서 채움
+	},
+	config = function(_, opts)
 		local lint = require("lint")
+		lint.linters_by_ft = opts.linters_by_ft
 
-		-- 언어별 린터 지정
-		lint.linters_by_ft = {
-			sh = { "shellcheck" }, -- Bash/Shell 스크립트
-			dockerfile = { "hadolint" }, -- Dockerfile
-		}
-
-		-- 파일 저장 및 열 때 자동으로 린트 실행
 		vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost" }, {
 			callback = function()
 				lint.try_lint()

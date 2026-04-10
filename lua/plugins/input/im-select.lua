@@ -1,5 +1,5 @@
 -- ============================================================================
--- 파일명: input-im-select.lua
+-- 파일명: input/im-select.lua
 --
 -- 플러그인: keaising/im-select.nvim
 -- 저장소: https://github.com/keaising/im-select.nvim

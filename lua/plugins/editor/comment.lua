@@ -1,5 +1,5 @@
 -- ============================================================================
--- 파일명: editor-comment.lua
+-- 파일명: editor/comment.lua
 --
 -- 플러그인: numToStr/Comment.nvim
 -- 저장소: https://github.com/numToStr/Comment.nvim

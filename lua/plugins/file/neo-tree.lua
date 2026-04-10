@@ -1,5 +1,5 @@
 -- ============================================================================
--- 파일명: file-neo-tree.lua
+-- 파일명: file/neo-tree.lua
 --
 -- 플러그인: nvim-neo-tree/neo-tree.nvim
 -- 저장소: https://github.com/nvim-neo-tree/neo-tree.nvim

@@ -1,5 +1,5 @@
 -- ============================================================================
--- 파일명: editor-todo-comments.lua
+-- 파일명: editor/todo-comments.lua
 --
 -- 플러그인: folke/todo-comments.nvim
 -- 저장소: https://github.com/folke/todo-comments.nvim

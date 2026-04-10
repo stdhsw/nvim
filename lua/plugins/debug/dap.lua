@@ -1,5 +1,5 @@
 -- ============================================================================
--- 파일명: debug-dap.lua
+-- 파일명: debug/dap.lua
 --
 -- 플러그인: mfussenegger/nvim-dap
 --           rcarriga/nvim-dap-ui

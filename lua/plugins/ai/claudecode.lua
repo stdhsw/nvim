@@ -1,5 +1,5 @@
 -- ============================================================================
--- 파일명: ai-claudecode.lua
+-- 파일명: ai/claudecode.lua
 --
 -- 플러그인: coder/claudecode.nvim
 -- 저장소: https://github.com/coder/claudecode.nvim

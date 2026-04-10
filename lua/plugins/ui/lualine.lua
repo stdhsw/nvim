@@ -1,5 +1,5 @@
 -- ============================================================================
--- 파일명: ui-lualine.lua
+-- 파일명: ui/lualine.lua
 --
 -- 플러그인: nvim-lualine/lualine.nvim
 -- 저장소: https://github.com/nvim-lualine/lualine.nvim

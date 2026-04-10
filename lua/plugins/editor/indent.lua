@@ -1,5 +1,5 @@
 -- ============================================================================
--- 파일명: editor-indent.lua
+-- 파일명: editor/indent.lua
 --
 -- 플러그인: lukas-reineke/indent-blankline.nvim
 -- 저장소: https://github.com/lukas-reineke/indent-blankline.nvim

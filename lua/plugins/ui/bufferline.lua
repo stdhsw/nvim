@@ -1,5 +1,5 @@
 -- ============================================================================
--- 파일명: ui-bufferline.lua
+-- 파일명: ui/bufferline.lua
 --
 -- 플러그인: akinsho/bufferline.nvim
 -- 저장소: https://github.com/akinsho/bufferline.nvim

@@ -1,5 +1,5 @@
 -- ============================================================================
--- 파일명: lsp-mason.lua
+-- 파일명: lsp/mason.lua
 --
 -- 플러그인: williamboman/mason.nvim
 --           williamboman/mason-lspconfig.nvim
@@ -9,13 +9,10 @@
 -- 설명:
 --   mason      - LSP 서버, 포매터, 린터를 neovim 안에서 설치/업데이트/삭제 관리.
 --                설치된 바이너리는 ~/.local/share/nvim/mason/bin/ 에 저장된다.
---   mason-lspconfig - mason으로 설치한 LSP 서버를 lspconfig에 자동 연결.
---                     ensure_installed 목록의 서버를 neovim 시작 시 자동 설치.
+--   mason-lspconfig - mason으로 설치한 LSP 서버를 자동 연결.
 --
---   자동 설치 LSP 서버:
---   gopls    - Go          pyright  - Python
---   yamlls   - YAML/K8s   jsonls   - JSON
---   bashls   - Bash        dockerls - Dockerfile
+--   자동 설치 LSP 서버는 lua/extras/lang/ 의 각 파일에서 관리한다.
+--   (extras의 opts function이 ensure_installed에 서버명을 추가)
 --
 --   수동 설치 필요한 린터 (자동 설치 안됨):
 --   :MasonInstall shellcheck hadolint
@@ -32,32 +29,28 @@
 -- ============================================================================
 
 return {
-	"williamboman/mason.nvim",
-	dependencies = { "williamboman/mason-lspconfig.nvim" },
-	config = function()
-		require("mason").setup({
-			ui = {
-				border = "rounded",
-				icons = {
-					package_installed = "✅",
-					package_pending = "⏳",
-					package_uninstalled = "⬜",
+	{
+		"williamboman/mason.nvim",
+		config = function()
+			require("mason").setup({
+				ui = {
+					border = "rounded",
+					icons = {
+						package_installed = "✅",
+						package_pending = "⏳",
+						package_uninstalled = "⬜",
+					},
 				},
-			},
-		})
-
-		require("mason-lspconfig").setup({
-			-- neovim 시작 시 미설치 서버를 자동으로 설치
-			ensure_installed = {
-				"gopls", -- Go
-				"pyright", -- Python
-				"yamlls", -- YAML / K8s
-				"jsonls", -- JSON
-				"bashls", -- Bash
-				"dockerls", -- Dockerfile
-			},
-			-- ensure_installed 외에 수동으로 설치한 서버도 자동 연결
+			})
+		end,
+	},
+	{
+		"williamboman/mason-lspconfig.nvim",
+		dependencies = { "williamboman/mason.nvim" },
+		-- extras에서 opts function으로 ensure_installed에 서버명을 추가한다.
+		opts = {
+			ensure_installed = {}, -- extras에서 채움
 			automatic_installation = true,
-		})
-	end,
+		},
+	},
 }

@@ -1,5 +1,5 @@
 -- ============================================================================
--- 파일명: ui-colorscheme.lua
+-- 파일명: ui/colorscheme.lua
 --
 -- 플러그인:
 --   1. projekt0n/github-nvim-theme  - GitHub 공식 색감 기반 테마

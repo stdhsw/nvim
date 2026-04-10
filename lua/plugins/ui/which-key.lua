@@ -1,5 +1,5 @@
 -- ============================================================================
--- 파일명: ui-which-key.lua
+-- 파일명: ui/which-key.lua
 --
 -- 플러그인: folke/which-key.nvim
 -- 저장소: https://github.com/folke/which-key.nvim
@@ -39,11 +39,18 @@ return {
 		-- prefix 그룹 이름 지정: which-key 팝업에서 카테고리명으로 표시됨
 		-- keymaps.lua에서 해당 prefix를 사용하는 단축키들이 이 그룹 아래 묶임
 		spec = {
+			{ "<leader>a", group = "AI (Claude)" },
 			{ "<leader>b", group = "버퍼" },
-			{ "<leader>g", group = "Git" },
+			{ "<leader>d", group = "디버깅" },
+			{ "<leader>e", group = "파일 탐색기" },
 			{ "<leader>f", group = "찾기" },
+			{ "<leader>g", group = "Git" },
+			{ "<leader>k", group = "키맵" },
 			{ "<leader>l", group = "LSP" },
+			{ "<leader>m", group = "Markdown" },
 			{ "<leader>t", group = "터미널" },
+			{ "<leader>u", group = "대소문자" },
+			{ "<leader>z", group = "폴딩" },
 		},
 	},
 }

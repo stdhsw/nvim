@@ -1,5 +1,5 @@
 -- ============================================================================
--- 파일명: editor-markdown-table.lua
+-- 파일명: editor/markdown-table.lua
 --
 -- 플러그인: dhruvasagar/vim-table-mode
 -- 저장소: https://github.com/dhruvasagar/vim-table-mode

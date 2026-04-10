@@ -1,5 +1,5 @@
 -- ============================================================================
--- 파일명: editor-render-markdown.lua
+-- 파일명: editor/render-markdown.lua
 --
 -- 플러그인: MeanderingProgrammer/render-markdown.nvim
 -- 저장소: https://github.com/MeanderingProgrammer/render-markdown.nvim
