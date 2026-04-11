@@ -41,7 +41,7 @@ return {
 		checkbox = {
 			enabled = true,
 			unchecked = { icon = "󰄱 " },
-			checked = { icon = "󰱒 " },
+			checked = { icon = "󰄵 " },
 		},
 		-- 불릿 리스트 아이콘
 		bullet = {
