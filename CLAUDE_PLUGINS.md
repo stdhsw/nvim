@@ -142,6 +142,7 @@
 | ✅ | `folke/which-key.nvim` | leader 키 입력 후 사용 가능한 단축키 목록을 팝업으로 표시 |
 | ✅ | `akinsho/toggleterm.nvim` | 단축키로 터미널 토글. float/vertical/horizontal 레이아웃 지원 |
 | ✅ | `projekt0n/github-nvim-theme` | 기본 테마. dark_high_contrast variant 적용. 커스텀 syntax highlight 포함 |
+| ✅ | `rebelot/kanagawa.nvim` | 우키요에 감성의 대체 다크 테마. wave/dragon/lotus variant 지원. lazy 로드(Telescope colorscheme 에서 미리보기) |
 
 ---
 
@@ -174,7 +175,7 @@
 | Git 통합 | 3 | 3 | 0 |
 | 편집 보조 | 8 | 7 | 0 |
 | 디버깅 | 4 | 4 | 0 |
-| UI | 5 | 5 | 0 |
+| UI | 6 | 6 | 0 |
 | 입력기 | 1 | 1 | 0 |
 | AI 통합 | 1 | 1 | 0 |
-| **합계** | **39** | **38** | **0** |
+| **합계** | **40** | **39** | **0** |

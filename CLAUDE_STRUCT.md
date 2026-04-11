@@ -47,7 +47,7 @@
     │   │   └── telescope.lua             # ✅ 파일/심볼/grep/LSP 검색
     │   └── ui/
     │       ├── bufferline.lua            # ✅ 탭/버퍼 UI
-    │       ├── colorscheme.lua           # ✅ 테마 (github dark_high_contrast)
+    │       ├── colorscheme.lua           # ✅ 테마 (github dark_high_contrast 기본 + kanagawa 대체)
     │       ├── lualine.lua               # ✅ 하단 상태바
     │       ├── toggleterm.lua            # ✅ 터미널 토글
     │       └── which-key.lua             # ✅ 단축키 힌트 팝업
@@ -125,6 +125,7 @@
 - `.env` 파일 자동 로드 (디버깅/테스트 시 환경변수 주입)
 
 ### 테마
-- github-nvim-theme (dark_high_contrast variant)
+- github-nvim-theme (dark_high_contrast variant) — 기본값
+- kanagawa.nvim (wave / dragon / lotus variant) — 대체 다크 테마. lazy 로드
 - Go 코딩에 맞게 treesitter highlight 커스텀 적용 (변수, 함수, 타입, 키워드 등)
-- `<leader>tc`로 telescope에서 실시간 테마 전환 가능
+- `<leader>tc`로 telescope에서 실시간 테마 전환 가능 (kanagawa 도 이 시점에 자동 로드)

@@ -2,20 +2,30 @@
 -- 파일명: ui/colorscheme.lua
 --
 -- 플러그인:
---   1. projekt0n/github-nvim-theme  - GitHub 공식 색감 기반 테마
+--   1. projekt0n/github-nvim-theme  - GitHub 공식 색감 기반 테마 (기본 적용)
+--   2. rebelot/kanagawa.nvim        - 일본 우키요에 감성 다크 테마 (대체 테마)
 --
 -- 저장소:
 --   https://github.com/projekt0n/github-nvim-theme
+--   https://github.com/rebelot/kanagawa.nvim
 --
 -- 설명:
---   github-theme  - GitHub UI 색감 기반. dark_high_contrast variant는 고대비 다크 테마.
+--   github-theme  - GitHub UI 색감 기반. dark_high_contrast variant는 고대비 다크 테마. (기본값)
+--   kanagawa      - 호쿠사이의 '가나가와 해변의 큰 파도'에서 영감받은 테마.
+--                   wave(기본 다크) / dragon(더 어두운 다크) / lotus(라이트) 3종 variant 제공.
+--                   lazy=true 이므로 :colorscheme 명령 또는 Telescope colorscheme 선택 시 로드된다.
 --
 -- 기본 테마: github_dark_high_contrast
 -- 테마 전환:
---   :colorscheme github_dark_high_contrast - github 고대비 적용
+--   :colorscheme github_dark_high_contrast - github 고대비 적용 (기본)
+--   :colorscheme kanagawa                  - kanagawa 적용 (background 옵션에 따라 wave/lotus 자동 선택)
+--   :colorscheme kanagawa-wave             - kanagawa wave (다크, 기본)
+--   :colorscheme kanagawa-dragon           - kanagawa dragon (더 어두운 다크)
+--   :colorscheme kanagawa-lotus            - kanagawa lotus (라이트)
+--   <leader>tc                             - Telescope 로 실시간 테마 전환 (keymaps.lua)
 --
 -- 커스텀 단축키:
---   없음
+--   없음 (테마 선택은 <leader>tc 의 Telescope colorscheme 사용)
 -- ============================================================================
 
 return {
@@ -107,6 +117,33 @@ return {
 				},
 			})
 			vim.cmd("colorscheme github_dark_high_contrast") -- 기본 테마로 적용
+		end,
+	},
+
+	-- kanagawa.nvim: 우키요에 감성 다크 테마 (대체 테마)
+	-- lazy=true 이므로 :colorscheme kanagawa 실행 또는 Telescope colorscheme 선택 시 자동 로드.
+	-- (lazy.nvim 은 colors/*.lua 디렉토리를 자동 인식하여 지연 로드 트리거를 걸어준다)
+	{
+		"rebelot/kanagawa.nvim",
+		lazy = true,
+		priority = 900, -- github-theme 보다 낮게 (기본 테마가 아니므로)
+		config = function()
+			require("kanagawa").setup({
+				compile = false, -- 컴파일된 바이트코드 캐시 비활성
+				undercurl = true, -- LSP 진단 언더컬 활성
+				commentStyle = { italic = true }, -- 주석 이탤릭
+				functionStyle = {},
+				keywordStyle = { italic = true }, -- 키워드 이탤릭
+				statementStyle = { bold = true }, -- 제어문 굵게
+				typeStyle = {},
+				transparent = false, -- 배경 투명 비활성
+				dimInactive = false, -- 비활성 창 어둡게 비활성
+				terminalColors = true, -- 내장 터미널 버퍼에도 색상 적용
+				background = {
+					dark = "wave", -- 다크 모드 기본 variant: wave (가나가와 파도)
+					light = "lotus", -- 라이트 모드 기본 variant: lotus
+				},
+			})
 		end,
 	},
 }
