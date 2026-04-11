@@ -12,10 +12,9 @@
 --   파서      - yaml, json, bash, dockerfile, sql, make
 --
 -- 사전 요구사항:
---   npm install -g prettier
 --   brew install shfmt
 --   pip install sqlfluff
---   shellcheck / hadolint 는 mason-tool-installer 가 자동 설치
+--   prettier / shellcheck / hadolint 는 mason-tool-installer 가 자동 설치
 -- ============================================================================
 
 return {
@@ -103,12 +102,15 @@ return {
 		end,
 	},
 
-	-- mason-tool-installer: 린터 자동 설치 (mason-lspconfig 는 LSP 서버만 다루므로)
+	-- mason-tool-installer: 포매터/린터 자동 설치 (mason-lspconfig 는 LSP 서버만 다루므로)
+	--   prettier   - YAML/JSON 포매터
+	--   shellcheck - Bash 린터
+	--   hadolint   - Dockerfile 린터
 	{
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		opts = function(_, opts)
 			opts.ensure_installed = opts.ensure_installed or {}
-			vim.list_extend(opts.ensure_installed, { "shellcheck", "hadolint" })
+			vim.list_extend(opts.ensure_installed, { "prettier", "shellcheck", "hadolint" })
 		end,
 	},
 }

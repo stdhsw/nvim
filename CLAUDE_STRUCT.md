@@ -55,6 +55,7 @@
         └── lang/
             ├── go.lua                    # ✅ Go (gopls, gofumpt, goimports)
             ├── python.lua                # ✅ Python (pyright, black, isort)
+            ├── lua.lua                   # ✅ Lua (lua_ls, stylua)
             └── ops.lua                   # ✅ YAML/JSON/Bash/Dockerfile/SQL
 ```
 

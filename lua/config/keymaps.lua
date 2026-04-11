@@ -77,6 +77,7 @@ local dap_go = lazy_require("dap-go")
 map("n", "<leader>ee", "<cmd>Neotree toggle<cr>", opts("[Neo-tree] 파일 탐색기 열기/닫기"))
 map("n", "<leader>E", "<cmd>Neotree focus<cr>", opts("[Neo-tree] 파일 탐색기 포커스"))
 map("n", "<leader>er", "<cmd>Neotree reveal<cr>", opts("[Neo-tree] 파일 탐색기에서 현재파일 표시"))
+map("n", "<leader>eb", "<cmd>Neotree buffers<cr>", opts("[Neo-tree] 파일 탐색기에서 버퍼 파일 표시"))
 map(
 	"n",
 	"<leader>ge",

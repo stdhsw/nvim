@@ -69,6 +69,7 @@ require("lazy").setup({
 	-- =========================================================================
 	{ import = "extras.lang.go" }, -- Go
 	{ import = "extras.lang.python" }, -- Python
+	{ import = "extras.lang.lua" }, -- Lua (neovim 설정 작성용)
 	{ import = "extras.lang.ops" }, -- YAML / JSON / Bash / Dockerfile / SQL
 }, {
 	defaults = {

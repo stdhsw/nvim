@@ -32,6 +32,7 @@
 |---|---|---|
 | `gopls` | Go | Go 공식 LSP. 타입 추론, 자동완성, import 관리, inlay hints |
 | `pyright` | Python | 정적 타입 분석 기반 LSP. 타입 오류 사전 감지 |
+| `lua-language-server` | Lua | neovim 설정 작성용. vim 전역 인식 + neovim runtime 라이브러리 자동완성 |
 | `yaml-language-server` | YAML, K8s | YAML 문법 검사 + Kubernetes schema 검증 |
 | `json-lsp` | JSON | JSON 스키마 검증, 자동완성 |
 | `bash-language-server` | Bash | 쉘 스크립트 자동완성, 문법 오류 감지 |
@@ -55,8 +56,9 @@
 | `black` | Python | `pip install black` |
 | `isort` | Python | `pip install isort` |
 | `sqlfluff` | SQL | `pip install sqlfluff` |
-| `prettier` | YAML, JSON | `npm install -g prettier` |
 | `shfmt` | Bash | `brew install shfmt` |
+| `stylua` | Lua | mason-tool-installer 자동 설치 |
+| `prettier` | YAML, JSON | mason-tool-installer 자동 설치 |
 | `hadolint` | Dockerfile | mason-tool-installer 자동 설치 |
 | `shellcheck` | Bash | mason-tool-installer 자동 설치 |
 
