@@ -667,17 +667,44 @@ LSP 진단 아이콘이 탭에 함께 표시됩니다.
 
 ---
 
+#### catppuccin/nvim
+
+파스텔톤 감성의 테마. 기본값은 가장 어두운 다크 flavour 인 `catppuccin-mocha` 가 적용됩니다.
+`latte` / `frappe` / `macchiato` / `mocha` 4종 flavour 를 제공합니다.
+
+| 명령어 / 단축키                    | 설명                          |
+|------------------------------------|-------------------------------|
+| `<leader>tc`                       | 테마 선택 (실시간 미리보기)   |
+| `:colorscheme catppuccin-mocha`    | catppuccin mocha (기본)       |
+| `:colorscheme catppuccin-macchiato`| catppuccin macchiato          |
+| `:colorscheme catppuccin-frappe`   | catppuccin frappe             |
+| `:colorscheme catppuccin-latte`    | catppuccin latte (라이트)     |
+
+---
+
 #### projekt0n/github-nvim-theme
 
-GitHub UI 색감 기반 테마. 기본값은 고대비 다크 variant인 `github_dark_high_contrast`가 적용됩니다.
-Go 코딩에 맞게 변수 / 함수 / 타입 / 키워드 등의 treesitter highlight 가 커스터마이즈되어 있습니다.
+GitHub UI 색감 기반 대체 테마. Go 코딩에 맞게 변수 / 함수 / 타입 / 키워드 등의
+treesitter highlight 가 커스터마이즈되어 있습니다. `<leader>tc` 또는 `:colorscheme` 명령 시 자동 로드됩니다.
 
 | 명령어 / 단축키                          | 설명                        |
 |------------------------------------------|-----------------------------|
-| `<leader>tc`                             | 테마 선택 (실시간 미리보기) |
 | `:colorscheme github_dark_high_contrast` | github 고대비 다크 적용     |
 | `:colorscheme github_dark`               | github 다크 적용            |
 | `:colorscheme github_light`              | github 라이트 적용          |
+
+---
+
+#### rebelot/kanagawa.nvim
+
+호쿠사이의 '가나가와 해변의 큰 파도' 에서 영감받은 대체 다크 테마.
+`wave` / `dragon` / `lotus` 3종 variant 를 제공합니다. `<leader>tc` 또는 `:colorscheme` 명령 시 자동 로드됩니다.
+
+| 명령어 / 단축키               | 설명                              |
+|-------------------------------|-----------------------------------|
+| `:colorscheme kanagawa-wave`  | kanagawa wave (다크, 기본 variant)|
+| `:colorscheme kanagawa-dragon`| kanagawa dragon (더 어두운 다크)  |
+| `:colorscheme kanagawa-lotus` | kanagawa lotus (라이트)           |
 
 ---
 

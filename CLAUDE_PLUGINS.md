@@ -141,7 +141,8 @@
 | ✅ | `akinsho/bufferline.nvim` | 열린 버퍼를 상단 탭으로 표시 |
 | ✅ | `folke/which-key.nvim` | leader 키 입력 후 사용 가능한 단축키 목록을 팝업으로 표시 |
 | ✅ | `akinsho/toggleterm.nvim` | 단축키로 터미널 토글. float/vertical/horizontal 레이아웃 지원 |
-| ✅ | `projekt0n/github-nvim-theme` | 기본 테마. dark_high_contrast variant 적용. 커스텀 syntax highlight 포함 |
+| ✅ | `catppuccin/nvim` | 기본 테마. mocha flavour 적용. 파스텔톤 다크 테마 (latte/frappe/macchiato/mocha 4종) |
+| ✅ | `projekt0n/github-nvim-theme` | 대체 테마. dark_high_contrast variant. 커스텀 syntax highlight 포함. lazy 로드 |
 | ✅ | `rebelot/kanagawa.nvim` | 우키요에 감성의 대체 다크 테마. wave/dragon/lotus variant 지원. lazy 로드(Telescope colorscheme 에서 미리보기) |
 
 ---

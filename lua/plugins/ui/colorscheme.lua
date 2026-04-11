@@ -2,22 +2,32 @@
 -- 파일명: ui/colorscheme.lua
 --
 -- 플러그인:
---   1. projekt0n/github-nvim-theme  - GitHub 공식 색감 기반 테마 (기본 적용)
---   2. rebelot/kanagawa.nvim        - 일본 우키요에 감성 다크 테마 (대체 테마)
+--   1. catppuccin/nvim              - 파스텔 감성 테마 (기본 적용)
+--   2. projekt0n/github-nvim-theme  - GitHub 공식 색감 기반 테마 (대체 테마)
+--   3. rebelot/kanagawa.nvim        - 일본 우키요에 감성 다크 테마 (대체 테마)
 --
 -- 저장소:
+--   https://github.com/catppuccin/nvim
 --   https://github.com/projekt0n/github-nvim-theme
 --   https://github.com/rebelot/kanagawa.nvim
 --
 -- 설명:
---   github-theme  - GitHub UI 색감 기반. dark_high_contrast variant는 고대비 다크 테마. (기본값)
---   kanagawa      - 호쿠사이의 '가나가와 해변의 큰 파도'에서 영감받은 테마.
---                   wave(기본 다크) / dragon(더 어두운 다크) / lotus(라이트) 3종 variant 제공.
---                   lazy=true 이므로 :colorscheme 명령 또는 Telescope colorscheme 선택 시 로드된다.
+--   catppuccin   - 파스텔톤의 따뜻한 다크 테마. latte(라이트) / frappe / macchiato / mocha(가장 어두운 다크)
+--                  4종 flavour 제공. 기본값은 mocha. (기본값)
+--   github-theme - GitHub UI 색감 기반. dark_high_contrast variant는 고대비 다크 테마.
+--                  lazy=true 이므로 :colorscheme 명령 또는 Telescope colorscheme 선택 시 로드된다.
+--   kanagawa     - 호쿠사이의 '가나가와 해변의 큰 파도'에서 영감받은 테마.
+--                  wave(기본 다크) / dragon(더 어두운 다크) / lotus(라이트) 3종 variant 제공.
+--                  lazy=true 이므로 :colorscheme 명령 또는 Telescope colorscheme 선택 시 로드된다.
 --
--- 기본 테마: github_dark_high_contrast
+-- 기본 테마: catppuccin-mocha
 -- 테마 전환:
---   :colorscheme github_dark_high_contrast - github 고대비 적용 (기본)
+--   :colorscheme catppuccin                - catppuccin 기본 flavour (mocha) 적용
+--   :colorscheme catppuccin-latte          - catppuccin latte (라이트)
+--   :colorscheme catppuccin-frappe         - catppuccin frappe (다크, 부드러운 톤)
+--   :colorscheme catppuccin-macchiato      - catppuccin macchiato (다크, 중간 톤)
+--   :colorscheme catppuccin-mocha          - catppuccin mocha (가장 어두운 다크, 기본)
+--   :colorscheme github_dark_high_contrast - github 고대비 적용
 --   :colorscheme kanagawa                  - kanagawa 적용 (background 옵션에 따라 wave/lotus 자동 선택)
 --   :colorscheme kanagawa-wave             - kanagawa wave (다크, 기본)
 --   :colorscheme kanagawa-dragon           - kanagawa dragon (더 어두운 다크)
@@ -29,11 +39,61 @@
 -- ============================================================================
 
 return {
-	-- github-nvim-theme: dark_high_contrast variant 기본 적용
+	-- catppuccin/nvim: mocha flavour 기본 적용
+	{
+		"catppuccin/nvim",
+		name = "catppuccin", -- 저장소 이름(nvim)과 플러그인명 충돌 방지
+		lazy = true,
+		priority = 100, -- 가중치
+		config = function()
+			require("catppuccin").setup({
+				flavour = "mocha", -- latte / frappe / macchiato / mocha
+				background = {
+					light = "latte",
+					dark = "mocha",
+				},
+				transparent_background = false,
+				show_end_of_buffer = false,
+				term_colors = true, -- 내장 터미널 버퍼에도 색상 적용
+				no_italic = false,
+				no_bold = false,
+				no_underline = false,
+				styles = {
+					comments = { "italic" },
+					conditionals = { "italic" },
+					keywords = { "italic" },
+				},
+				integrations = {
+					cmp = true,
+					gitsigns = true,
+					nvimtree = true,
+					treesitter = true,
+					telescope = { enabled = true },
+					neotree = true,
+					which_key = true,
+					mason = true,
+					bufferline = true,
+					native_lsp = {
+						enabled = true,
+						underlines = {
+							errors = { "undercurl" },
+							hints = { "undercurl" },
+							warnings = { "undercurl" },
+							information = { "undercurl" },
+						},
+					},
+				},
+			})
+			-- vim.cmd("colorscheme catppuccin-mocha") -- 기본 테마로 적용
+		end,
+	},
+
+	-- github-nvim-theme: dark_high_contrast variant (대체 테마)
+	-- lazy=true 이므로 :colorscheme 명령 또는 Telescope colorscheme 선택 시 로드된다.
 	{
 		"projekt0n/github-nvim-theme",
 		lazy = false,
-		priority = 1000, -- 다른 플러그인보다 먼저 로드
+		priority = 1000, -- 가중치
 		config = function()
 			require("github-theme").setup({
 				options = {
@@ -126,7 +186,7 @@ return {
 	{
 		"rebelot/kanagawa.nvim",
 		lazy = true,
-		priority = 900, -- github-theme 보다 낮게 (기본 테마가 아니므로)
+		priority = 100, -- 가중치
 		config = function()
 			require("kanagawa").setup({
 				compile = false, -- 컴파일된 바이트코드 캐시 비활성
