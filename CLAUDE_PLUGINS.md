@@ -144,6 +144,7 @@
 | ✅ | `catppuccin/nvim` | 기본 테마. mocha flavour 적용. 파스텔톤 다크 테마 (latte/frappe/macchiato/mocha 4종) |
 | ✅ | `projekt0n/github-nvim-theme` | 대체 테마. dark_high_contrast variant. 커스텀 syntax highlight 포함. lazy 로드 |
 | ✅ | `rebelot/kanagawa.nvim` | 우키요에 감성의 대체 다크 테마. wave/dragon/lotus variant 지원. lazy 로드(Telescope colorscheme 에서 미리보기) |
+| ✅ | `EdenEast/nightfox.nvim` | 여우 컨셉의 대체 테마 모음. nightfox/duskfox/nordfox/terafox/carbonfox/dayfox/dawnfox 7종 variant 지원. lazy 로드 |
 
 ---
 

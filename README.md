@@ -708,6 +708,23 @@ treesitter highlight 가 커스터마이즈되어 있습니다. `<leader>tc` 또
 
 ---
 
+#### EdenEast/nightfox.nvim
+
+여우 컨셉의 대체 테마 모음. 7종의 풍부한 variant 를 제공합니다.
+`<leader>tc` 또는 `:colorscheme` 명령 시 자동 로드됩니다.
+
+| 명령어 / 단축키           | 설명                                  |
+|---------------------------|---------------------------------------|
+| `:colorscheme nightfox`   | nightfox (다크, 기본 variant)         |
+| `:colorscheme duskfox`    | duskfox (자줏빛 다크)                 |
+| `:colorscheme nordfox`    | nordfox (nord 감성 다크)              |
+| `:colorscheme terafox`    | terafox (청록 톤 다크)                |
+| `:colorscheme carbonfox`  | carbonfox (가장 어두운 다크)          |
+| `:colorscheme dayfox`     | dayfox (라이트)                       |
+| `:colorscheme dawnfox`    | dawnfox (파스텔 라이트)               |
+
+---
+
 ### 입력기
 
 #### keaising/im-select.nvim

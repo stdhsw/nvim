@@ -5,11 +5,13 @@
 --   1. catppuccin/nvim              - 파스텔 감성 테마 (기본 적용)
 --   2. projekt0n/github-nvim-theme  - GitHub 공식 색감 기반 테마 (대체 테마)
 --   3. rebelot/kanagawa.nvim        - 일본 우키요에 감성 다크 테마 (대체 테마)
+--   4. EdenEast/nightfox.nvim       - 여우 컨셉의 다양한 감성 테마 모음 (대체 테마)
 --
 -- 저장소:
 --   https://github.com/catppuccin/nvim
 --   https://github.com/projekt0n/github-nvim-theme
 --   https://github.com/rebelot/kanagawa.nvim
+--   https://github.com/EdenEast/nightfox.nvim
 --
 -- 설명:
 --   catppuccin   - 파스텔톤의 따뜻한 다크 테마. latte(라이트) / frappe / macchiato / mocha(가장 어두운 다크)
@@ -18,6 +20,11 @@
 --                  lazy=true 이므로 :colorscheme 명령 또는 Telescope colorscheme 선택 시 로드된다.
 --   kanagawa     - 호쿠사이의 '가나가와 해변의 큰 파도'에서 영감받은 테마.
 --                  wave(기본 다크) / dragon(더 어두운 다크) / lotus(라이트) 3종 variant 제공.
+--                  lazy=true 이므로 :colorscheme 명령 또는 Telescope colorscheme 선택 시 로드된다.
+--   nightfox     - 여우 컨셉의 풍부한 variant 제공.
+--                  nightfox(기본 다크) / duskfox(자줏빛 다크) / nordfox(nord 감성) /
+--                  terafox(청록 톤 다크) / carbonfox(가장 어두운 다크) / dayfox(라이트) /
+--                  dawnfox(파스텔 라이트) 7종 variant 제공.
 --                  lazy=true 이므로 :colorscheme 명령 또는 Telescope colorscheme 선택 시 로드된다.
 --
 -- 기본 테마: catppuccin-mocha
@@ -32,6 +39,13 @@
 --   :colorscheme kanagawa-wave             - kanagawa wave (다크, 기본)
 --   :colorscheme kanagawa-dragon           - kanagawa dragon (더 어두운 다크)
 --   :colorscheme kanagawa-lotus            - kanagawa lotus (라이트)
+--   :colorscheme nightfox                  - nightfox (다크, 기본)
+--   :colorscheme duskfox                   - nightfox duskfox (자줏빛 다크)
+--   :colorscheme nordfox                   - nightfox nordfox (nord 감성 다크)
+--   :colorscheme terafox                   - nightfox terafox (청록 톤 다크)
+--   :colorscheme carbonfox                 - nightfox carbonfox (가장 어두운 다크)
+--   :colorscheme dayfox                    - nightfox dayfox (라이트)
+--   :colorscheme dawnfox                   - nightfox dawnfox (파스텔 라이트)
 --   <leader>tc                             - Telescope 로 실시간 테마 전환 (keymaps.lua)
 --
 -- 커스텀 단축키:
@@ -203,6 +217,56 @@ return {
 					dark = "wave", -- 다크 모드 기본 variant: wave (가나가와 파도)
 					light = "lotus", -- 라이트 모드 기본 variant: lotus
 				},
+			})
+		end,
+	},
+
+	-- nightfox.nvim: 여우 컨셉의 다양한 감성 테마 모음 (대체 테마)
+	-- lazy=true 이므로 :colorscheme nightfox 등 실행 또는 Telescope colorscheme 선택 시 자동 로드.
+	-- variant 별로 별도의 colorscheme 이름을 가진다 (nightfox / duskfox / nordfox / terafox / carbonfox / dayfox / dawnfox)
+	{
+		"EdenEast/nightfox.nvim",
+		lazy = true,
+		priority = 100, -- 가중치
+		config = function()
+			require("nightfox").setup({
+				options = {
+					compile_path = vim.fn.stdpath("cache") .. "/nightfox", -- 컴파일 캐시 경로
+					compile_file_suffix = "_compiled", -- 컴파일 파일 접미사
+					transparent = false, -- 배경 투명 비활성
+					terminal_colors = true, -- 내장 터미널 버퍼에도 색상 적용
+					dim_inactive = false, -- 비활성 창 어둡게 비활성
+					module_default = true, -- 모든 모듈(플러그인 연동) 기본 활성
+					colorblind = {
+						enable = false, -- 색약 모드 비활성
+						severity = {
+							protan = 0,
+							deutan = 0,
+							tritan = 0,
+						},
+					},
+					styles = {
+						comments = "italic", -- 주석 이탤릭
+						conditionals = "NONE",
+						constants = "NONE",
+						functions = "NONE",
+						keywords = "italic", -- 키워드 이탤릭
+						numbers = "NONE",
+						operators = "NONE",
+						strings = "NONE",
+						types = "NONE",
+						variables = "NONE",
+					},
+					inverse = {
+						match_paren = false,
+						visual = false,
+						search = false,
+					},
+					modules = {}, -- 모듈별 세부 설정 (비워두면 module_default 적용)
+				},
+				palettes = {}, -- 팔레트 커스터마이즈 (기본값 사용)
+				specs = {}, -- spec 커스터마이즈 (기본값 사용)
+				groups = {}, -- 하이라이트 그룹 커스터마이즈 (기본값 사용)
 			})
 		end,
 	},

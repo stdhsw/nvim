@@ -77,6 +77,19 @@ return {
 		sort_case_insensitive = false, -- 정렬 시 대소문자 구분 (false = 구분함)
 
 		-- ====================================================================
+		-- 컴포넌트 기본 설정: 들여쓰기, 접기/펴기, 디렉토리 아이콘
+		-- ====================================================================
+		default_component_configs = {
+			indent = {
+				with_markers = true,
+				with_expanders = true, -- 접기/펴기 아이콘 활성화
+				expander_collapsed = ">", -- 디렉토리 닫힘 아이콘
+				expander_expanded = "-", -- 디렉토리 열림 아이콘
+				expander_highlight = "NeoTreeExpander",
+			},
+		},
+
+		-- ====================================================================
 		-- Source Selector: 상단 winbar 탭 (filesystem / buffers / git_status 전환)
 		-- ====================================================================
 		source_selector = {
