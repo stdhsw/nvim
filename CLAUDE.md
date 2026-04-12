@@ -7,6 +7,7 @@
 - Iterm2 터미널 환경
 
 # 파일 작성 규칙
+- Neovim의 설정이 바뀌거나 lua/config/keymaps.lua 파일이 변경될 경우 README.md를 업데이트한다.
 - lua 파일을 작성하라는 요청이 없을 경우 lua 파일을 작성하지 않는다.
 - 설계를 할 경우 `CLAUDE_STRUCT.md` 파일에 작성한다.
 - 계획을 할 경우 `CLAUDE_PLAN.md` 파일에 작성한다.
