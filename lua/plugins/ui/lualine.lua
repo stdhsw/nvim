@@ -10,6 +10,10 @@
 --   구성 가능한 6개 섹션으로 나누어 표시한다.
 --   globalstatus = true 설정으로 창이 여러 개여도 상태바는 하단에 하나만 표시된다.
 --
+--   winbar:
+--     창을 분할(:vs, :sp)했을 때 각 창 상단에 파일 아이콘 + 파일명을 표시한다.
+--     활성 창은 아이콘 + 상대경로, 비활성 창은 아이콘 + 상대경로(흐린 색상)로 구분된다.
+--
 -- 상태바 구성:
 --   좌측: [모드] [git 브랜치 + diff] [파일명(상대경로)] [LSP 진단]
 --   우측: [파일타입] [진행률%] [줄:열]
@@ -19,6 +23,7 @@
 --
 -- 사용법:
 --   별도 명령어 없이 자동으로 하단 상태바에 표시된다.
+--   창 분할 시 각 창 상단에 파일명이 자동 표시된다.
 --
 -- 커스텀 단축키:
 --   없음
@@ -43,6 +48,42 @@ return {
 			lualine_x = { "filetype" },
 			lualine_y = { "progress" },
 			lualine_z = { "location" },
+		},
+		-- 활성 창 상단 winbar: 고대비 파란 배경 + 흰색 볼드 텍스트
+		winbar = {
+			lualine_c = {
+				{
+					"filetype",
+					icon_only = true,
+					separator = "",
+					padding = { left = 1, right = 0 },
+					color = { fg = "#ffffff", bg = "#1f6feb" },
+				},
+				{
+					"filename",
+					path = 1,
+					symbols = { modified = " ●", readonly = " ", unnamed = "[No Name]" },
+					color = { fg = "#ffffff", bg = "#1f6feb", gui = "bold" },
+				},
+			},
+		},
+		-- 비활성 창 상단 winbar: 어두운 배경 바 + 회색 텍스트
+		inactive_winbar = {
+			lualine_c = {
+				{
+					"filetype",
+					icon_only = true,
+					separator = "",
+					padding = { left = 1, right = 0 },
+					color = { fg = "#484f58", bg = "#161b22" },
+				},
+				{
+					"filename",
+					path = 1,
+					symbols = { modified = " ●", readonly = " ", unnamed = "[No Name]" },
+					color = { fg = "#484f58", bg = "#161b22" },
+				},
+			},
 		},
 	},
 }
