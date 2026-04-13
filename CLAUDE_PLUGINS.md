@@ -118,7 +118,7 @@
 | ✅ | `MeanderingProgrammer/render-markdown.nvim` | Neovim 버퍼 내 Markdown 인라인 렌더링. 헤더, 코드블록, 체크박스, 테이블 시각화 |
 | ✅ | `kevinhwang91/nvim-ufo` | LSP + treesitter 기반 코드 폴딩. 접힌 줄 수 표시, fold peek 지원 |
 | ✅ | `kevinhwang91/promise-async` | nvim-ufo 비동기 처리 의존성 |
-| ➖ | `mg979/vim-visual-multi` | 멀티커서 편집. 여러 위치에 동시에 커서를 놓고 편집. Ctrl+N으로 단어 선택 후 동시 수정 |
+| ✅ | `mg979/vim-visual-multi` | 멀티커서 편집. 여러 위치에 동시에 커서를 놓고 편집. Ctrl+N으로 단어 선택 후 동시 수정 |
 
 ---
 
@@ -175,9 +175,9 @@
 | 검색 / 탐색 | 3 | 3 | 0 |
 | 파일 탐색기 | 3 | 3 | 0 |
 | Git 통합 | 3 | 3 | 0 |
-| 편집 보조 | 8 | 7 | 0 |
+| 편집 보조 | 8 | 8 | 0 |
 | 디버깅 | 4 | 4 | 0 |
 | UI | 6 | 6 | 0 |
 | 입력기 | 1 | 1 | 0 |
 | AI 통합 | 1 | 1 | 0 |
-| **합계** | **40** | **39** | **0** |
+| **합계** | **40** | **40** | **0** |

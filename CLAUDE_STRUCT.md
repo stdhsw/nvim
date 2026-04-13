@@ -29,7 +29,8 @@
     │   │   ├── render-markdown.lua       # ✅ Markdown 인라인 렌더링
     │   │   ├── todo-comments.lua         # ✅ TODO/FIXME/NOTE 하이라이팅
     │   │   ├── treesitter.lua            # ✅ 문법 하이라이팅 / 코드 파싱
-    │   │   └── ufo.lua                   # ✅ 코드 폴딩 (nvim-ufo)
+    │   │   ├── ufo.lua                   # ✅ 코드 폴딩 (nvim-ufo)
+    │   │   └── visual-multi.lua          # ✅ 멀티커서 편집 (vim-visual-multi)
     │   ├── file/
     │   │   └── neo-tree.lua              # ✅ 파일 탐색기 사이드바
     │   ├── git/

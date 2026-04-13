@@ -94,6 +94,40 @@ map("n", "<leader>kn", function()
 	vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = buf, silent = true, nowait = true })
 end, opts("[도움말] Neovim 내장 명령 치트시트"))
 
+-- 플러그인 사용법 치트시트를 플로팅 창으로 열기
+map("n", "<leader>kp", function()
+	local path = vim.fn.stdpath("config") .. "/guide/plugin-cheatsheet.md"
+	local buf = vim.fn.bufadd(path)
+	vim.fn.bufload(buf)
+	vim.bo[buf].filetype = "markdown"
+	vim.bo[buf].buflisted = false
+	vim.bo[buf].modifiable = false
+	vim.bo[buf].readonly = true
+
+	local width = math.floor(vim.o.columns * 0.85)
+	local height = math.floor(vim.o.lines * 0.85)
+	vim.api.nvim_open_win(buf, true, {
+		relative = "editor",
+		width = width,
+		height = height,
+		row = math.floor((vim.o.lines - height) / 2),
+		col = math.floor((vim.o.columns - width) / 2),
+		style = "minimal",
+		border = "rounded",
+		title = " 플러그인 치트시트 ",
+		title_pos = "center",
+	})
+	vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = buf, silent = true, nowait = true })
+end, opts("[도움말] 플러그인 사용법 치트시트"))
+
+-- guide 폴더 내 키워드 검색 (Telescope)
+map("n", "<leader>kg", function()
+	require("telescope.builtin").live_grep({
+		search_dirs = { vim.fn.stdpath("config") .. "/guide" },
+		prompt_title = "가이드 문서 검색",
+	})
+end, opts("[도움말] 가이드 문서 키워드 검색"))
+
 -- ############################################################################
 -- [[ Plugins ]]
 -- ############################################################################

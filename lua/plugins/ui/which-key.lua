@@ -45,7 +45,7 @@ return {
 			{ "<leader>e", group = "파일 탐색기" },
 			{ "<leader>f", group = "찾기" },
 			{ "<leader>g", group = "Git" },
-			{ "<leader>k", group = "키맵" },
+			{ "<leader>k", group = "키맵/도움말" },
 			{ "<leader>l", group = "LSP" },
 			{ "<leader>m", group = "Markdown" },
 			{ "<leader>t", group = "터미널" },
