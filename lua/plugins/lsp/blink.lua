@@ -13,9 +13,11 @@
 --   lsp → snippets → path → buffer
 --
 -- 사용법:
---   Insert 모드에서 타이핑 시 자동완성 팝업이 표시된다.
+--   Insert 모드에서 <C-Space>로 자동완성 팝업을 수동 호출한다.
+--   (자동 팝업은 비활성화되어 있어 한글 입력 등에서 방해되지 않는다.)
 --
 -- 자동완성 창 단축키:
+--   <C-Space>   - 자동완성 팝업 수동 호출
 --   <C-n>       - 다음 항목 선택
 --   <C-p>       - 이전 항목 선택
 --   <C-y>       - 현재 항목 즉시 선택 후 확정
@@ -50,6 +52,7 @@ return {
 			-- 키맵 (nvim-cmp와 동일한 동작 유지)
 			keymap = {
 				preset = "none",
+				["<C-Space>"] = { "show", "fallback" }, -- 자동완성 팝업 수동 호출
 				["<C-n>"] = { "select_next", "fallback" },
 				["<C-p>"] = { "select_prev", "fallback" },
 				["<C-y>"] = { "select_and_accept" }, -- 자동 선택 후 즉시 확정
@@ -75,6 +78,13 @@ return {
 
 			-- 자동완성 동작
 			completion = {
+				-- 자동 팝업 비활성화 (한글 등 입력 시 방해 방지)
+				-- <C-Space>로 수동 호출만 가능
+				trigger = {
+					show_on_keyword = false,
+					show_on_trigger_character = false,
+				},
+
 				-- 괄호 자동 닫기 (함수 자동완성 시 () 자동 추가)
 				accept = { auto_brackets = { enabled = true } },
 
