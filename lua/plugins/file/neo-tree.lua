@@ -158,7 +158,9 @@ return {
 				},
 				hide_by_pattern = {}, -- glob 패턴으로 숨김 (예: "*.meta")
 				always_show = {}, -- 위에서 숨긴 항목 중 강제로 보일 것
-				never_show = {}, -- 항상 숨길 항목 (visible=true 무시)
+				never_show = { -- 항상 숨길 항목 (visible=true 무시)
+					".git", -- Git 메타데이터 디렉토리
+				},
 			},
 			-- 현재 편집 파일 자동 추적 (편집 중인 파일을 탐색기에서 자동 하이라이트)
 			follow_current_file = {
