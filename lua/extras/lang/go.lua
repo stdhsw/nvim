@@ -21,15 +21,21 @@
 --   (gomodifytags 는 mason-tool-installer 가 자동 설치)
 --
 -- 사용자 명령:
---   :GoAddTag [tags]   - 커서 위치 struct 에 태그 추가 (기본: json)
+--   :GoAddTag [tags]   - 커서가 속한 struct 의 모든 필드에 태그 추가 (기본: json)
 --                        예) :GoAddTag json,yaml
---   :GoRmTag  [tags]   - 커서 위치 struct 에서 지정한 태그 제거
+--   :GoRmTag  [tags]   - 커서가 속한 struct 의 모든 필드에서 지정한 태그 제거
 --                        예) :GoRmTag yaml
---   :GoClearTag        - 커서 위치 struct 의 모든 태그 제거
+--   :GoClearTag        - 커서가 속한 struct 의 모든 필드에서 태그 전체 제거
+--
+--   ※ 커서는 struct 블록 안 어디든 (필드 선언, 빈 줄, `type ... struct {` /
+--     닫는 `}` 줄 포함) 위치하면 된다. 커서가 속한 struct 를 찾아 그 struct 의
+--     모든 필드에 일괄 적용된다.
 -- ============================================================================
 
 -- gomodifytags 실행 래퍼
--- line: 현재 커서 줄 → gomodifytags 가 해당 struct 블록을 식별
+-- -offset: 커서의 바이트 오프셋을 넘기면 해당 오프셋을 감싸는 struct 를 찾아
+--          그 struct 의 "모든 필드" 에 일괄 적용한다.
+--          (과거에는 -line 으로 현재 줄의 단일 필드에만 적용됐다)
 -- -w 옵션: 파일을 직접 수정 (stdout 대신 원본 덮어쓰기)
 -- -transform snakecase: 필드명 FooBar → foo_bar 로 변환해 태그 생성
 local function run_gomodifytags(extra_args, success_msg)
@@ -51,13 +57,15 @@ local function run_gomodifytags(extra_args, success_msg)
 	end
 
 	local file = vim.fn.expand("%:p")
-	local line = vim.fn.line(".")
+	-- 커서의 바이트 오프셋 계산 (nvim_win_get_cursor: row=1-based, col=0-based byte)
+	local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+	local offset = vim.api.nvim_buf_get_offset(0, row - 1) + col
 	local cmd = vim.list_extend({
 		"gomodifytags",
 		"-file",
 		file,
-		"-line",
-		tostring(line),
+		"-offset",
+		tostring(offset),
 		"-w",
 	}, extra_args)
 
