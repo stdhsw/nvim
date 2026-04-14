@@ -53,13 +53,6 @@ return {
 		winbar = {
 			lualine_c = {
 				{
-					"filetype",
-					icon_only = true,
-					separator = "",
-					padding = { left = 1, right = 0 },
-					color = { fg = "#ffffff", bg = "#1f6feb" },
-				},
-				{
 					"filename",
 					path = 1,
 					symbols = { modified = " ●", readonly = " ", unnamed = "[No Name]" },
