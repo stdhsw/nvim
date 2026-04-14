@@ -51,12 +51,12 @@ return {
 		},
 		-- 활성 창 상단 winbar: 고대비 파란 배경 + 흰색 볼드 텍스트
 		winbar = {
-			lualine_c = {
+			lualine_a = {
 				{
 					"filename",
 					path = 1,
 					symbols = { modified = " ●", readonly = " ", unnamed = "[No Name]" },
-					color = { fg = "#ffffff", bg = "#1f6feb", gui = "bold" },
+					color = { fg = "#000000", bg = "#FFD232", gui = "bold" },
 				},
 			},
 		},
