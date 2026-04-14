@@ -1,5 +1,6 @@
 # 응답 언어
 - 모든 응답은 한국어로 진행한다.
+- ~/.claude/skills/ 를 참고한다.
 
 # 환경 정보
 - MacOS
@@ -7,12 +8,12 @@
 - Iterm2 터미널 환경
 
 # 파일 작성 규칙
-- Neovim의 설정이 바뀌거나 lua/config/keymaps.lua 파일이 변경될 경우 README.md를 업데이트한다.
 - lua 파일을 작성하라는 요청이 없을 경우 lua 파일을 작성하지 않는다.
 - 설계를 할 경우 `CLAUDE_STRUCT.md` 파일에 작성한다.
 - 계획을 할 경우 `CLAUDE_PLAN.md` 파일에 작성한다.
 - 필요한 플러그인에 대한 리스트 `CLAUDE_PLUGINS.md` 파일에 정리한다.
 - Plugins관련 파일을 추가하거나 삭제하면 CLAUDE_STRUCT.md, CLAUDE_PLAN.md, CLAUDE_PLUGINS.md 파일을 업데이트한다.
+- Plugins 사용법이 수정될 경우 ./guide/plugin-cheatsheet.md 파일을 최신 상태로 업데이트한다.
 
 # neovim 기본 규칙
 - 모든 단축키에 대한 설정은 config/keymaps.lua 파일에 작성한다.

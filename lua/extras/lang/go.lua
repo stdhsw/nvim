@@ -3,7 +3,8 @@
 --
 -- 설명:
 --   Go 언어 지원 extra.
---   LSP, 포매터, 린터, Treesitter 파서, DAP 디버거를 한 파일에서 관리한다.
+--   LSP, 포매터, 린터, Treesitter 파서, DAP 디버거, struct 태그 편집을
+--   한 파일에서 관리한다.
 --
 -- 포함 구성:
 --   LSP       - gopls (Go 공식 LSP)
@@ -11,12 +12,87 @@
 --   린터      - (gopls staticcheck으로 대체)
 --   파서      - go, gomod, gosum, gowork
 --   DAP       - nvim-dap-go (delve 연동)
+--   태그 편집 - gomodifytags (struct 필드 json/yaml 태그 자동 생성)
 --
 -- 사전 요구사항:
 --   go install mvdan.cc/gofumpt@latest
 --   go install golang.org/x/tools/cmd/goimports@latest
 --   brew install delve
+--   (gomodifytags 는 mason-tool-installer 가 자동 설치)
+--
+-- 사용자 명령:
+--   :GoAddTag [tags]   - 커서 위치 struct 에 태그 추가 (기본: json)
+--                        예) :GoAddTag json,yaml
+--   :GoRmTag  [tags]   - 커서 위치 struct 에서 지정한 태그 제거
+--                        예) :GoRmTag yaml
+--   :GoClearTag        - 커서 위치 struct 의 모든 태그 제거
 -- ============================================================================
+
+-- gomodifytags 실행 래퍼
+-- line: 현재 커서 줄 → gomodifytags 가 해당 struct 블록을 식별
+-- -w 옵션: 파일을 직접 수정 (stdout 대신 원본 덮어쓰기)
+-- -transform snakecase: 필드명 FooBar → foo_bar 로 변환해 태그 생성
+local function run_gomodifytags(extra_args, success_msg)
+	if vim.bo.filetype ~= "go" then
+		vim.notify("[gomodifytags] Go 파일에서만 사용할 수 있습니다.", vim.log.levels.WARN)
+		return
+	end
+	if vim.fn.executable("gomodifytags") == 0 then
+		vim.notify(
+			"[gomodifytags] 실행 파일이 없습니다. :MasonInstall gomodifytags 를 실행하세요.",
+			vim.log.levels.ERROR
+		)
+		return
+	end
+
+	-- 저장되지 않은 변경이 있으면 먼저 저장 (gomodifytags 는 디스크 파일을 직접 편집)
+	if vim.bo.modified then
+		vim.cmd("silent write")
+	end
+
+	local file = vim.fn.expand("%:p")
+	local line = vim.fn.line(".")
+	local cmd = vim.list_extend({
+		"gomodifytags",
+		"-file",
+		file,
+		"-line",
+		tostring(line),
+		"-w",
+	}, extra_args)
+
+	local result = vim.system(cmd, { text = true }):wait()
+	if result.code ~= 0 then
+		vim.notify("[gomodifytags] 실패: " .. (result.stderr or ""), vim.log.levels.ERROR)
+		return
+	end
+
+	-- 디스크 변경분을 버퍼로 다시 읽어들임
+	vim.cmd("silent edit")
+	vim.notify("[gomodifytags] " .. success_msg, vim.log.levels.INFO)
+end
+
+vim.api.nvim_create_user_command("GoAddTag", function(opts)
+	local tags = opts.args ~= "" and opts.args or "json"
+	run_gomodifytags({ "-add-tags", tags, "-transform", "snakecase" }, "태그 추가: " .. tags)
+end, {
+	nargs = "?",
+	desc = "Go struct 에 태그 추가 (기본: json). 예) :GoAddTag json,yaml",
+})
+
+vim.api.nvim_create_user_command("GoRmTag", function(opts)
+	local tags = opts.args ~= "" and opts.args or "json"
+	run_gomodifytags({ "-remove-tags", tags }, "태그 제거: " .. tags)
+end, {
+	nargs = "?",
+	desc = "Go struct 에서 지정한 태그 제거. 예) :GoRmTag yaml",
+})
+
+vim.api.nvim_create_user_command("GoClearTag", function()
+	run_gomodifytags({ "-clear-tags" }, "모든 태그 제거")
+end, {
+	desc = "Go struct 의 모든 태그 제거",
+})
 
 return {
 	-- Mason: gopls 자동 설치
@@ -25,6 +101,15 @@ return {
 		opts = function(_, opts)
 			opts.ensure_installed = opts.ensure_installed or {}
 			vim.list_extend(opts.ensure_installed, { "gopls" })
+		end,
+	},
+
+	-- Mason tool installer: gomodifytags (struct 태그 편집 도구) 자동 설치
+	{
+		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		opts = function(_, opts)
+			opts.ensure_installed = opts.ensure_installed or {}
+			vim.list_extend(opts.ensure_installed, { "gomodifytags" })
 		end,
 	},
 
