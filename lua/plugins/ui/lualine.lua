@@ -49,37 +49,116 @@ return {
 			lualine_y = { "progress" },
 			lualine_z = { "location" },
 		},
-		-- 활성 창 상단 winbar: 고대비 파란 배경 + 흰색 볼드 텍스트
+
+		-- 활성 창: 오렌지색 파워라인 (뾰족한 엣지)
 		winbar = {
-			lualine_c = {
+			lualine_a = {
+				{
+					"filetype",
+					icon_only = true,
+					separator = { left = "", right = "" },
+					padding = { left = 2, right = 1 },
+					color = { fg = "#000000", bg = "#FF8800" },
+				},
 				{
 					"filename",
 					path = 1,
-					symbols = { modified = " ●", readonly = " ", unnamed = "[No Name]" },
-					color = { fg = "#000000", bg = "#FFD232", gui = "bold" },
-					-- color = { fg = "#000000", bg = "#00FFFF", gui = "bold" },
-					-- color = { fg = "#FFFFFF", bg = "#8250DF", gui = "bold" },
-					-- color = { fg = "#010409", bg = "#E6EDF3", gui = "bold" },
+					symbols = { modified = " ", readonly = " ", unnamed = "[No Name]" },
+					separator = { left = "", right = "" },
+					color = { fg = "#000000", bg = "#FF8800", gui = "bold" },
 				},
 			},
 		},
-		-- 비활성 창 상단 winbar: 어두운 배경 바 + 회색 텍스트
+		-- 비활성 창: 텍스트 위주의 미니멀 라인
 		inactive_winbar = {
 			lualine_c = {
 				{
 					"filetype",
 					icon_only = true,
 					separator = "",
-					padding = { left = 1, right = 0 },
-					color = { fg = "#484f58", bg = "#161b22" },
+					padding = { left = 2, right = 1 },
+					color = { fg = "#484f58", bg = "NONE" },
 				},
 				{
 					"filename",
 					path = 1,
-					symbols = { modified = " ●", readonly = " ", unnamed = "[No Name]" },
-					color = { fg = "#484f58", bg = "#161b22" },
+					symbols = { modified = " ", readonly = " ", unnamed = "[No Name]" },
+					separator = "",
+					color = { fg = "#484f58", bg = "NONE" },
 				},
 			},
 		},
+
+		-- 활성 창: 시안색 둥근 캡슐 모양
+		-- winbar = {
+		-- 	lualine_a = {
+		-- 		{
+		-- 			"filetype",
+		-- 			icon_only = true,
+		-- 			separator = { left = "", right = "" },
+		-- 			padding = { left = 1, right = 0 },
+		-- 			color = { fg = "#000000", bg = "#00FFFF" },
+		-- 		},
+		-- 		{
+		-- 			"filename",
+		-- 			path = 1,
+		-- 			symbols = { modified = " ", readonly = " ", unnamed = "[No Name]" },
+		-- 			separator = { left = "", right = "" },
+		-- 			color = { fg = "#000000", bg = "#00FFFF", gui = "bold" },
+		-- 		},
+		-- 	},
+		-- },
+		-- -- 비활성 창: 어두운 회색 둥근 캡슐 모양
+		-- inactive_winbar = {
+		-- 	lualine_c = {
+		-- 		{
+		-- 			"filetype",
+		-- 			icon_only = true,
+		-- 			separator = { left = "", right = "" },
+		-- 			padding = { left = 1, right = 0 },
+		-- 			color = { fg = "#8b949e", bg = "#161b22" },
+		-- 		},
+		-- 		{
+		-- 			"filename",
+		-- 			path = 1,
+		-- 			symbols = { modified = " ", readonly = " ", unnamed = "[No Name]" },
+		-- 			separator = { left = "", right = "" },
+		-- 			color = { fg = "#8b949e", bg = "#161b22" },
+		-- 		},
+		-- 	},
+		-- },
+
+		-- -- 활성 창 상단 winbar: 고대비 파란 배경 + 흰색 볼드 텍스트
+		-- winbar = {
+		-- 	lualine_c = {
+		-- 		{
+		-- 			"filename",
+		-- 			path = 1,
+		-- 			symbols = { modified = " ●", readonly = " ", unnamed = "[No Name]" },
+		-- 			color = { fg = "#000000", bg = "#FFD232", gui = "bold" },
+		-- 			-- color = { fg = "#000000", bg = "#00FFFF", gui = "bold" },
+		-- 			-- color = { fg = "#FFFFFF", bg = "#8250DF", gui = "bold" },
+		-- 			-- color = { fg = "#010409", bg = "#E6EDF3", gui = "bold" },
+		-- 		},
+		-- 	},
+		-- },
+		-- -- 비활성 창 상단 winbar: 어두운 배경 바 + 회색 텍스트
+		-- inactive_winbar = {
+		-- 	lualine_c = {
+		-- 		{
+		-- 			"filetype",
+		-- 			icon_only = true,
+		-- 			separator = "",
+		-- 			padding = { left = 1, right = 0 },
+		-- 			color = { fg = "#484f58", bg = "#161b22" },
+		-- 		},
+		-- 		{
+		-- 			"filename",
+		-- 			path = 1,
+		-- 			symbols = { modified = " ●", readonly = " ", unnamed = "[No Name]" },
+		-- 			color = { fg = "#484f58", bg = "#161b22" },
+		-- 		},
+		-- 	},
+		-- },
 	},
 }
