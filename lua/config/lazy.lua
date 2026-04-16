@@ -60,6 +60,7 @@ require("lazy").setup({
 	{ import = "plugins.git" },
 	{ import = "plugins.input" },
 	{ import = "plugins.lsp" },
+	{ import = "plugins.note" },
 	{ import = "plugins.search" },
 	{ import = "plugins.ui" },
 

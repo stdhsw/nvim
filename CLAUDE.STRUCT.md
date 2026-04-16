@@ -44,6 +44,8 @@
     │   │   ├── lspconfig.lua             # ✅ LSP 공통 설정 (capabilities)
     │   │   ├── mason.lua                 # ✅ LSP 서버 자동 설치
     │   │   └── mason-tool-installer.lua  # ✅ 외부 도구 (린터/포매터) 자동 설치
+    │   ├── note/
+    │   │   └── obsidian.lua              # ✅ Obsidian vault 통합 (노트/일간노트/백링크)
     │   ├── search/
     │   │   └── telescope.lua             # ✅ 파일/심볼/grep/LSP 검색
     │   └── ui/

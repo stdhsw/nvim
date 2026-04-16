@@ -20,6 +20,7 @@
 - [editor] vim-visual-multi — 멀티커서
 - [search] telescope — 퍼지 검색
 - [file] neo-tree — 파일 탐색기
+- [note] obsidian.nvim — Obsidian vault 통합
 - [git] gitsigns — Git 변경 표시
 - [git] neogit — Git TUI
 - [git] diffview — Diff 뷰어
@@ -292,6 +293,48 @@ VSCode 스타일의 멀티커서 편집 플러그인.
 | `E`          | `[파일탐색]` 모든 디렉토리 펼치기           |
 | `C`          | `[파일탐색]` 모든 디렉토리 접기             |
 | `<` / `>`    | `[파일탐색]` 이전 / 다음 source 전환        |
+
+---
+
+## [note] epwalsh/obsidian.nvim
+
+키워드: 옵시디언 obsidian 노트 note vault 마크다운 pkm 지식관리 백링크 데일리노트 daily
+
+Obsidian vault(`~/Documents/obsidian`)와 Neovim을 통합한다.
+Markdown 노트, 일간 노트, 백링크, 태그, 템플릿을 Neovim 안에서 관리한다.
+렌더링은 render-markdown.nvim이 담당하므로 obsidian.nvim의 자체 UI는 비활성화되어 있다.
+
+### vault 디렉토리 구조
+| 경로 | 용도 |
+|---|---|
+| `~/Documents/obsidian/notes/` | 새 노트 기본 저장 위치 |
+| `~/Documents/obsidian/daily/` | 일간 노트 (YYYY-MM-DD.md) |
+| `~/Documents/obsidian/templates/` | 템플릿 |
+| `~/Documents/obsidian/assets/` | 이미지 / 첨부파일 |
+
+### 단축키
+| 단축키        | 설명 |
+|--------------|---|
+| `<leader>on` | `[Obsidian]` 새 노트 생성 |
+| `<leader>oo` | `[Obsidian]` Obsidian 앱에서 열기 |
+| `<leader>os` | `[Obsidian]` vault 전체 검색 |
+| `<leader>oq` | `[Obsidian]` 노트 빠른 전환 |
+| `<leader>ot` | `[Obsidian]` 오늘 일간 노트 |
+| `<leader>oy` | `[Obsidian]` 어제 일간 노트 |
+| `<leader>om` | `[Obsidian]` 내일 일간 노트 |
+| `<leader>ob` | `[Obsidian]` 현재 노트의 백링크 |
+| `<leader>og` | `[Obsidian]` 태그 검색 |
+| `<leader>op` | `[Obsidian]` 클립보드 이미지 붙여넣기 |
+| `<leader>or` | `[Obsidian]` 노트 이름 변경 |
+| `<leader>ow` | `[Obsidian]` 템플릿 삽입 |
+
+### 노트 내 조작
+| 키 / 문법 | 설명 |
+|---|---|
+| `[[노트이름]]` | wiki-link — 다른 노트로 연결 |
+| `gf` | 커서 위치의 wiki-link / URL 따라가기 |
+| `:ObsidianLinkNew` | 선택 영역을 링크로 변환 (새 노트 생성) |
+| `:ObsidianLink` | 선택 영역을 기존 노트 링크로 변환 |
 
 ---
 
