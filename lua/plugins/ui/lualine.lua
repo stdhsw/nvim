@@ -56,16 +56,20 @@ return {
 				{
 					"filetype",
 					icon_only = true,
-					separator = { left = "", right = "" },
+					separator = { left = "", right = "" },
 					padding = { left = 2, right = 1 },
-					color = { fg = "#000000", bg = "#FF8800" },
+					-- color = { fg = "#000000", bg = "#b99af3" },
+					-- color = { fg = "#000000", bg = "#00FFFF" },
+					color = { fg = "#000000", bg = "#fee500" },
 				},
 				{
 					"filename",
 					path = 1,
 					symbols = { modified = " ", readonly = " ", unnamed = "[No Name]" },
-					separator = { left = "", right = "" },
-					color = { fg = "#000000", bg = "#FF8800", gui = "bold" },
+					separator = { left = "", right = "" },
+					-- color = { fg = "#000000", bg = "#b99af3", gui = "bold" },
+					-- color = { fg = "#000000", bg = "#00FFFF", gui = "bold" },
+					color = { fg = "#000000", bg = "#fee500", gui = "bold" },
 				},
 			},
 		},
@@ -75,7 +79,6 @@ return {
 				{
 					"filetype",
 					icon_only = true,
-					separator = "",
 					padding = { left = 2, right = 1 },
 					color = { fg = "#484f58", bg = "NONE" },
 				},
@@ -83,7 +86,6 @@ return {
 					"filename",
 					path = 1,
 					symbols = { modified = " ", readonly = " ", unnamed = "[No Name]" },
-					separator = "",
 					color = { fg = "#484f58", bg = "NONE" },
 				},
 			},
@@ -97,7 +99,7 @@ return {
 		-- 			icon_only = true,
 		-- 			separator = { left = "", right = "" },
 		-- 			padding = { left = 1, right = 0 },
-		-- 			color = { fg = "#000000", bg = "#00FFFF" },
+		-- color = { fg = "#000000", bg = "#00FFFF" },
 		-- 		},
 		-- 		{
 		-- 			"filename",
@@ -124,39 +126,6 @@ return {
 		-- 			symbols = { modified = " ", readonly = " ", unnamed = "[No Name]" },
 		-- 			separator = { left = "", right = "" },
 		-- 			color = { fg = "#8b949e", bg = "#161b22" },
-		-- 		},
-		-- 	},
-		-- },
-
-		-- -- 활성 창 상단 winbar: 고대비 파란 배경 + 흰색 볼드 텍스트
-		-- winbar = {
-		-- 	lualine_c = {
-		-- 		{
-		-- 			"filename",
-		-- 			path = 1,
-		-- 			symbols = { modified = " ●", readonly = " ", unnamed = "[No Name]" },
-		-- 			color = { fg = "#000000", bg = "#FFD232", gui = "bold" },
-		-- 			-- color = { fg = "#000000", bg = "#00FFFF", gui = "bold" },
-		-- 			-- color = { fg = "#FFFFFF", bg = "#8250DF", gui = "bold" },
-		-- 			-- color = { fg = "#010409", bg = "#E6EDF3", gui = "bold" },
-		-- 		},
-		-- 	},
-		-- },
-		-- -- 비활성 창 상단 winbar: 어두운 배경 바 + 회색 텍스트
-		-- inactive_winbar = {
-		-- 	lualine_c = {
-		-- 		{
-		-- 			"filetype",
-		-- 			icon_only = true,
-		-- 			separator = "",
-		-- 			padding = { left = 1, right = 0 },
-		-- 			color = { fg = "#484f58", bg = "#161b22" },
-		-- 		},
-		-- 		{
-		-- 			"filename",
-		-- 			path = 1,
-		-- 			symbols = { modified = " ●", readonly = " ", unnamed = "[No Name]" },
-		-- 			color = { fg = "#484f58", bg = "#161b22" },
 		-- 		},
 		-- 	},
 		-- },
