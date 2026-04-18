@@ -65,19 +65,19 @@ return {
 			fill = { bg = "#0a0c10" },
 
 			-- 비활성 / 표시중 / 활성 버퍼
-			background = { fg = "#8b949e", bg = "#161b22" },
-			buffer_visible = { fg = "#ffffff", bg = "#161b22" },
-			buffer_selected = { fg = "#000000", bg = "#eeeeee", bold = true, italic = false },
+			background = { fg = "#888888", bg = "#161b22" },
+			buffer_visible = { fg = "#ffffff", bg = "#333333" },
+			buffer_selected = { fg = "#000000", bg = "#EEEEEE", bold = true, italic = false },
 
 			-- 닫기 버튼
-			close_button = { fg = "#8b949e", bg = "#161b22" },
-			close_button_visible = { fg = "#e6edf3", bg = "#161b22" },
-			close_button_selected = { fg = "#000000", bg = "#eeeeee", bold = true, italic = false },
+			close_button = { fg = "#888888", bg = "#161b22" },
+			close_button_visible = { fg = "#ffffff", bg = "#333333" },
+			close_button_selected = { fg = "#000000", bg = "#EEEEEE", bold = true, italic = false },
 
 			-- 수정됨 표시 (close 버튼과 동일한 배경)
-			modified = { fg = "#8b949e", bg = "#161b22" },
-			modified_visible = { fg = "#e6edf3", bg = "#161b22" },
-			modified_selected = { fg = "#000000", bg = "#eeeeee", bold = true, italic = false },
+			modified = { fg = "#888888", bg = "#161b22" },
+			modified_visible = { fg = "#ffffff", bg = "#333333" },
+			modified_selected = { fg = "#000000", bg = "#EEEEEE", bold = true, italic = false },
 		},
 	},
 }
