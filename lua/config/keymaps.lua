@@ -258,6 +258,9 @@ map("n", "<leader>t2", "<cmd>2ToggleTerm<cr>", opts("[Toggleterm] 2번 터미널
 map("n", "<leader>t3", "<cmd>3ToggleTerm<cr>", opts("[Toggleterm] 3번 터미널 토글"))
 
 -- lazygit (Git TUI)
+-- toggleterm 의 Terminal 인스턴스는 lua_ls 가 정적으로 추론하지 못해
+-- :toggle() 호출 시 undefined-field 경고가 뜬다. 타입을 any 로 두어 경고를 회피한다.
+---@type any
 local lazygit_term = nil
 map("n", "<leader>gg", function()
 	if lazygit_term == nil then

@@ -136,12 +136,17 @@ return {
 					-- event_terminated  : 프로세스가 정상 종료된 직후 → UI 닫기
 					-- event_exited      : 프로세스가 비정상 종료(exit code)된 직후 → UI 닫기
 					-- "dapui_config" 는 리스너 식별 키 (임의 문자열, 중복 방지용)
+					-- nvim-dap 의 listeners 필드는 런타임에 확장되는 구조라 lua_ls 정적 분석에서
+					-- undefined-field 로 잡힌다. 실사용에는 문제없으므로 해당 라인만 진단을 끈다.
+					---@diagnostic disable-next-line: undefined-field
 					dap.listeners.after.event_initialized["dapui_config"] = function()
 						dapui.open()
 					end
+					---@diagnostic disable-next-line: undefined-field
 					dap.listeners.before.event_terminated["dapui_config"] = function()
 						dapui.close()
 					end
+					---@diagnostic disable-next-line: undefined-field
 					dap.listeners.before.event_exited["dapui_config"] = function()
 						dapui.close()
 					end
@@ -192,7 +197,10 @@ return {
 			-- dap.listeners.before.launch 는 이미 어댑터에 config가 전달된 이후이므로
 			-- config를 수정해도 반영되지 않음. dap.run 자체를 교체하는 것이
 			-- config 변경이 가능한 유일한 시점
+			-- dap.run 은 함수 타입으로 선언되어 있어 재할당 시 lua_ls 가 inject-field 경고를
+			-- 내지만, 런타임에 함수 교체는 정상 동작하므로 해당 라인만 진단을 끈다.
 			local original_run = dap.run
+			---@diagnostic disable-next-line: inject-field
 			dap.run = function(config, opts)
 				local env = load_dotenv(vim.fn.getcwd() .. "/.env")
 				if next(env) ~= nil then
@@ -201,10 +209,7 @@ return {
 					-- .env 를 base에 두고 config.env 를 우선시하여
 					-- 명시적 설정이 .env 보다 항상 우선되도록 보장
 					config.env = vim.tbl_extend("force", env, config.env or {})
-					vim.notify(
-						"[DAP] .env " .. vim.tbl_count(env) .. "개 환경변수 로드됨",
-						vim.log.levels.INFO
-					)
+					vim.notify("[DAP] .env " .. vim.tbl_count(env) .. "개 환경변수 로드됨", vim.log.levels.INFO)
 				end
 				return original_run(config, opts)
 			end
