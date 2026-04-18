@@ -51,9 +51,33 @@ return {
 					text_align = "center",
 				},
 			},
+			show_buffer_icons = false, -- 각 탭의 파일 타입 아이콘 숨김
 			show_buffer_close_icons = true, -- 각 탭에 닫기 버튼 표시
 			show_close_icon = false, -- 우측 끝 전체 닫기 버튼 숨김
 			separator_style = "slant", -- 탭 구분자 스타일 (slant: 사선)
+			indicator = { style = "icon", icon = "▎" }, -- 활성 탭 좌측 세로 막대
+			modified_icon = "[+]", -- 수정된 버퍼 표시 아이콘
+			always_show_bufferline = true,
+		},
+		-- colorscheme.lua(github_dark_high_contrast) / lualine.lua(노랑 파워라인) 톤에 맞춘 하이라이트
+		highlights = {
+			-- 탭 라인 전체 배경
+			fill = { bg = "#0a0c10" },
+
+			-- 비활성 / 표시중 / 활성 버퍼
+			background = { fg = "#8b949e", bg = "#161b22" },
+			buffer_visible = { fg = "#ffffff", bg = "#161b22" },
+			buffer_selected = { fg = "#000000", bg = "#eeeeee", bold = true, italic = false },
+
+			-- 닫기 버튼
+			close_button = { fg = "#8b949e", bg = "#161b22" },
+			close_button_visible = { fg = "#e6edf3", bg = "#161b22" },
+			close_button_selected = { fg = "#000000", bg = "#eeeeee", bold = true, italic = false },
+
+			-- 수정됨 표시 (close 버튼과 동일한 배경)
+			modified = { fg = "#8b949e", bg = "#161b22" },
+			modified_visible = { fg = "#e6edf3", bg = "#161b22" },
+			modified_selected = { fg = "#000000", bg = "#eeeeee", bold = true, italic = false },
 		},
 	},
 }
