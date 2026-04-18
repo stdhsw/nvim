@@ -8,7 +8,7 @@
 --   열린 버퍼를 상단 탭 형태로 표시하는 플러그인.
 --   파일 아이콘, LSP 진단 아이콘, 사선(slant) 구분자 스타일을 사용한다.
 --   neo-tree 사이드바와 연동하여 사이드바 너비만큼 탭을 오른쪽으로 밀어 표시한다.
---   마지막 버퍼 닫기 시 neovim이 종료되지 않도록 안전하게 처리한다.
+--   마지막 버퍼 닫기 시 alpha 대시보드로 교체하여 neovim 이 종료되지 않도록 한다.
 --
 -- 사용법:
 --   :BufferLinePick        - 알파벳 키로 버퍼 선택해서 이동
@@ -17,7 +17,7 @@
 -- 커스텀 단축키 (config/keymaps.lua 참고):
 --   <S-h>        - 이전 버퍼로 이동
 --   <S-l>        - 다음 버퍼로 이동
---   <leader>w    - 현재 버퍼 닫기 (마지막 버퍼면 neovim 종료)
+--   <leader>w    - 현재 버퍼 닫기 (마지막 버퍼면 alpha 대시보드로 교체, nvim 유지)
 --   <leader>bp   - 버퍼 선택해서 이동 (pick)
 --   <leader>bc   - 버퍼 선택해서 닫기 (pick close)
 -- ============================================================================
@@ -58,6 +58,16 @@ return {
 			indicator = { style = "icon", icon = "▎" }, -- 활성 탭 좌측 세로 막대
 			modified_icon = "[+]", -- 수정된 버퍼 표시 아이콘
 			always_show_bufferline = true,
+			-- X 버튼 클릭 시 동작: 마지막 버퍼면 alpha 대시보드로 교체 (nvim 유지)
+			close_command = function(bufnr)
+				local bufs = vim.fn.getbufinfo({ buflisted = 1 })
+				if #bufs > 1 then
+					vim.cmd("bprevious")
+				else
+					vim.cmd("Alpha") -- 마지막 버퍼면 대시보드 표시
+				end
+				vim.cmd("bdelete! " .. bufnr)
+			end,
 		},
 		-- colorscheme.lua(github_dark_high_contrast) / lualine.lua(노랑 파워라인) 톤에 맞춘 하이라이트
 		highlights = {

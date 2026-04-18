@@ -169,7 +169,10 @@ map("n", "<leader>w", function()
 	if #bufs > 1 then
 		vim.cmd("bp | bd #") -- 이전 버퍼로 전환 후 현재 버퍼 삭제
 	else
-		vim.cmd("q") -- 마지막 버퍼면 종료
+		-- 마지막 버퍼면 alpha 대시보드로 교체 (nvim 유지)
+		local cur = vim.api.nvim_get_current_buf()
+		vim.cmd("Alpha")
+		vim.cmd("bdelete! " .. cur)
 	end
 end, opts("[Bufferline] 버퍼 닫기"))
 map("n", "<leader>bp", "<cmd>BufferLinePick<cr>", opts("[Bufferline] 버퍼 선택해서 이동"))
