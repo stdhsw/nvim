@@ -418,25 +418,3 @@ Claude Code CLI 와 Neovim 을 연결하는 공식 IDE 통합 플러그인입니
 WebSocket 기반 MCP(Model Context Protocol) 로 현재 편집 중인 파일과 선택 영역을 Claude 가 실시간으로 인식하며,
 Claude 가 제안하는 코드 변경사항을 diff 로 검토하고 수락 / 거절할 수 있습니다.
 사용 전 [Claude Code CLI](#claude-code-cli-선택) 설치가 필요합니다.
-
-### 노트
-
-#### [epwalsh/obsidian.nvim](https://github.com/epwalsh/obsidian.nvim)
-
-Obsidian vault 와 Neovim 을 통합하는 노트 관리 플러그인입니다.
-Markdown 기반의 PKM(Personal Knowledge Management) 작업 — 노트 생성 / 빠른 전환, 일간 노트,
-`[[wiki-link]]` 로 노트 간 연결, 백링크 탐색, 태그 검색, 템플릿 삽입, 이미지 붙여넣기 — 을
-Neovim 안에서 수행할 수 있습니다.
-
-vault 경로는 `~/Documents/obsidian` 으로 설정되어 있으며, 하위 디렉토리는 다음과 같이 사용합니다.
-
-| 경로 | 용도 |
-|---|---|
-| `notes/` | 새 노트 기본 저장 위치 |
-| `daily/` | 일간 노트 (`YYYY-MM-DD.md`) |
-| `templates/` | 템플릿 |
-| `assets/` | 이미지 / 첨부파일 |
-
-UI 렌더링은 `render-markdown.nvim` 이 담당하므로 obsidian.nvim 자체 UI 는 비활성화되어 있습니다.
-주요 기능은 `<leader>o` 로 시작하는 단축키로 사용할 수 있으며, 전체 목록은
-`<leader>kp` 로 플러그인 치트시트를 확인하세요.
