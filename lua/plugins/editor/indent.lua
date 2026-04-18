@@ -9,11 +9,10 @@
 --   각 depth 마다 서로 다른 색을 입혀 중첩 구조를 한눈에 구분할 수 있게 한다.
 --   커서가 위치한 현재 스코프(scope) 역시 동일한 depth 색상으로 강조된다.
 --
---   네 종류의 팔레트를 제공하며 기분에 따라 자유롭게 전환할 수 있다.
+--   세 종류의 팔레트를 제공하며 기분에 따라 자유롭게 전환할 수 있다.
 --     1. pastel  - 은은한 파스텔톤 (배경과 튀지 않음)
---     2. rainbow - 선명한 무지개톤 (depth 구분이 가장 명확함)
---     3. mono    - 무채색 그라데이션 (차분한 그레이 톤)
---     4. focus   - 현재 스코프만 강조 (모든 depth 는 어두운 회색, 커서 스코프만 밝은 회색)
+--     2. mono    - 무채색 그라데이션 (차분한 그레이 톤)
+--     3. focus   - 현재 스코프만 강조 (모든 depth 는 어두운 회색, 커서 스코프만 밝은 회색)
 --
 --   활용 예시:
 --   - K8s manifest: spec.template.spec.containers 중첩 구조 파악
@@ -29,14 +28,13 @@
 --
 --   [방법 1] 런타임 전환 (현재 nvim 세션에만 적용, 재시작하면 기본값으로 복귀)
 --     :IblPalette pastel    - 은은한 파스텔톤 적용
---     :IblPalette rainbow   - 선명한 무지개톤 적용
 --     :IblPalette mono      - 무채색 그라데이션 적용
 --     :IblPalette focus     - 현재 스코프만 밝게 강조
 --     :IblPalette           - 현재 적용된 팔레트 이름 출력
 --     Tab 자동완성으로 팔레트 이름을 제안받을 수 있다.
 --
 --   [방법 2] 영구 기본값 변경 (nvim 시작 시 적용되는 팔레트 교체)
---     아래 `default` 변수의 값을 "pastel" / "rainbow" / "mono" / "focus" 중 하나로 수정한다.
+--     아래 `default` 변수의 값을 "pastel" / "mono" / "focus" 중 하나로 수정한다.
 --       예) local default = "focus"
 --
 --   [방법 3] 색상 자체 커스터마이즈
@@ -65,11 +63,6 @@ local palettes = {
 	pastel = {
 		indent = { "#E06C75", "#E5C07B", "#98C379", "#56B6C2", "#61AFEF", "#C678DD", "#D19A66" },
 		scope = { "#E06C75", "#E5C07B", "#98C379", "#56B6C2", "#61AFEF", "#C678DD", "#D19A66" },
-	},
-	-- 선명한 무지개톤: Dracula 기반의 비비드한 색상
-	rainbow = {
-		indent = { "#FF5555", "#FFB86C", "#F1FA8C", "#50FA7B", "#8BE9FD", "#BD93F9", "#FF79C6" },
-		scope = { "#FF5555", "#FFB86C", "#F1FA8C", "#50FA7B", "#8BE9FD", "#BD93F9", "#FF79C6" },
 	},
 	-- 무채색 그라데이션: 어두움 → 밝음 순 (depth 가 깊을수록 밝아짐)
 	mono = {
