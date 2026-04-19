@@ -245,6 +245,8 @@ map("n", "<leader>t3", "<cmd>3ToggleTerm<cr>", opts("[Toggleterm] 3번 터미널
 map("n", "<leader>gs", "<cmd>Neogit<cr>", opts("[Git Neogit] neogit 열기"))
 map("n", "<leader>gd", "<cmd>DiffviewOpen<cr>", opts("[Git Diffview] diffview 열기"))
 map("n", "<leader>gD", "<cmd>DiffviewClose<cr>", opts("[Git Diffview] diffview 닫기"))
+map("n", "<leader>gh", "<cmd>DiffviewFileHistory %<cr>", opts("[Git Diffview] 현재 파일 커밋 히스토리"))
+map("n", "<leader>gH", "<cmd>DiffviewFileHistory<cr>", opts("[Git Diffview] 브랜치 전체 커밋 히스토리"))
 map("n", "]h", function()
 	gitsigns().next_hunk()
 end, opts("[Git Gitsigns] 다음 hunk로 이동"))

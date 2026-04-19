@@ -34,7 +34,8 @@
     │   ├── file/
     │   │   └── neo-tree.lua              # ✅ 파일 탐색기 사이드바
     │   ├── git/
-    │   │   └── neogit.lua                # ✅ git 통합 (gitsigns, neogit, diffview)
+    │   │   ├── gitsigns.lua              # ✅ gutter 변경사항 표시 및 hunk 조작
+    │   │   └── neogit.lua                # ✅ git TUI (neogit, diffview)
     │   ├── input/
     │   │   └── im-select.lua             # ✅ 입력기 자동 전환 (한/영)
     │   ├── lsp/
