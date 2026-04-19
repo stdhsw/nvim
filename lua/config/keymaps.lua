@@ -66,11 +66,10 @@ map("t", "<Esc><Esc>", "<C-\\><C-n>", opts("[터미널] 노멀 모드로 전환"
 -- ============================================================================
 -- 도움말
 -- ============================================================================
--- Neovim 내장 명령 치트시트를 플로팅 창으로 열기
--- 현재 작업 디렉토리와 무관하게 ~/.config/nvim/guide/nvim-cheatsheet.md 를 엽니다.
--- 창 안에서 q 를 누르면 닫힙니다.
-map("n", "<leader>kn", function()
-	local path = vim.fn.stdpath("config") .. "/guide/nvim-cheatsheet.md"
+-- guide/ 의 markdown 파일을 화면 중앙 85% 크기 플로팅 창으로 읽기 전용 표시.
+-- 창 안에서 q 를 누르면 닫힌다.
+local function open_cheatsheet(filename, title)
+	local path = vim.fn.stdpath("config") .. "/guide/" .. filename
 	local buf = vim.fn.bufadd(path)
 	vim.fn.bufload(buf)
 	vim.bo[buf].filetype = "markdown"
@@ -88,36 +87,18 @@ map("n", "<leader>kn", function()
 		col = math.floor((vim.o.columns - width) / 2),
 		style = "minimal",
 		border = "rounded",
-		title = " Neovim 치트시트 ",
+		title = title,
 		title_pos = "center",
 	})
 	vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = buf, silent = true, nowait = true })
+end
+
+map("n", "<leader>kn", function()
+	open_cheatsheet("nvim-cheatsheet.md", " Neovim 치트시트 ")
 end, opts("[도움말] Neovim 내장 명령 치트시트"))
 
--- 플러그인 사용법 치트시트를 플로팅 창으로 열기
 map("n", "<leader>kp", function()
-	local path = vim.fn.stdpath("config") .. "/guide/plugin-cheatsheet.md"
-	local buf = vim.fn.bufadd(path)
-	vim.fn.bufload(buf)
-	vim.bo[buf].filetype = "markdown"
-	vim.bo[buf].buflisted = false
-	vim.bo[buf].modifiable = false
-	vim.bo[buf].readonly = true
-
-	local width = math.floor(vim.o.columns * 0.85)
-	local height = math.floor(vim.o.lines * 0.85)
-	vim.api.nvim_open_win(buf, true, {
-		relative = "editor",
-		width = width,
-		height = height,
-		row = math.floor((vim.o.lines - height) / 2),
-		col = math.floor((vim.o.columns - width) / 2),
-		style = "minimal",
-		border = "rounded",
-		title = " 플러그인 치트시트 ",
-		title_pos = "center",
-	})
-	vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = buf, silent = true, nowait = true })
+	open_cheatsheet("plugin-cheatsheet.md", " 플러그인 치트시트 ")
 end, opts("[도움말] 플러그인 사용법 치트시트"))
 
 -- guide 폴더 내 키워드 검색 (Telescope)
@@ -329,7 +310,7 @@ map("n", "<F8>", function()
 end, opts("[DAP] 디버깅 조건부 브레이크포인트 설정"))
 map("n", "<F9>", function()
 	dap().toggle_breakpoint()
-end, opts("[DAP] 디버킹 브레이크포인트 토글"))
+end, opts("[DAP] 디버깅 브레이크포인트 토글"))
 map("n", "<F10>", function()
 	dap().step_over()
 end, opts("[DAP] 디버깅 Step Over"))

@@ -48,7 +48,7 @@
     │   │   └── telescope.lua             # ✅ 파일/심볼/grep/LSP 검색
     │   └── ui/
     │       ├── bufferline.lua            # ✅ 탭/버퍼 UI
-    │       ├── colorscheme.lua           # ✅ 테마 (catppuccin-mocha 기본 + github / kanagawa / nightfox 대체)
+    │       ├── colorscheme.lua           # ✅ 테마 (github_dark_high_contrast 기본 + kanagawa / nightfox 대체)
     │       ├── lualine.lua               # ✅ 하단 상태바
     │       ├── toggleterm.lua            # ✅ 터미널 토글
     │       └── which-key.lua             # ✅ 단축키 힌트 팝업
@@ -109,7 +109,7 @@
 |---|---|---|---|
 | Go | gopls | gofumpt, goimports | gopls 내장 (staticcheck) |
 | Python | pyright | black, isort | - |
-| SQL | - | sqlfluff | sqlfluff |
+| SQL | - | sqlfluff | - |
 | YAML / K8s | yaml-language-server | prettier | - |
 | JSON | json-lsp | prettier | - |
 | Bash | bash-language-server | shfmt | shellcheck |
@@ -126,9 +126,7 @@
 - `.env` 파일 자동 로드 (디버깅/테스트 시 환경변수 주입)
 
 ### 테마
-- catppuccin/nvim (mocha flavour) — 기본값. 파스텔톤 다크. latte/frappe/macchiato/mocha 4종 제공
-- github-nvim-theme (dark_high_contrast variant) — 대체 테마. lazy 로드
+- github-nvim-theme (dark_high_contrast variant) — 기본값. Go 코딩에 맞춘 treesitter highlight 커스텀 적용
 - kanagawa.nvim (wave / dragon / lotus variant) — 대체 다크 테마. lazy 로드
 - nightfox.nvim (nightfox/duskfox/nordfox/terafox/carbonfox/dayfox/dawnfox 7종 variant) — 대체 테마. lazy 로드
-- github-theme 은 Go 코딩에 맞게 treesitter highlight 커스텀 적용 (변수, 함수, 타입, 키워드 등)
-- `<leader>tc`로 telescope에서 실시간 테마 전환 가능 (github/kanagawa/nightfox 도 이 시점에 자동 로드)
+- `<leader>tc`로 telescope에서 실시간 테마 전환 가능 (kanagawa/nightfox 도 이 시점에 자동 로드)

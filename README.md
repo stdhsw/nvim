@@ -381,12 +381,6 @@ GitHub UI 색감 기반 테마입니다.
 기본값은 `github_dark_high_contrast` 이며, Go 코드용 treesitter highlight
 (변수 / 함수 / 타입 / 키워드 색상 구분) 가 커스터마이즈되어 있습니다.
 
-#### [catppuccin/nvim](https://github.com/catppuccin/nvim) (대체 테마)
-
-파스텔톤 감성 테마입니다.
-`latte` (라이트) / `frappe` / `macchiato` / `mocha` (다크) 4종 flavour 를 제공하며,
-`<leader>tc` 로 실시간 미리보기 하면서 선택할 수 있습니다.
-
 #### [rebelot/kanagawa.nvim](https://github.com/rebelot/kanagawa.nvim) (대체 테마)
 
 호쿠사이의 '가나가와 해변의 큰 파도' 에서 영감받은 다크 테마입니다.

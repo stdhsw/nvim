@@ -54,31 +54,20 @@
 --                 (예: integration, e2e 등 //go:build 태그가 필요한 테스트)
 -- ============================================================================
 
--- .env 파일을 파싱하여 환경변수 테이블로 반환
--- 파일이 없으면 빈 테이블 반환 (오류 없이 무시)
+-- .env 파일을 파싱하여 환경변수 테이블로 반환 (파일 없으면 빈 테이블)
+-- 지원 형식: KEY=VALUE / KEY="VALUE" / KEY='VALUE' / # 주석 / 빈 줄
 local function load_dotenv(path)
 	local env = {}
-
-	-- io.open 실패(파일 없음) 시 nil 반환 → 빈 테이블로 조기 반환
 	local file = io.open(path, "r")
 	if not file then
 		return env
 	end
 
 	for line in file:lines() do
-		-- 빈 줄("") 과 # 으로 시작하는 주석 줄은 건너뜀
-		-- ^%s*# : 앞쪽 공백이 있어도 주석으로 처리
 		if line ~= "" and not line:match("^%s*#") then
-			-- KEY=VALUE 형태를 캡처
-			-- ^%s*       : 앞쪽 공백 허용
-			-- ([^=]+)    : = 이전의 키 이름 캡처 (= 미포함)
-			-- %s*=%s*    : = 앞뒤 공백 허용
-			-- (.-)%s*$   : 값 캡처, 뒤쪽 공백 제거
 			local key, value = line:match("^%s*([^=]+)%s*=%s*(.-)%s*$")
 			if key and value then
-				-- 큰따옴표/작은따옴표로 감싼 값에서 따옴표 제거
-				-- "value" → value, 'value' → value
-				-- 매칭 실패 시 원본 value 그대로 사용
+				-- 감싸는 따옴표 제거 (없으면 원본 유지)
 				value = value:match('^"(.*)"$') or value:match("^'(.*)'$") or value
 				env[key] = value
 			end

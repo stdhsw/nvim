@@ -80,13 +80,10 @@ local function realign_all_tables()
 	end
 
 	-- 각 테이블의 첫 줄로 커서 이동 후 재정렬
-	-- vim.cmd 는 __call 메타메서드를 가진 table 타입이라 pcall 의 첫 인자로 직접 넘기면
-	-- lua_ls 가 fun(...) 시그니처와 맞지 않는다고 경고한다. 익명 함수로 감싸서 회피한다.
+	-- pcall: 커서 위치가 table-mode 가 인식 못 하는 셀일 때 에러 무시
 	for _, lnum in ipairs(table_starts) do
 		vim.api.nvim_win_set_cursor(0, { lnum, 0 })
-		pcall(function()
-			vim.cmd("TableModeRealign")
-		end)
+		pcall(vim.cmd.TableModeRealign)
 	end
 
 	-- 구분선 셀의 공백을 - 로 채움
