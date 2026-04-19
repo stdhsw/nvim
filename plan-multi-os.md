@@ -29,7 +29,7 @@
 | LSP · Mason · 포매터 · 린터 | ✅ | ✅ | ✅ |
 | Telescope · Treesitter · Neo-tree | ✅ | ✅ | ✅ |
 | Go DAP (delve) | ✅ | ✅ | ✅ |
-| Git (neogit, lazygit) | ✅ | ✅ | ✅ |
+| Git (neogit) | ✅ | ✅ | ✅ |
 | 시스템 클립보드 | ✅ (자동) | ⚠ `xclip`/`wl-clipboard` 필요 | ⚠ `win32yank` 권장 |
 | Nerd Font 아이콘 | ✅ | ⚠ 터미널에 Nerd Font 설치 필요 | ⚠ Windows Terminal 에 Nerd Font 설치 필요 |
 | 한/영 입력기 자동 전환 | ✅ | ❌ (의도적 비활성) | ❌ (의도적 비활성) |
@@ -362,9 +362,6 @@ brew install im-select
 # Go 디버거
 brew install delve
 
-# Git TUI (<leader>gg)
-brew install lazygit
-
 # Bash 포매터 (Mason 미지원 시 fallback)
 brew install shfmt
 \```
@@ -385,12 +382,6 @@ ln -sf $(which fdfind) ~/.local/bin/fd
 
 # Go 디버거
 go install github.com/go-delve/delve/cmd/dlv@latest
-
-# lazygit (deb 릴리스)
-LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
-curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-tar xf lazygit.tar.gz lazygit
-sudo install lazygit /usr/local/bin
 
 # 한/영 입력기 자동 전환: Linux/WSL 에서는 지원하지 않음 (플러그인 자동 비활성)
 
@@ -558,7 +549,6 @@ nvim -c 'Lazy'
 | 파일 검색 | `<leader>ff` | | | |
 | live grep | `<leader>fg` | | | |
 | neo-tree | `<leader>e` | | | |
-| lazygit | `<leader>gg` | | | |
 | Claude 토글 | `<leader>ac` | | | |
 | Go LSP | `.go` 파일 열기 → `K` | | | |
 | Go DAP | `:lua require('dap').continue()` | | | |

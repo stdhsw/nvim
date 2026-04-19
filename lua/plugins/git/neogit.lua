@@ -31,6 +31,8 @@
 --     ]h / [h     - 다음/이전 hunk로 이동
 --     <leader>gp  - hunk 변경사항 미리보기
 --     <leader>gb  - 현재 줄 git blame 토글
+--     <leader>gr  - hunk 되돌리기 (visual 모드: 선택 영역만)
+--     <leader>gR  - 버퍼 전체 되돌리기
 --
 --   diffview:
 --     <leader>gd  - diffview 열기 (현재 변경사항)
@@ -43,6 +45,8 @@
 --   ]h / [h     - 다음/이전 hunk 이동
 --   <leader>gp  - hunk 미리보기
 --   <leader>gb  - blame 토글
+--   <leader>gr  - hunk 되돌리기
+--   <leader>gR  - 버퍼 전체 되돌리기
 -- ============================================================================
 
 return {
