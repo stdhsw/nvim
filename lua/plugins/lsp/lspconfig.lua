@@ -20,7 +20,7 @@
 --
 -- 커스텀 단축키 (config/keymaps.lua 참고):
 --   gd           - 정의로 이동
---   gD           - 선언으로 이동
+--   gD           - 정의를 옆 창에 표시 (neo-tree 등 특수 창은 제외, 없으면 vsplit)
 --   gi           - 구현으로 이동
 --   gr           - 참조 찾기 (telescope로 표시)
 --   K            - hover 문서 표시

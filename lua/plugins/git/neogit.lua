@@ -28,15 +28,15 @@
 --       lh        - HEAD 기준 로그
 --
 --   diffview:
---     <leader>gd  - diffview 열기 (현재 변경사항)
---     <leader>gD  - diffview 닫기
+--     <leader>gv  - diffview 열기 (현재 변경사항)
+--     <leader>gV  - diffview 닫기
 --     <leader>gh  - 현재 파일 커밋 히스토리
 --     <leader>gH  - 브랜치 전체 커밋 히스토리
 --
 -- 커스텀 단축키 (config/keymaps.lua 참고):
 --   <leader>gs  - neogit 열기
---   <leader>gd  - diffview 열기
---   <leader>gD  - diffview 닫기
+--   <leader>gv  - diffview 열기
+--   <leader>gV  - diffview 닫기
 --   <leader>gh  - 현재 파일 커밋 히스토리
 --   <leader>gH  - 브랜치 전체 커밋 히스토리
 -- ============================================================================

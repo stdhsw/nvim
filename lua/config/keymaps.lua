@@ -182,13 +182,36 @@ map("n", "[d", function()
 	vim.diagnostic.jump({ count = -1, float = true })
 end, opts("[LSP] 이전 진단으로 이동"))
 
+-- LSP 점프 시 사용할 "일반 파일 창"을 찾는 헬퍼.
+-- neo-tree, trouble, qf 등 buftype 이 비어있지 않은 특수 창은 건너뛴다.
+local function pick_normal_win()
+	local current = vim.api.nvim_get_current_win()
+	for _, win in ipairs(vim.api.nvim_list_wins()) do
+		if win ~= current then
+			local buf = vim.api.nvim_win_get_buf(win)
+			if vim.bo[buf].buftype == "" and vim.bo[buf].filetype ~= "neo-tree" then
+				return win
+			end
+		end
+	end
+	return nil
+end
+
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(event)
 		local bufopts = function(desc)
 			return { desc = desc, silent = true, buffer = event.buf }
 		end
 		map("n", "gd", vim.lsp.buf.definition, bufopts("[LSP] 정의로 이동"))
-		map("n", "gD", vim.lsp.buf.declaration, bufopts("[LSP] 선언으로 이동"))
+		map("n", "gD", function()
+			local target = pick_normal_win()
+			if target then
+				vim.api.nvim_set_current_win(target)
+			else
+				vim.cmd("vsplit") -- 일반 창이 없으면 수직 분할
+			end
+			vim.lsp.buf.definition()
+		end, bufopts("[LSP] 정의를 옆 창에 표시"))
 		map("n", "gi", vim.lsp.buf.implementation, bufopts("[LSP] 구현으로 이동"))
 		map("n", "gr", "<cmd>Telescope lsp_references<cr>", bufopts("[LSP] 참조 찾기 (Telescope)"))
 		map("n", "K", vim.lsp.buf.hover, bufopts("[LSP] hover 문서"))
@@ -255,8 +278,8 @@ map("n", "<leader>t3", "<cmd>3ToggleTerm<cr>", opts("[Toggleterm] 3번 터미널
 
 -- gitsigns / neogit / diffview (Git)
 map("n", "<leader>gs", "<cmd>Neogit<cr>", opts("[Git Neogit] neogit 열기"))
-map("n", "<leader>gd", "<cmd>DiffviewOpen<cr>", opts("[Git Diffview] diffview 열기"))
-map("n", "<leader>gD", "<cmd>DiffviewClose<cr>", opts("[Git Diffview] diffview 닫기"))
+map("n", "<leader>gv", "<cmd>DiffviewOpen<cr>", opts("[Git Diffview] diffview 열기"))
+map("n", "<leader>gV", "<cmd>DiffviewClose<cr>", opts("[Git Diffview] diffview 닫기"))
 map("n", "<leader>gh", "<cmd>DiffviewFileHistory %<cr>", opts("[Git Diffview] 현재 파일 커밋 히스토리"))
 map("n", "<leader>gH", "<cmd>DiffviewFileHistory<cr>", opts("[Git Diffview] 브랜치 전체 커밋 히스토리"))
 map("n", "]h", function()
