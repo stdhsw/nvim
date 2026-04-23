@@ -132,4 +132,43 @@ return {
 			},
 		},
 	},
+
+	-- ============================================================================
+	-- config: 플러그인 setup 이후 후처리
+	-- ----------------------------------------------------------------------------
+	-- Claude 가 "새 파일 생성" 제안을 Accept 하면, 처음에 띄웠던 빈 placeholder
+	-- 버퍼(이름 없음)가 그대로 남는다. diff_opts.on_new_file_reject 는 거절 시에만
+	-- 동작하므로 Accept 쪽은 직접 정리해야 한다.
+	--
+	-- BufWinLeave/TabLeave 시점에 아래 조건을 모두 만족하는 버퍼만 wipeout 한다:
+	--   - 이름 없음 (name == "")
+	--   - 일반 버퍼 (buftype == "", terminal/help/quickfix 제외)
+	--   - 수정 안 됨 (!modified) — 작업 중인 초안 보호
+	--   - 내용이 완전히 빈 상태 (1줄 + 그 줄이 빈 문자열)
+	--   - 어느 창에도 표시되지 않음 — 현재 편집 중인 새 버퍼 보호
+	-- ============================================================================
+	config = function(_, opts)
+		require("claudecode").setup(opts)
+
+		vim.api.nvim_create_autocmd({ "BufWinLeave", "TabLeave" }, {
+			group = vim.api.nvim_create_augroup("ClaudeCodeCleanupNoName", { clear = true }),
+			callback = function()
+				vim.schedule(function()
+					for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+						if
+							vim.api.nvim_buf_is_valid(buf)
+							and vim.api.nvim_buf_get_name(buf) == ""
+							and vim.bo[buf].buftype == ""
+							and not vim.bo[buf].modified
+							and vim.api.nvim_buf_line_count(buf) == 1
+							and vim.api.nvim_buf_get_lines(buf, 0, 1, false)[1] == ""
+							and #vim.fn.win_findbuf(buf) == 0
+						then
+							pcall(vim.api.nvim_buf_delete, buf, { force = false })
+						end
+					end
+				end)
+			end,
+		})
+	end,
 }
