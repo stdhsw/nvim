@@ -111,6 +111,10 @@ map("n", "<leader>kp", function()
 	open_cheatsheet("plugin-cheatsheet.md", " 플러그인 치트시트 ")
 end, opts("[도움말] 플러그인 사용법 치트시트"))
 
+map("n", "<leader>km", function()
+	open_cheatsheet("mason-cheatsheet.md", " Mason 치트시트 ")
+end, opts("[도움말] Mason 사용법 치트시트"))
+
 -- guide 폴더 내 키워드 검색 (Telescope)
 map("n", "<leader>kg", function()
 	require("telescope.builtin").live_grep({

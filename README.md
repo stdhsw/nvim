@@ -98,12 +98,14 @@ npm install -g @anthropic-ai/claude-code
 |--------------|-------------------------------------------------------|
 | `<leader>kn` | Neovim 내장 명령 / 단축키 치트시트 (플로팅 창)        |
 | `<leader>kp` | 플러그인 사용법 치트시트 (플로팅 창)                  |
+| `<leader>km` | Mason 사용법 치트시트 (플로팅 창)                     |
 | `<leader>kg` | `guide/` 디렉토리 키워드 검색 (Telescope live grep)   |
 | `<leader>ks` | 등록된 모든 단축키 검색 (Telescope)                   |
 
 > 치트시트 원본 파일
 > - `guide/nvim-cheatsheet.md` — Neovim 기본 동작
 > - `guide/plugin-cheatsheet.md` — 설치된 플러그인 사용법 / 단축키
+> - `guide/mason-cheatsheet.md` — Mason 패키지 매니저 사용법
 
 ---
 
