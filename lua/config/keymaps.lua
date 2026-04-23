@@ -7,6 +7,32 @@ local opts = function(desc)
 	return { desc = desc, silent = true }
 end
 
+-- 일반 파일 창 목록을 winnr 순서로 반환한다.
+-- neo-tree, trouble, qf 등 buftype 이 비어있지 않은 특수 창은 제외한다.
+-- 창 번호 점프(<leader>1~4) 와 "옆 창에 정의 표시"(gD) 등에서 공통으로 사용한다.
+local function list_normal_wins()
+	local result = {}
+	for i = 1, vim.fn.winnr("$") do
+		local win = vim.fn.win_getid(i)
+		local buf = vim.api.nvim_win_get_buf(win)
+		if vim.bo[buf].buftype == "" and vim.bo[buf].filetype ~= "neo-tree" then
+			table.insert(result, win)
+		end
+	end
+	return result
+end
+
+-- 현재 창을 제외한 첫 번째 일반 창을 반환한다. 없으면 nil.
+local function pick_normal_win()
+	local current = vim.api.nvim_get_current_win()
+	for _, win in ipairs(list_normal_wins()) do
+		if win ~= current then
+			return win
+		end
+	end
+	return nil
+end
+
 -- ============================================================================
 -- 일반 편집
 -- ============================================================================
@@ -56,11 +82,15 @@ map("n", "<C-j>", "<C-w>j", opts("[창이동] 아래 창으로 이동"))
 map("n", "<C-k>", "<C-w>k", opts("[창이동] 위 창으로 이동"))
 map("n", "<C-l>", "<C-w>l", opts("[창이동] 오른쪽 창으로 이동"))
 
--- 창 번호로 이동
-map("n", "<leader>1", "<cmd>1wincmd w<cr>", opts("[창이동] 1번 창으로 이동"))
-map("n", "<leader>2", "<cmd>2wincmd w<cr>", opts("[창이동] 2번 창으로 이동"))
-map("n", "<leader>3", "<cmd>3wincmd w<cr>", opts("[창이동] 3번 창으로 이동"))
-map("n", "<leader>4", "<cmd>4wincmd w<cr>", opts("[창이동] 4번 창으로 이동"))
+-- 창 번호로 이동 (neo-tree 등 특수 창은 제외하고 일반 창만 카운트)
+for i = 1, 4 do
+	map("n", "<leader>" .. i, function()
+		local wins = list_normal_wins()
+		if wins[i] then
+			vim.api.nvim_set_current_win(wins[i])
+		end
+	end, opts("[창이동] " .. i .. "번 일반 창으로 이동 (neo-tree 제외)"))
+end
 
 -- 창 크기 조절
 map("n", "<M-S-Up>", "<cmd>resize +2<cr>", opts("[창크기] 창 높이 증가"))
@@ -181,21 +211,6 @@ end, opts("[LSP] 다음 진단으로 이동"))
 map("n", "[d", function()
 	vim.diagnostic.jump({ count = -1, float = true })
 end, opts("[LSP] 이전 진단으로 이동"))
-
--- LSP 점프 시 사용할 "일반 파일 창"을 찾는 헬퍼.
--- neo-tree, trouble, qf 등 buftype 이 비어있지 않은 특수 창은 건너뛴다.
-local function pick_normal_win()
-	local current = vim.api.nvim_get_current_win()
-	for _, win in ipairs(vim.api.nvim_list_wins()) do
-		if win ~= current then
-			local buf = vim.api.nvim_win_get_buf(win)
-			if vim.bo[buf].buftype == "" and vim.bo[buf].filetype ~= "neo-tree" then
-				return win
-			end
-		end
-	end
-	return nil
-end
 
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(event)
