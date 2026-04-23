@@ -31,6 +31,13 @@ map("v", "p", '"_dP', opts("레지스터 유지하며 붙여넣기"))
 -- (iTerm2 에서 Left Option Key 를 Esc+ 로 설정해야 동작)
 map("i", "<M-BS>", "<C-w>", opts("[입력] 이전 단어 삭제"))
 
+-- Option+방향키로 단어 단위 이동 (macOS 표준 동작)
+-- (iTerm2 에서 Left Option Key 를 Esc+ 로 설정해야 동작)
+map({ "n", "v" }, "<M-Left>", "b", opts("[이동] 이전 단어로 이동"))
+map({ "n", "v" }, "<M-Right>", "w", opts("[이동] 다음 단어로 이동"))
+map("i", "<M-Left>", "<S-Left>", opts("[이동] 이전 단어로 이동"))
+map("i", "<M-Right>", "<S-Right>", opts("[이동] 다음 단어로 이동"))
+
 -- 삭제/변경 시 클립보드 오염 방지 (블랙홀 레지스터 사용)
 map({ "n", "v" }, "d", '"_d', opts("[삭제] 클립보드 오염 없이 삭제"))
 map({ "n", "v" }, "D", '"_D', opts("[삭제] 클립보드 오염 없이 줄 끝까지 삭제"))
@@ -56,10 +63,10 @@ map("n", "<leader>3", "<cmd>3wincmd w<cr>", opts("[창이동] 3번 창으로 이
 map("n", "<leader>4", "<cmd>4wincmd w<cr>", opts("[창이동] 4번 창으로 이동"))
 
 -- 창 크기 조절
-map("n", "<M-Up>", "<cmd>resize +2<cr>", opts("[창크기] 창 높이 증가"))
-map("n", "<M-Down>", "<cmd>resize -2<cr>", opts("[창크기] 창 높이 감소"))
-map("n", "<M-Left>", "<cmd>vertical resize -2<cr>", opts("[창크기] 창 너비 감소"))
-map("n", "<M-Right>", "<cmd>vertical resize +2<cr>", opts("[창크기] 창 너비 증가"))
+map("n", "<M-S-Up>", "<cmd>resize +2<cr>", opts("[창크기] 창 높이 증가"))
+map("n", "<M-S-Down>", "<cmd>resize -2<cr>", opts("[창크기] 창 높이 감소"))
+map("n", "<M-S-Left>", "<cmd>vertical resize -2<cr>", opts("[창크기] 창 너비 감소"))
+map("n", "<M-S-Right>", "<cmd>vertical resize +2<cr>", opts("[창크기] 창 너비 증가"))
 
 -- ============================================================================
 -- 터미널
