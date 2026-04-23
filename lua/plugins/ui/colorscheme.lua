@@ -135,6 +135,14 @@ return {
 						-- ----------------------------------------------------------------
 						["WinBar"] = { fg = "#ffffff", bg = "#1f6feb", bold = true }, -- 활성 창 winbar (고대비 파란 배경 바)
 						["WinBarNC"] = { fg = "#484f58", bg = "#161b22" }, -- 비활성 창 winbar (어두운 배경 바)
+
+						-- ----------------------------------------------------------------
+						-- 디렉토리 (리눅스 터미널 스타일 파란색)
+						-- ----------------------------------------------------------------
+						["Directory"] = { fg = "#79c0ff", bold = true }, -- 공통 디렉토리 하이라이트 (netrw 등 fallback)
+						["NeoTreeDirectoryName"] = { fg = "#79c0ff", bold = true }, -- neo-tree 디렉토리 이름
+						["NeoTreeDirectoryIcon"] = { fg = "#79c0ff" }, -- neo-tree 디렉토리 아이콘
+						["NeoTreeRootName"] = { fg = "#79c0ff", bold = true }, -- neo-tree 루트 디렉토리
 					},
 				},
 			})
