@@ -74,7 +74,7 @@ npm install -g prettier
 brew install shfmt
 ```
 
-> **Note**: `shellcheck`, `hadolint`, `prettier`, `stylua`, `gomodifytags` 등 mason 으로 설치 가능한 린터/포매터/도구는
+> **Note**: `shellcheck`, `hadolint`, `prettier`, `stylua`, `gomodifytags`, `debugpy` 등 mason 으로 설치 가능한 린터/포매터/디버그 어댑터는
 > `mason-tool-installer` 가 nvim 시작 시 자동으로 설치합니다 (수동 설치 불필요).
 >
 > `gopls`, `pyright`, `lua_ls`, `yamlls`, `jsonls`, `bashls`, `dockerls` 같은 LSP 서버도
@@ -325,6 +325,14 @@ Go 전용 DAP 설정 플러그인입니다.
 이 설정에서는 `dap.run` 을 래핑해 디버깅 시작 직전에 현재 작업 디렉토리의 `.env` 파일을 자동으로 읽어
 테스트 프로세스 환경변수로 주입하도록 확장했습니다.
 `//go:build integration` 같은 빌드 태그가 필요한 테스트를 위한 "빌드 태그 입력" 설정도 내장되어 있습니다.
+
+#### [mfussenegger/nvim-dap-python](https://github.com/mfussenegger/nvim-dap-python)
+
+Python 전용 DAP 설정 플러그인입니다.
+mason 으로 설치된 `debugpy` 의 가상환경 python 을 어댑터로 사용하며,
+테스트 러너는 `pytest` 로 설정되어 있습니다.
+`<leader>dpt` (메서드), `<leader>dpc` (클래스) 로 커서 위치의 테스트를 즉시 디버깅하고,
+Visual 모드에서 `<leader>dps` 로 선택 영역을 디버거 REPL 에서 평가할 수 있습니다.
 
 ---
 

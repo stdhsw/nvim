@@ -5,20 +5,24 @@
 --           rcarriga/nvim-dap-ui
 --           nvim-neotest/nvim-nio
 --           leoluz/nvim-dap-go
+--           mfussenegger/nvim-dap-python
 -- 저장소: https://github.com/mfussenegger/nvim-dap
 --         https://github.com/rcarriga/nvim-dap-ui
 --         https://github.com/nvim-neotest/nvim-nio
 --         https://github.com/leoluz/nvim-dap-go
+--         https://github.com/mfussenegger/nvim-dap-python
 --
 -- 설명:
---   Go 디버깅 환경 플러그인 묶음.
---   nvim-dap    - DAP(Debug Adapter Protocol) 클라이언트 코어
---   nvim-dap-ui - 변수/콜스택/브레이크포인트를 패널로 표시하는 DAP UI
---   nvim-nio    - nvim-dap-ui 비동기 처리 의존성
---   nvim-dap-go - Go 전용 DAP 설정 (delve 디버거 연동)
+--   Go / Python 디버깅 환경 플러그인 묶음.
+--   nvim-dap        - DAP(Debug Adapter Protocol) 클라이언트 코어
+--   nvim-dap-ui     - 변수/콜스택/브레이크포인트를 패널로 표시하는 DAP UI
+--   nvim-nio        - nvim-dap-ui 비동기 처리 의존성
+--   nvim-dap-go     - Go 전용 DAP 설정 (delve 디버거 연동)
+--   nvim-dap-python - Python 전용 DAP 설정 (debugpy 연동, pytest 러너 사용)
 --
 --   사전 준비:
 --   brew install delve   (Go 디버거 설치)
+--   debugpy 는 mason-tool-installer 가 자동 설치 (extras/lang/python.lua 참고)
 --
 -- 사용법:
 --   DAP UI 패널:
@@ -52,6 +56,9 @@
 --   <leader>dt  - 커서 위치의 Go 테스트 함수 디버깅 (.env 자동 로드)
 --   <leader>dT  - 빌드 태그를 입력받아 커서 위치의 Go 테스트 함수 디버깅
 --                 (예: integration, e2e 등 //go:build 태그가 필요한 테스트)
+--   <leader>dpt - 커서 위치의 Python 테스트 메서드 디버깅
+--   <leader>dpc - 커서 위치의 Python 테스트 클래스 디버깅
+--   <leader>dps - (Visual) 선택 영역을 Python 디버거 REPL 에서 평가
 -- ============================================================================
 
 -- .env 파일을 파싱하여 환경변수 테이블로 반환 (파일 없으면 빈 테이블)
@@ -175,6 +182,19 @@ return {
 							build_flags = "",
 						},
 					})
+				end,
+			},
+			-- Python 전용 DAP
+			-- mason 으로 설치된 debugpy 의 가상환경 python 을 어댑터로 사용한다.
+			-- mason 설치 경로: ~/.local/share/nvim/mason/packages/debugpy/venv/bin/python
+			{
+				"mfussenegger/nvim-dap-python",
+				config = function()
+					local debugpy_python = vim.fn.stdpath("data")
+						.. "/mason/packages/debugpy/venv/bin/python"
+					require("dap-python").setup(debugpy_python)
+					-- 테스트 러너로 pytest 사용 (unittest 가 기본값)
+					require("dap-python").test_runner = "pytest"
 				end,
 			},
 		},
