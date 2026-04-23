@@ -122,3 +122,24 @@ autocmd({ "FocusGained", "BufEnter" }, {
 		end
 	end,
 })
+
+-- ============================================================================
+-- No Name 버퍼 일괄 정리
+-- 이름이 없고 수정되지 않은 빈 버퍼를 한 번에 삭제
+-- :NoNameClear 명령어로 실행
+-- ============================================================================
+vim.api.nvim_create_user_command("NoNameClear", function()
+	local deleted = 0
+	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+		if
+			vim.api.nvim_buf_is_loaded(buf)
+			and vim.api.nvim_buf_get_name(buf) == ""
+			and vim.bo[buf].buftype == ""
+			and not vim.bo[buf].modified
+		then
+			vim.api.nvim_buf_delete(buf, {})
+			deleted = deleted + 1
+		end
+	end
+	vim.notify(string.format("No Name 버퍼 %d개 삭제", deleted))
+end, { desc = "이름 없는 빈 버퍼 일괄 삭제" })
