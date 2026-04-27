@@ -5,11 +5,15 @@
 --   1. projekt0n/github-nvim-theme  - GitHub 공식 색감 기반 테마 (기본 적용)
 --   2. rebelot/kanagawa.nvim        - 일본 우키요에 감성 다크 테마 (대체 테마)
 --   3. EdenEast/nightfox.nvim       - 여우 컨셉의 다양한 감성 테마 모음 (대체 테마)
+--   4. vague-theme/vague.nvim       - 뮤트한 파스텔 톤 미니멀 다크 테마 (대체 테마)
+--   5. rakr/vim-one                 - Atom One 감성의 다크/라이트 테마 (대체 테마)
 --
 -- 저장소:
 --   https://github.com/projekt0n/github-nvim-theme
 --   https://github.com/rebelot/kanagawa.nvim
 --   https://github.com/EdenEast/nightfox.nvim
+--   https://github.com/vague-theme/vague.nvim
+--   https://github.com/rakr/vim-one
 --
 -- 설명:
 --   github-theme - GitHub UI 색감 기반. dark_high_contrast variant는 고대비 다크 테마. (기본값)
@@ -21,6 +25,11 @@
 --                  terafox(청록 톤 다크) / carbonfox(가장 어두운 다크) / dayfox(라이트) /
 --                  dawnfox(파스텔 라이트) 7종 variant 제공.
 --                  lazy=true 이므로 :colorscheme 명령 또는 Telescope colorscheme 선택 시 로드된다.
+--   vague        - 채도를 낮춘 파스텔 톤의 미니멀 다크 테마. variant 없이 단일 colorscheme 제공.
+--                  lazy=true 이므로 :colorscheme vague 실행 또는 Telescope colorscheme 선택 시 로드된다.
+--   vim-one      - Atom 의 One 테마 감성을 옮긴 vim 플러그인. background 옵션(dark/light)에 따라
+--                  단일 colorscheme 이름(one)이 다크/라이트로 동작한다.
+--                  lazy=true 이므로 :colorscheme one 실행 또는 Telescope colorscheme 선택 시 로드된다.
 --
 -- 기본 테마: github_dark_high_contrast
 -- 테마 전환:
@@ -36,18 +45,61 @@
 --   :colorscheme carbonfox                 - nightfox carbonfox (가장 어두운 다크)
 --   :colorscheme dayfox                    - nightfox dayfox (라이트)
 --   :colorscheme dawnfox                   - nightfox dawnfox (파스텔 라이트)
+--   :colorscheme vague                     - vague (뮤트한 파스텔 톤 다크)
+--   :colorscheme one                       - vim-one (background 옵션에 따라 다크/라이트 자동 선택)
 --   <leader>tc                             - Telescope 로 실시간 테마 전환 (keymaps.lua)
 --
 -- 커스텀 단축키:
 --   없음 (테마 선택은 <leader>tc 의 Telescope colorscheme 사용)
 -- ============================================================================
 
+-- ============================================================================
+-- 기본 테마 변수
+--   아래 default_colorscheme 한 줄만 변경하면 nvim 시작 시 적용되는 기본 테마가 바뀐다.
+--   변수에 들어갈 수 있는 값은 colorscheme_providers 의 각 리스트에 나열된 이름들.
+--   변수 값이 어느 플러그인 소유인지에 따라 해당 플러그인만 lazy=false / priority=1000 으로
+--   우선 로드되고, 나머지 플러그인은 lazy=true / priority=100 으로 지연 로드된다.
+-- ============================================================================
+local default_colorscheme = "github_dark_high_contrast"
+
+-- 각 플러그인이 제공하는 colorscheme 이름 매핑.
+-- default_colorscheme 가 어느 플러그인 소유인지 판별하는 데 사용된다.
+local colorscheme_providers = {
+	github = {
+		"github_dark",
+		"github_dark_default",
+		"github_dark_dimmed",
+		"github_dark_high_contrast",
+		"github_dark_colorblind",
+		"github_dark_tritanopia",
+		"github_light",
+		"github_light_default",
+		"github_light_high_contrast",
+		"github_light_colorblind",
+		"github_light_tritanopia",
+	},
+	kanagawa = { "kanagawa", "kanagawa-wave", "kanagawa-dragon", "kanagawa-lotus" },
+	nightfox = { "nightfox", "duskfox", "nordfox", "terafox", "carbonfox", "dayfox", "dawnfox" },
+	vague = { "vague" },
+	one = { "one" },
+}
+
+-- default_colorscheme 가 주어진 provider(플러그인) 소유인지 반환한다.
+local function is_default_owner(provider)
+	for _, name in ipairs(colorscheme_providers[provider]) do
+		if name == default_colorscheme then
+			return true
+		end
+	end
+	return false
+end
+
 return {
-	-- github-nvim-theme: dark_high_contrast variant (기본 테마)
+	-- github-nvim-theme: GitHub 색감 기반 테마
 	{
 		"projekt0n/github-nvim-theme",
-		lazy = false,
-		priority = 1000, -- 가중치
+		lazy = not is_default_owner("github"), -- 기본 테마 소유 시 즉시 로드
+		priority = is_default_owner("github") and 1000 or 100, -- 기본 테마면 최우선
 		config = function()
 			require("github-theme").setup({
 				options = {
@@ -68,23 +120,23 @@ return {
 						-- ----------------------------------------------------------------
 						-- 함수
 						-- ----------------------------------------------------------------
-						["@function"] = { fg = "#d2a8ff" }, -- 함수 선언 (연보라)
-						["@function.call"] = { fg = "#d2a8ff" }, -- 함수 호출 (연보라)
-						["@function.method"] = { fg = "#d2a8ff" }, -- 메서드 선언 (연보라)
-						["@function.method.call"] = { fg = "#d2a8ff" }, -- 메서드 호출 (연보라)
-						["@function.builtin"] = { fg = "#79c0ff" }, -- 내장 함수: make, len, append (하늘)
+						["@function"] = { fg = "#f2cc60" }, -- 함수 선언 (소프트 골드)
+						["@function.call"] = { fg = "#f2cc60" }, -- 함수 호출 (소프트 골드)
+						["@function.method"] = { fg = "#f2cc60" }, -- 메서드 선언 (소프트 골드)
+						["@function.method.call"] = { fg = "#f2cc60" }, -- 메서드 호출 (소프트 골드)
+						["@function.builtin"] = { fg = "#f2cc60" }, -- 내장 함수: make, len, append (소프트 골드)
 
 						-- ----------------------------------------------------------------
 						-- 타입
 						-- ----------------------------------------------------------------
-						["@type"] = { fg = "#79c0ff" }, -- 커스텀 타입: struct, interface (하늘)
-						["@type.builtin"] = { fg = "#79c0ff" }, -- 내장 타입: int, string, bool, error (하늘)
+						["@type"] = { fg = "#d2a8ff" }, -- 커스텀 타입: struct, interface (연보라)
+						["@type.builtin"] = { fg = "#d2a8ff" }, -- 내장 타입: int, string, bool, error (연보라)
 
 						-- ----------------------------------------------------------------
 						-- 상수
 						-- ----------------------------------------------------------------
-						["@constant"] = { fg = "#79c0ff" }, -- 상수 (하늘)
-						["@constant.builtin"] = { fg = "#79c0ff" }, -- 내장 상수: true, false, nil, iota (하늘)
+						["@constant"] = { fg = "#7ee787" }, -- 상수 (민트 그린)
+						["@constant.builtin"] = { fg = "#7ee787" }, -- 내장 상수: true, false, nil, iota (민트 그린)
 
 						-- ----------------------------------------------------------------
 						-- 패키지
@@ -94,10 +146,10 @@ return {
 						-- ----------------------------------------------------------------
 						-- 키워드
 						-- ----------------------------------------------------------------
-						["@keyword"] = { fg = "#ff7b72" }, -- 일반 키워드: var, type, go, defer (산호)
-						["@keyword.function"] = { fg = "#ff7b72" }, -- func 키워드 (산호)
-						["@keyword.return"] = { fg = "#ff7b72" }, -- return 키워드 (산호)
-						["@keyword.operator"] = { fg = "#ff7b72" }, -- 연산자형 키워드 (산호)
+						["@keyword"] = { fg = "#79c0ff" }, -- 일반 키워드: var, type, go, defer (하늘)
+						["@keyword.function"] = { fg = "#79c0ff" }, -- func 키워드 (하늘)
+						["@keyword.return"] = { fg = "#79c0ff" }, -- return 키워드 (하늘)
+						["@keyword.operator"] = { fg = "#79c0ff" }, -- 연산자형 키워드 (하늘)
 
 						-- ----------------------------------------------------------------
 						-- 연산자 / 구두점
@@ -109,8 +161,8 @@ return {
 						-- ----------------------------------------------------------------
 						["@string"] = { fg = "#d18c4f" }, -- 문자열
 						["@string.escape"] = { fg = "#a3d6f1", bold = true }, -- 이스케이프 문자 (\n, \t 등)
-						["@number"] = { fg = "#79c0ff" }, -- 정수
-						["@number.float"] = { fg = "#79c0ff" }, -- 실수
+						["@number"] = { fg = "#d2a8ff" }, -- 정수 (연보라)
+						["@number.float"] = { fg = "#d2a8ff" }, -- 실수 (연보라)
 						["@string.special"] = { fg = "#a3d6f1", bold = true }, -- 특수 문자 추가 지원
 
 						-- ----------------------------------------------------------------
@@ -156,17 +208,20 @@ return {
 					},
 				},
 			})
-			vim.cmd("colorscheme github_dark_high_contrast") -- 기본 테마로 적용
+			if is_default_owner("github") then
+				vim.cmd("colorscheme " .. default_colorscheme) -- 기본 테마로 적용
+			end
 		end,
 	},
 
-	-- kanagawa.nvim: 우키요에 감성 다크 테마 (대체 테마)
-	-- lazy=true 이므로 :colorscheme kanagawa 실행 또는 Telescope colorscheme 선택 시 자동 로드.
+	-- kanagawa.nvim: 우키요에 감성 다크 테마
+	-- 기본 테마 소유 시 lazy=false 로 즉시 로드되고, 아니면 :colorscheme 명령 또는
+	-- Telescope colorscheme 선택 시 자동 로드된다.
 	-- (lazy.nvim 은 colors/*.lua 디렉토리를 자동 인식하여 지연 로드 트리거를 걸어준다)
 	{
 		"rebelot/kanagawa.nvim",
-		lazy = true,
-		priority = 100, -- 가중치
+		lazy = not is_default_owner("kanagawa"),
+		priority = is_default_owner("kanagawa") and 1000 or 100,
 		config = function()
 			require("kanagawa").setup({
 				compile = false, -- 컴파일된 바이트코드 캐시 비활성
@@ -184,16 +239,20 @@ return {
 					light = "lotus", -- 라이트 모드 기본 variant: lotus
 				},
 			})
+			if is_default_owner("kanagawa") then
+				vim.cmd("colorscheme " .. default_colorscheme) -- 기본 테마로 적용
+			end
 		end,
 	},
 
-	-- nightfox.nvim: 여우 컨셉의 다양한 감성 테마 모음 (대체 테마)
-	-- lazy=true 이므로 :colorscheme nightfox 등 실행 또는 Telescope colorscheme 선택 시 자동 로드.
+	-- nightfox.nvim: 여우 컨셉의 다양한 감성 테마 모음
+	-- 기본 테마 소유 시 lazy=false 로 즉시 로드되고, 아니면 :colorscheme 명령 또는
+	-- Telescope colorscheme 선택 시 자동 로드된다.
 	-- variant 별로 별도의 colorscheme 이름을 가진다 (nightfox / duskfox / nordfox / terafox / carbonfox / dayfox / dawnfox)
 	{
 		"EdenEast/nightfox.nvim",
-		lazy = true,
-		priority = 100, -- 가중치
+		lazy = not is_default_owner("nightfox"),
+		priority = is_default_owner("nightfox") and 1000 or 100,
 		config = function()
 			require("nightfox").setup({
 				options = {
@@ -234,6 +293,99 @@ return {
 				specs = {}, -- spec 커스터마이즈 (기본값 사용)
 				groups = {}, -- 하이라이트 그룹 커스터마이즈 (기본값 사용)
 			})
+			if is_default_owner("nightfox") then
+				vim.cmd("colorscheme " .. default_colorscheme) -- 기본 테마로 적용
+			end
+		end,
+	},
+
+	-- vague.nvim: 뮤트한 파스텔 톤 미니멀 다크 테마
+	-- 기본 테마 소유 시 lazy=false 로 즉시 로드되고, 아니면 :colorscheme vague 실행 또는
+	-- Telescope colorscheme 선택 시 자동 로드된다. variant 없이 단일 colorscheme 이름(vague)을 가진다.
+	{
+		"vague-theme/vague.nvim",
+		lazy = not is_default_owner("vague"),
+		priority = is_default_owner("vague") and 1000 or 100,
+		init = function()
+			-- :colorscheme vague 적용 시점에 fmt.Printf 의 %d, %s 같은 포맷 지정자를 강조.
+			-- ColorScheme 이벤트로 등록하면 colorscheme 적용 직후 마지막에 덮어써져 가장 확실하다.
+			-- printf 파서가 잡는 캡처 이름 후보 3종을 모두 동일 색으로 지정해 어떤 캡처여도 적용되게 한다.
+			vim.api.nvim_create_autocmd("ColorScheme", {
+				pattern = "vague",
+				callback = function()
+					local hl = { fg = "#7e98e8", bold = true } -- 차가운 파랑 + bold (vague 의 hint 색)
+					vim.api.nvim_set_hl(0, "@string.special", hl)
+					vim.api.nvim_set_hl(0, "@string.special.placeholder", hl)
+					vim.api.nvim_set_hl(0, "@string.escape", hl)
+				end,
+			})
+		end,
+		config = function()
+			require("vague").setup({
+				transparent = false, -- 배경 투명 비활성
+				bold = true, -- 굵게 전역 활성
+				italic = true, -- 이탤릭 전역 활성
+				on_highlights = function(hl, colors) end, -- 추가 하이라이트 커스터마이즈 훅 (autocmd 에서 처리)
+				colors = {
+					bg = "#141415", -- 배경
+					inactiveBg = "#1c1c24", -- 비활성 창 배경
+					fg = "#cdcdcd", -- 전경(기본 글자색)
+					floatBorder = "#878787", -- 플로팅 창 테두리
+					line = "#252530", -- 현재 줄 배경
+					comment = "#606079", -- 주석
+					builtin = "#b4d4cf", -- 내장 식별자
+					func = "#c48282", -- 함수
+					string = "#e8b589", -- 문자열
+					number = "#e0a363", -- 숫자
+					property = "#c3c3d5", -- 프로퍼티/필드
+					constant = "#aeaed1", -- 상수
+					parameter = "#bb9dbd", -- 함수 파라미터
+					visual = "#333738", -- visual 선택 영역
+					error = "#d8647e", -- 에러
+					warning = "#f3be7c", -- 경고
+					hint = "#7e98e8", -- 힌트
+					operator = "#90a0b5", -- 연산자
+					keyword = "#6e94b2", -- 키워드
+					type = "#9bb4bc", -- 타입
+					search = "#405065", -- 검색 하이라이트
+					plus = "#7fa563", -- diff 추가
+					delta = "#f3be7c", -- diff 변경
+				},
+			})
+			if is_default_owner("vague") then
+				vim.cmd("colorscheme " .. default_colorscheme) -- 기본 테마로 적용
+			end
+		end,
+	},
+
+	-- vim-one: Atom One 감성의 다크/라이트 테마
+	-- viml 기반 플러그인이라 require().setup() 없이 vim.g 변수와 background 옵션으로만 설정한다.
+	-- 기본 테마 소유 시 lazy=false 로 즉시 로드되고, 아니면 :colorscheme one 실행 또는
+	-- Telescope colorscheme 선택 시 자동 로드된다.
+	{
+		"rakr/vim-one",
+		lazy = not is_default_owner("one"),
+		priority = is_default_owner("one") and 1000 or 100,
+		init = function()
+			vim.g.one_allow_italics = 1 -- 주석/키워드 이탤릭 허용
+			-- :colorscheme one 적용 시 fmt.Printf 의 %d, %s 같은 포맷 지정자를 별도 색으로 강조.
+			-- ColorScheme 이벤트로 등록해두면 기본 테마든 lazy 로드 후 전환이든 항상 적용된다.
+			-- printf 파서가 잡는 캡처 이름 후보 3종을 모두 동일 색으로 지정해 어떤 캡처여도 적용되게 한다.
+			vim.api.nvim_create_autocmd("ColorScheme", {
+				pattern = "one",
+				callback = function()
+					local hl = { fg = "#56b6c2", bold = true } -- One Dark 시안 + bold
+					vim.api.nvim_set_hl(0, "@string.special", hl)
+					vim.api.nvim_set_hl(0, "@string.special.placeholder", hl)
+					vim.api.nvim_set_hl(0, "@string.escape", hl)
+				end,
+			})
+		end,
+		config = function()
+			if is_default_owner("one") then
+				vim.opt.background = "dark" -- 다크 모드로 적용 (라이트 원하면 "light")
+				vim.cmd("colorscheme " .. default_colorscheme) -- 기본 테마로 적용
+			end
 		end,
 	},
 }
