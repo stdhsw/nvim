@@ -201,6 +201,16 @@ map("n", "<leader>w", function()
 		vim.cmd("bdelete! " .. cur)
 	end
 end, opts("[Bufferline] 버퍼 닫기"))
+map("n", "<leader>W", function()
+	local cur = vim.api.nvim_get_current_buf()
+	for _, buf in ipairs(vim.fn.getbufinfo({ buflisted = 1 })) do
+		if buf.bufnr ~= cur and vim.api.nvim_buf_is_valid(buf.bufnr) then
+			if not vim.bo[buf.bufnr].modified then
+				vim.cmd("bdelete " .. buf.bufnr)
+			end
+		end
+	end
+end, opts("[Bufferline] 현재 버퍼 외 모두 닫기"))
 map("n", "<leader>bp", "<cmd>BufferLinePick<cr>", opts("[Bufferline] 버퍼 선택해서 이동"))
 map("n", "<leader>bc", "<cmd>BufferLinePickClose<cr>", opts("[Bufferline] 버퍼 선택해서 닫기"))
 
