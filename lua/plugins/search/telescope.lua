@@ -55,35 +55,50 @@ return {
 		},
 	},
 	cmd = "Telescope", -- :Telescope 명령어 입력 시 로드
-	opts = {
-		defaults = {
-			layout_strategy = "horizontal",
-			layout_config = {
-				horizontal = {
-					preview_width = 0.55, -- 우측 미리보기 창이 전체의 55% 차지
+	opts = function()
+		local actions = require("telescope.actions")
+		return {
+			defaults = {
+				layout_strategy = "horizontal",
+				layout_config = {
+					horizontal = {
+						preview_width = 0.55, -- 우측 미리보기 창이 전체의 55% 차지
+					},
+				},
+				-- 검색 결과에서 제외할 패턴
+				file_ignore_patterns = { "%.git/", "node_modules/" },
+				-- 한/영 전환 안 해도 동작하도록 한글 자판 매핑 추가
+				--   <C-ㅔ> = <C-p>, <C-ㅜ> = <C-n>
+				mappings = {
+					i = {
+						["<C-ㅔ>"] = actions.move_selection_previous,
+						["<C-ㅜ>"] = actions.move_selection_next,
+					},
+					n = {
+						["<C-ㅔ>"] = actions.move_selection_previous,
+						["<C-ㅜ>"] = actions.move_selection_next,
+					},
 				},
 			},
-			-- 검색 결과에서 제외할 패턴
-			file_ignore_patterns = { "%.git/", "node_modules/" },
-		},
-		pickers = {
-			find_files = {
-				-- fd가 .gitignore를 무시하고 숨김 파일 포함 모든 파일 검색
-				find_command = { "fd", "--type", "f", "--no-ignore", "--hidden", "--exclude", ".git", "--exclude", "node_modules" },
+			pickers = {
+				find_files = {
+					-- fd가 .gitignore를 무시하고 숨김 파일 포함 모든 파일 검색
+					find_command = { "fd", "--type", "f", "--no-ignore", "--hidden", "--exclude", ".git", "--exclude", "node_modules" },
+				},
+				live_grep = {
+					-- ripgrep이 .gitignore를 무시하고 숨김 파일 포함 모든 파일 검색
+					additional_args = { "--no-ignore", "--hidden", "--glob", "!.git", "--glob", "!node_modules" },
+				},
 			},
-			live_grep = {
-				-- ripgrep이 .gitignore를 무시하고 숨김 파일 포함 모든 파일 검색
-				additional_args = { "--no-ignore", "--hidden", "--glob", "!.git", "--glob", "!node_modules" },
+			extensions = {
+				fzf = {
+					fuzzy = true, -- 퍼지 검색 활성화 (오타 허용)
+					override_generic_sorter = true, -- 기본 정렬기를 fzf로 교체
+					override_file_sorter = true, -- 파일 정렬기를 fzf로 교체
+				},
 			},
-		},
-		extensions = {
-			fzf = {
-				fuzzy = true, -- 퍼지 검색 활성화 (오타 허용)
-				override_generic_sorter = true, -- 기본 정렬기를 fzf로 교체
-				override_file_sorter = true, -- 파일 정렬기를 fzf로 교체
-			},
-		},
-	},
+		}
+	end,
 	config = function(_, opts)
 		local telescope = require("telescope")
 		telescope.setup(opts)
