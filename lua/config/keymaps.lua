@@ -50,6 +50,10 @@ map("n", "<leader>u~", "g~iw", opts("[대소문자] 단어 대소문자 토글")
 map("v", "<leader>uu", "U", opts("[대소문자] 선택 영역 대문자로 변환"))
 map("v", "<leader>ul", "u", opts("[대소문자] 선택 영역 소문자로 변환"))
 
+-- 커서 위치 단어 선택
+map("n", "<leader>vw", "viw", opts("[선택] 커서 단어 선택"))
+map("n", "<leader>vW", "viW", opts("[선택] 커서 WORD 선택 (공백 단위)"))
+
 -- 붙여넣기 시 레지스터 덮어쓰기 방지 (visual 모드)
 map("v", "p", '"_dP', opts("레지스터 유지하며 붙여넣기"))
 
