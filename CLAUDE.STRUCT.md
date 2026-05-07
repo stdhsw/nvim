@@ -34,6 +34,7 @@
     │   ├── file/
     │   │   └── neo-tree.lua              # ✅ 파일 탐색기 사이드바
     │   ├── git/
+    │   │   ├── git-conflict.lua          # ✅ 충돌 마커/영역 색상 강조 및 해결
     │   │   ├── gitsigns.lua              # ✅ gutter 변경사항 표시 및 hunk 조작
     │   │   └── neogit.lua                # ✅ git TUI (neogit, diffview)
     │   ├── input/
