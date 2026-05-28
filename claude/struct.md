@@ -6,9 +6,9 @@
 ~/.config/nvim/
 ├── init.lua                      # 진입점 (모듈 로드만 담당)
 ├── CLAUDE.md                     # 프로젝트 규칙 및 지침
-├── CLAUDE_PLAN.md                # 전체 구현 계획 및 진행 상태
-├── CLAUDE_PLUGINS.md             # 플러그인 목록 및 상태
-├── CLAUDE_STRUCT.md              # 디렉토리 구조 설계 (현재 파일)
+├── claude/                       # 프로젝트 보조 문서
+│   ├── plugins.md                # 플러그인 설정/작성 가이드
+│   └── struct.md                 # 디렉토리 구조 설계 (현재 파일)
 └── lua/
     ├── config/                   # 핵심 설정 (플러그인 무관)
     │   ├── init.lua              # config 모듈 진입점 (하위 모듈 일괄 로드)

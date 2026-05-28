@@ -15,8 +15,8 @@
 - neovim에 관련된 기본 옵션 셜정은 config/options.lua 파일에 작성한다.
 
 ## plugins 파일 작성 규칙
-- 플러그인에 관련된 작업은 ./CLAUDE.PLUGINS.md 파일의 규칙을 참고한다.
-- 플러그인 구조를 설계할 경우 ./CLAUDE.STRUCT.md 파일을 참고하고 업데이트한다.
+- 플러그인에 관련된 작업은 ./claude/plugins.md 파일의 규칙을 참고한다.
+- 플러그인 구조를 설계할 경우 ./claude/struct.md 파일을 참고하고 업데이트한다.
 
 ## keymaps 파일 작성 규칙
 - 모든 단축키에 대한 설정은 config/keymaps.lua 파일에 작성한다.
