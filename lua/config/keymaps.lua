@@ -137,6 +137,10 @@ local function open_cheatsheet(filename, title)
 	vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = buf, silent = true, nowait = true })
 end
 
+map("n", "<leader>kf", function()
+	open_cheatsheet("my-cheatsheet.md", " 내 즐겨찾기 ")
+end, opts("[도움말] 자주 쓰는 단축키 즐겨찾기"))
+
 map("n", "<leader>kn", function()
 	open_cheatsheet("nvim-cheatsheet.md", " Neovim 치트시트 ")
 end, opts("[도움말] Neovim 내장 명령 치트시트"))
