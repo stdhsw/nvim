@@ -100,6 +100,26 @@ return {
 		"projekt0n/github-nvim-theme",
 		lazy = not is_default_owner("github"), -- 기본 테마 소유 시 즉시 로드
 		priority = is_default_owner("github") and 1000 or 100, -- 기본 테마면 최우선
+		init = function()
+			-- fmt.Printf 의 %d, %s 같은 포맷 동사는 printf injection 의 @character.printf 캡처로
+			-- 잡히는데, 이 그룹이 @character 로 자동 fallback 되지 않아 색이 비어 문자열 색으로 보인다.
+			-- github-theme 은 하이라이트를 컴파일·캐시하므로 setup 의 groups 변경이 늦게 반영될 수 있어,
+			-- ColorScheme 직후 직접 덮어써 캐시와 무관하게 항상 적용되도록 한다.
+			--
+			-- 추가로, gopls(LSP) 는 문자열 리터럴 전체를 하나의 string semantic token 으로 보내고,
+			-- semantic token 은 treesitter 보다 우선순위가 높아 %d 까지 문자열 색으로 덮어쓴다.
+			-- @lsp.type.string.go 를 비워 gopls 의 문자열 토큰이 색을 입히지 않게 하면,
+			-- 문자열 본문은 treesitter @string 이, %d 는 @character.printf 가 칠하게 된다.
+			vim.api.nvim_create_autocmd("ColorScheme", {
+				pattern = "github*",
+				callback = function()
+					local hl = { fg = "#a3d6f1", bold = true } -- 특수문자/이스케이프와 통일한 차가운 파랑
+					vim.api.nvim_set_hl(0, "@character.printf", hl) -- printf 포맷 동사 (%d, %s 등)
+					vim.api.nvim_set_hl(0, "@string.special.placeholder", hl) -- 다른 캡처명 후보 대비
+					vim.api.nvim_set_hl(0, "@lsp.type.string.go", {}) -- gopls 문자열 semantic token 무력화 (treesitter 색 유지)
+				end,
+			})
+		end,
 		config = function()
 			require("github-theme").setup({
 				options = {
