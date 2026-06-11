@@ -182,6 +182,12 @@ return {
 							build_flags = "",
 						},
 					})
+
+					-- 테스트 디버깅 시 -test.v(verbose) 플래그 추가.
+					-- Go 의 t.Log/t.Logf 는 기본적으로 테스트 실패 시에만 출력되지만,
+					-- verbose 를 켜면 통과(PASS)한 테스트의 t.Log 도 DAP UI console 에 출력된다.
+					-- <leader>dt 의 debug_test 가 이 값을 읽어 -test.v 를 붙인다.
+					require("dap-go").test_verbose = true
 				end,
 			},
 			-- Python 전용 DAP
