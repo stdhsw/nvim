@@ -20,72 +20,37 @@
 --   파일이 없으면 stylua 기본값 사용 (탭 들여쓰기, 120 컬럼 폭).
 -- ============================================================================
 
+local util = require("extras.util")
+
 return {
 	-- Mason: lua-language-server 자동 설치
-	{
-		"williamboman/mason-lspconfig.nvim",
-		opts = function(_, opts)
-			opts.ensure_installed = opts.ensure_installed or {}
-			vim.list_extend(opts.ensure_installed, { "lua_ls" })
-		end,
-	},
+	util.mason_lsp({ "lua_ls" }),
 
-	-- LSP: lua_ls 설정 및 활성화
-	-- neovim 설정 파일 작성에 필요한 vim 전역 인식 + runtime 라이브러리 등록
-	{
-		"neovim/nvim-lspconfig",
-		opts = function(_, opts)
-			opts.servers = opts.servers or {}
-			opts.configs = opts.configs or {}
-
-			table.insert(opts.servers, "lua_ls")
-
-			-- lua_ls: neovim 설정 작성용 세팅
-			--   runtime.version  - LuaJIT 런타임 (neovim 내장)
-			--   diagnostics.globals - vim 전역 변수를 미정의 경고에서 제외
-			--   workspace.library - neovim runtime 파일을 라이브러리로 등록
-			--                       (vim.api, vim.fn 등 자동완성 활성화)
-			--   telemetry.enable - 사용 통계 전송 비활성화
-			opts.configs.lua_ls = {
-				settings = {
-					Lua = {
-						runtime = {
-							version = "LuaJIT",
-						},
-						diagnostics = {
-							globals = { "vim" },
-						},
-						workspace = {
-							checkThirdParty = false,
-							library = vim.api.nvim_get_runtime_file("", true),
-						},
-						telemetry = {
-							enable = false,
-						},
+	-- LSP: lua_ls 설정 및 활성화 (neovim 설정 작성용)
+	--   runtime.version     - LuaJIT 런타임 (neovim 내장)
+	--   diagnostics.globals - vim 전역 변수를 미정의 경고에서 제외
+	--   workspace.library   - neovim runtime 파일을 라이브러리로 등록 (vim.api/vim.fn 자동완성)
+	--   telemetry.enable    - 사용 통계 전송 비활성화
+	util.lsp({ "lua_ls" }, {
+		lua_ls = {
+			settings = {
+				Lua = {
+					runtime = { version = "LuaJIT" },
+					diagnostics = { globals = { "vim" } },
+					workspace = {
+						checkThirdParty = false,
+						library = vim.api.nvim_get_runtime_file("", true),
 					},
+					telemetry = { enable = false },
 				},
-			}
-		end,
-	},
+			},
+		},
+	}),
 
-	-- Conform: Lua 포매터 등록
-	-- stylua: 저장 시 자동 포맷 (conform.nvim format_on_save 가 BufWritePre 에서 실행)
-	{
-		"stevearc/conform.nvim",
-		opts = function(_, opts)
-			opts.formatters_by_ft = opts.formatters_by_ft or {}
-			opts.formatters_by_ft.lua = { "stylua" }
-		end,
-	},
+	-- Conform: stylua (저장 시 conform.nvim format_on_save 가 BufWritePre 에서 자동 실행)
+	util.formatters({ lua = { "stylua" } }),
 
 	-- mason-tool-installer: stylua 자동 설치
-	-- (Homebrew 로 설치된 stylua 도 PATH 에서 사용 가능하지만,
-	--  팀원/다른 환경에서도 동일하게 동작하도록 mason 으로도 관리)
-	{
-		"WhoIsSethDaniel/mason-tool-installer.nvim",
-		opts = function(_, opts)
-			opts.ensure_installed = opts.ensure_installed or {}
-			vim.list_extend(opts.ensure_installed, { "stylua" })
-		end,
-	},
+	-- (Homebrew 로 설치된 stylua 도 PATH 에서 사용 가능하지만, 다른 환경에서도 동일 동작하도록 관리)
+	util.mason_tools({ "stylua" }),
 }

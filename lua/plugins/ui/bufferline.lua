@@ -73,68 +73,67 @@ return {
 		}
 
 		-- colorscheme.lua(github_dark_high_contrast) / lualine.lua(노랑 파워라인) 톤에 맞춘 하이라이트
-		-- 배경 톤:
-		--   비활성 버퍼   #161b22 (어두운 회색)
-		--   visible 버퍼  #333333 (중간 회색)
-		--   활성 버퍼     #EEEEEE (밝은 회색) + 검정 글자
-		-- 진단 그룹은 배경을 위 톤과 동일하게 유지하고 fg 만 진단 색으로 지정하여
-		-- 전체 탭바 톤이 갑자기 깨지지 않도록 했다.
+		-- 배경 톤 (3가지 상태 공통):
+		--   비활성(normal)  #161b22 (어두운 회색)
+		--   표시중(visible) #333333 (중간 회색)
+		--   활성(selected)  #EEEEEE (밝은 회색) + 검정/굵게
+		local BG_NORMAL = "#161b22"
+		local BG_VISIBLE = "#333333"
+		local BG_SELECTED = "#EEEEEE"
+
+		-- 진단 severity 한 종류(error/warning/info/hint)에 대한 6개 그룹을 생성한다.
+		--   normal/visible 은 fg 를 진단 색(c)으로, selected 는 어두운 변형(sel)으로 지정하고
+		--   배경은 위 3색 톤을 그대로 유지해 탭바 전체 톤이 깨지지 않게 한다.
+		--   진단 그룹은 _diagnostic 접미사까지 동일 색으로 6개가 한 쌍을 이룬다.
+		local function diag_hl(name, c, sel)
+			local sel_hl = { fg = sel, bg = BG_SELECTED, bold = true, italic = true }
+			return {
+				[name] = { fg = c, bg = BG_NORMAL },
+				[name .. "_visible"] = { fg = c, bg = BG_VISIBLE },
+				[name .. "_selected"] = sel_hl,
+				[name .. "_diagnostic"] = { fg = c, bg = BG_NORMAL },
+				[name .. "_diagnostic_visible"] = { fg = c, bg = BG_VISIBLE },
+				[name .. "_diagnostic_selected"] = sel_hl,
+			}
+		end
+
 		local highlights = {
 			-- 탭 라인 전체 배경
 			fill = { bg = "#0a0c10" },
 
 			-- 비활성 / 표시중 / 활성 버퍼
-			background = { fg = "#888888", bg = "#161b22" },
-			buffer_visible = { fg = "#ffffff", bg = "#333333" },
-			buffer_selected = { fg = "#000000", bg = "#EEEEEE", bold = true, italic = false },
+			background = { fg = "#888888", bg = BG_NORMAL },
+			buffer_visible = { fg = "#ffffff", bg = BG_VISIBLE },
+			buffer_selected = { fg = "#000000", bg = BG_SELECTED, bold = true, italic = false },
 
 			-- 닫기 버튼
-			close_button = { fg = "#888888", bg = "#161b22" },
-			close_button_visible = { fg = "#ffffff", bg = "#333333" },
-			close_button_selected = { fg = "#000000", bg = "#EEEEEE", bold = true, italic = false },
+			close_button = { fg = "#888888", bg = BG_NORMAL },
+			close_button_visible = { fg = "#ffffff", bg = BG_VISIBLE },
+			close_button_selected = { fg = "#000000", bg = BG_SELECTED, bold = true, italic = false },
 
 			-- 수정됨 표시 (close 버튼과 동일한 배경)
-			modified = { fg = "#888888", bg = "#161b22" },
-			modified_visible = { fg = "#ffffff", bg = "#333333" },
-			modified_selected = { fg = "#000000", bg = "#EEEEEE", bold = true, italic = false },
+			modified = { fg = "#888888", bg = BG_NORMAL },
+			modified_visible = { fg = "#ffffff", bg = BG_VISIBLE },
+			modified_selected = { fg = "#000000", bg = BG_SELECTED, bold = true, italic = false },
 
 			-- 진단 공통 (특정 severity 없이 진단만 존재할 때)
-			diagnostic = { fg = "#888888", bg = "#161b22", italic = true },
-			diagnostic_visible = { fg = "#ffffff", bg = "#333333", italic = true },
-			diagnostic_selected = { fg = "#000000", bg = "#EEEEEE", bold = true, italic = true },
-
-			-- 에러 (빨강)
-			error = { fg = "#E03A3E", bg = "#161b22" },
-			error_visible = { fg = "#E03A3E", bg = "#333333" },
-			error_selected = { fg = "#A0282C", bg = "#EEEEEE", bold = true, italic = true },
-			error_diagnostic = { fg = "#E03A3E", bg = "#161b22" },
-			error_diagnostic_visible = { fg = "#E03A3E", bg = "#333333" },
-			error_diagnostic_selected = { fg = "#A0282C", bg = "#EEEEEE", bold = true, italic = true },
-
-			-- 경고 (노랑/주황)
-			warning = { fg = "#FDB827", bg = "#161b22" },
-			warning_visible = { fg = "#FDB827", bg = "#333333" },
-			warning_selected = { fg = "#B8860B", bg = "#EEEEEE", bold = true, italic = true },
-			warning_diagnostic = { fg = "#FDB827", bg = "#161b22" },
-			warning_diagnostic_visible = { fg = "#FDB827", bg = "#333333" },
-			warning_diagnostic_selected = { fg = "#B8860B", bg = "#EEEEEE", bold = true, italic = true },
-
-			-- 정보 (파랑)
-			info = { fg = "#61AFEF", bg = "#161b22" },
-			info_visible = { fg = "#61AFEF", bg = "#333333" },
-			info_selected = { fg = "#2F6FAF", bg = "#EEEEEE", bold = true, italic = true },
-			info_diagnostic = { fg = "#61AFEF", bg = "#161b22" },
-			info_diagnostic_visible = { fg = "#61AFEF", bg = "#333333" },
-			info_diagnostic_selected = { fg = "#2F6FAF", bg = "#EEEEEE", bold = true, italic = true },
-
-			-- 힌트 (하늘)
-			hint = { fg = "#009DDC", bg = "#161b22" },
-			hint_visible = { fg = "#009DDC", bg = "#333333" },
-			hint_selected = { fg = "#005F82", bg = "#EEEEEE", bold = true, italic = true },
-			hint_diagnostic = { fg = "#009DDC", bg = "#161b22" },
-			hint_diagnostic_visible = { fg = "#009DDC", bg = "#333333" },
-			hint_diagnostic_selected = { fg = "#005F82", bg = "#EEEEEE", bold = true, italic = true },
+			diagnostic = { fg = "#888888", bg = BG_NORMAL, italic = true },
+			diagnostic_visible = { fg = "#ffffff", bg = BG_VISIBLE, italic = true },
+			diagnostic_selected = { fg = "#000000", bg = BG_SELECTED, bold = true, italic = true },
 		}
+
+		-- severity 별 진단 색상 (normal/visible fg, selected fg) 일괄 등록
+		--   error(빨강) / warning(노랑·주황) / info(파랑) / hint(하늘)
+		for _, d in ipairs({
+			{ "error", "#E03A3E", "#A0282C" },
+			{ "warning", "#FDB827", "#B8860B" },
+			{ "info", "#61AFEF", "#2F6FAF" },
+			{ "hint", "#009DDC", "#005F82" },
+		}) do
+			for group, hl in pairs(diag_hl(d[1], d[2], d[3])) do
+				highlights[group] = hl
+			end
+		end
 
 		require("bufferline").setup({ options = options, highlights = highlights })
 

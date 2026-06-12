@@ -29,6 +29,16 @@
 --   없음
 -- ============================================================================
 
+-- winbar 파일명 컴포넌트 (활성/비활성 창의 색상만 다르고 나머지 설정은 동일)
+local function winbar_filename(color)
+	return {
+		"filename",
+		path = 1, -- 상대 경로 표시
+		symbols = { readonly = " ", unnamed = "[No Name]" },
+		color = color,
+	}
+end
+
 return {
 	"nvim-lualine/lualine.nvim",
 	dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -52,25 +62,11 @@ return {
 
 		-- 활성 창: 밝은 회색 배경 + 검정 글자
 		winbar = {
-			lualine_c = {
-				{
-					"filename",
-					path = 1,
-					symbols = { readonly = " ", unnamed = "[No Name]" },
-					color = { fg = "#000000", bg = "#EEEEEE", gui = "bold" },
-				},
-			},
+			lualine_c = { winbar_filename({ fg = "#000000", bg = "#EEEEEE", gui = "bold" }) },
 		},
 		-- 비활성 창: 어두운 배경 + 흐린 글자
 		inactive_winbar = {
-			lualine_c = {
-				{
-					"filename",
-					path = 1,
-					symbols = { readonly = " ", unnamed = "[No Name]" },
-					color = { fg = "#8b949e", bg = "#161b22" },
-				},
-			},
+			lualine_c = { winbar_filename({ fg = "#8b949e", bg = "#161b22" }) },
 		},
 	},
 }

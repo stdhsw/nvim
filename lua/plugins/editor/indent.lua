@@ -56,24 +56,12 @@ local palettes = {
 }
 
 -- depth 에 매핑할 하이라이트 그룹명 목록 (각 7개, indent-blankline 내부에서 depth 별로 순환된다)
-local indent_groups = {
-	"IblIndent1",
-	"IblIndent2",
-	"IblIndent3",
-	"IblIndent4",
-	"IblIndent5",
-	"IblIndent6",
-	"IblIndent7",
-}
-local scope_groups = {
-	"IblScope1",
-	"IblScope2",
-	"IblScope3",
-	"IblScope4",
-	"IblScope5",
-	"IblScope6",
-	"IblScope7",
-}
+local indent_groups = {}
+local scope_groups = {}
+for i = 1, 7 do
+	indent_groups[i] = "IblIndent" .. i
+	scope_groups[i] = "IblScope" .. i
+end
 
 -- 색상 배열이 n 개보다 적으면 순환 반복하여 n 개로 확장한다.
 -- focus 팔레트처럼 단일 색을 넣어도 모든 depth 에 동일하게 적용되도록 한다.
