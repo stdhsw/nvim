@@ -387,11 +387,6 @@ GitHub UI 색감 기반 테마입니다.
 호쿠사이의 '가나가와 해변의 큰 파도' 에서 영감받은 다크 테마입니다.
 `wave` (기본 다크) / `dragon` (더 어두운 다크) / `lotus` (라이트) 3종 variant 를 제공합니다.
 
-#### [EdenEast/nightfox.nvim](https://github.com/EdenEast/nightfox.nvim) (대체 테마)
-
-여우 컨셉의 테마 모음입니다.
-`nightfox` / `duskfox` / `nordfox` / `terafox` / `carbonfox` (다크) / `dayfox` / `dawnfox` (라이트) 등 7종 variant 를 제공합니다.
-
 ---
 
 ### 입력기

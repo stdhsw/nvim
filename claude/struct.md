@@ -50,11 +50,12 @@
     │   │   └── telescope.lua             # ✅ 파일/심볼/grep/LSP 검색
     │   └── ui/
     │       ├── bufferline.lua            # ✅ 탭/버퍼 UI
-    │       ├── colorscheme.lua           # ✅ 테마 (github_dark_high_contrast 기본 + kanagawa / nightfox 대체)
+    │       ├── colorscheme.lua           # ✅ 테마 (github_dark_high_contrast 기본 + kanagawa / vim-one 대체)
     │       ├── lualine.lua               # ✅ 하단 상태바
     │       ├── toggleterm.lua            # ✅ 터미널 토글
     │       └── which-key.lua             # ✅ 단축키 힌트 팝업
     └── extras/                   # LazyExtras 스타일 언어별 설정
+        ├── util.lua                  # ✅ lang 공통 헬퍼 (mason/lsp/treesitter/formatters/linters spec 생성)
         └── lang/
             ├── go.lua                    # ✅ Go (gopls, gofumpt, goimports)
             ├── python.lua                # ✅ Python (pyright, black, isort)
@@ -130,5 +131,5 @@
 ### 테마
 - github-nvim-theme (dark_high_contrast variant) — 기본값. Go 코딩에 맞춘 treesitter highlight 커스텀 적용
 - kanagawa.nvim (wave / dragon / lotus variant) — 대체 다크 테마. lazy 로드
-- nightfox.nvim (nightfox/duskfox/nordfox/terafox/carbonfox/dayfox/dawnfox 7종 variant) — 대체 테마. lazy 로드
-- `<leader>tc`로 telescope에서 실시간 테마 전환 가능 (kanagawa/nightfox 도 이 시점에 자동 로드)
+- vim-one (one, background 옵션으로 다크/라이트) — 대체 테마. lazy 로드
+- `<leader>tc`로 telescope에서 실시간 테마 전환 가능 (kanagawa/vim-one 도 이 시점에 자동 로드)
